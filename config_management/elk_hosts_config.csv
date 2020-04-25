@@ -1,0 +1,2 @@
+destination_ip,beats_stack
+192.168.56.103,filebeat|auditbeat

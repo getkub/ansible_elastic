@@ -20,6 +20,13 @@ elk_download: "{{src_base}}/{{configs}}/elk_download.csv"
 # -------------------------------------------------------------- #
 
 # -------------------------------------------------------------- #
+# ELK and Beats host configs
+# -------------------------------------------------------------- #
+beats_hosts_config: "{{src_base}}/{{configs}}/beats_hosts_config.csv"
+elk_hosts_config: "{{src_base}}/{{configs}}/elk_hosts_config.csv"
+# -------------------------------------------------------------- #
+
+# -------------------------------------------------------------- #
 # elk_docker => standalone
 # elk_cluster => cluster
 # Default is elk_docker, but can be overridden in command line using -e flag

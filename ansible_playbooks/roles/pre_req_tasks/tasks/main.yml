@@ -1,12 +1,8 @@
 ---
 # Playbook to create apps using templates
 
-- import_tasks: validate_host.yml
-  tags: [validate_host]
-
-# This will be set_variables_shc or set_variables_sta etc.
-#- import_tasks: "set_var_{{inputTag}}.yml"
-#  tags: ["set_var_{{inputTag}}"]
+- import_tasks: validate_build_host.yml
+  tags: [validate_build_host]
 
 - import_tasks: create_base.yml
   tags: [create_base]
