@@ -1,0 +1,8 @@
+---
+# Playbook to create apps using templates
+
+- import_tasks: set_var_beats.yml
+  tags: [set_var_beats]
+
+- import_tasks: download_beats.yml
+  tags: [download_beats]

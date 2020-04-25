@@ -12,3 +12,9 @@
     msg: "ansible_selinux.mode={{ ansible_selinux.mode }}"
   with_items:
      - "{{beats_download_list}}"
+
+- name: Test to relevant JVM is installed
+  debug:
+    msg: "ansible_selinux.mode={{ ansible_selinux.mode }}"
+  with_items:
+     - "{{beats_download_list}}"

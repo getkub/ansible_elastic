@@ -11,6 +11,7 @@ buildDir: "buildDir"
 bareApps: "bareApps"
 downloads: "downloads"
 base_url_downloads: "https://artifacts.elastic.co/downloads"
+jre_url_downloads: "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jre-8u60-linux-x64.rpm"
 
 # -------------------------------------------------------------- #
 # Download files Details

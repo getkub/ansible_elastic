@@ -1,11 +1,8 @@
 ---
-# Playbook to create apps using templates
+# Common roles shared for ELK and Beats
 
 - import_tasks: validate_build_host.yml
   tags: [validate_build_host]
 
 - import_tasks: create_base.yml
   tags: [create_base]
-
-- import_tasks: set_var_beats.yml
-  tags: [set_var_beats]

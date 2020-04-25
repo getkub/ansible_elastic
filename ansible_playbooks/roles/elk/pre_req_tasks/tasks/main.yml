@@ -1,0 +1,14 @@
+---
+# Playbook to create apps using templates
+
+- name: Import task: Set Dynamic Variables for ELK stack
+  import_tasks: set_var_elk.yml
+  tags: [set_var_elk]
+
+- name: Import task: Download JRE
+  import_tasks: download_jre.yml
+  tags: [download_jre]
+
+# - name: Import task: Download ELK stack
+#   import_tasks: download_elk.yml
+#   tags: [download_elk]

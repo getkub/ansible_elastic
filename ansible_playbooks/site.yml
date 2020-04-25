@@ -9,7 +9,6 @@
     - group_vars/vars_configs_adhoc.yml
   roles:
     - mkouhei.include_csv
-    - pre_req_tasks
-    - elk_download
-#    - elk_build_configs
-#    - elk_copy_packages
+    - common
+    - beats/pre_req_tasks
+#    - elk/pre_req_tasks

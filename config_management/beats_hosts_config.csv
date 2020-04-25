@@ -1,3 +1,2 @@
-destination_ip,elk_stack
-192.168.56.101,elasticsearch
-192.168.56.103,kibana
+destination_ip,beats_stack
+192.168.56.103,filebeat|auditbeat

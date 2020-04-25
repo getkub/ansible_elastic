@@ -1,0 +1,23 @@
+---
+- name: "Get the JRE filename"
+  vars:
+    url: "{{java_url_downloads}}"
+    jre_filename: "{{ url | basename }}"
+
+
+- name: "Check if file has been downloaded already"
+  stat:
+    path: "{{dest_base}}/{{project}}/{{downloads}}/{{jre_filename}}"
+  register: jre_filename_list
+
+
+- name: Downloading JRE. Please wait...
+  get_url:
+    url: "{{java_url_downloads}}"
+    dest: "{{dest_base}}/{{project}}/{{downloads}}"
+    mode: '0440'
+  when:
+      not item.stat.exists
+  with_items:
+     - "{{jre_filename.results}}"
+  no_log: True
