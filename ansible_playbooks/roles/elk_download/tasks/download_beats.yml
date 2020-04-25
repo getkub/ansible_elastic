@@ -1,33 +1,20 @@
 ---
 
-- name: "Check if files aready is downloaded and make into a list"
-  find:
-      paths: "{{dest_base}}/{{project}}/{{downloads}}"
-      patterns: "{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}*"
-      file_type: file
+- name: "Check if file has been downloaded already"
+  stat:
+    path: "{{dest_base}}/{{project}}/{{downloads}}/{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}.{{item.filename_extension}}"
   with_items:
      - "{{beats_download_list}}"
-  register: downloaded_list
+  register: beats_downloaded_list
 
-- name: List files NOT already downloaded
-  debug:
-      msg: "{{item.0.files.path}}"
+
+- name: Downloading Beats which are pending. Please wait...
+  get_url:
+    url: "{{base_url_downloads}}/beats/{{item.item.product}}/{{item.item.product}}-{{item.item.version}}-{{item.item.os_type}}-{{item.item.os_architecture}}.{{item.item.filename_extension}}"
+    dest: "{{dest_base}}/{{project}}/{{downloads}}"
+    mode: '0440'
+  when:
+      not item.stat.exists
   with_items:
-     - "{{downloaded_list.results}}"
-
-- name: "Override default download extension for windows beats"
-  set_fact:
-    download_file_extension: "zip"
-  when: item.os_type == 'windows'
-  with_items:
-     - "{{beats_download_list}}"
-
-
-
-# - name: Downloading Beats. Please wait...
-#   get_url:
-#     url: "{{base_url_downloads}}/beats/{{item.product}}/{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}.{{download_file_extension}}"
-#     dest: ""{{dest_base}}/{{project}}/{{downloads}}"
-#     mode: '0440'
-#   with_items:
-#      - "{{beats_download_list}}"
+     - "{{beats_downloaded_list.results}}"
+  no_log: True

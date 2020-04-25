@@ -16,8 +16,7 @@ base_url_downloads: "https://artifacts.elastic.co/downloads"
 # Download files Details
 # -------------------------------------------------------------- #
 beats_download: "{{src_base}}/{{configs}}/beats_download.csv"
-#Default extension is tar.gz which get's overridden for Windows
-download_file_extension: "tar.gz"
+elk_download: "{{src_base}}/{{configs}}/elk_download.csv"
 # -------------------------------------------------------------- #
 
 # -------------------------------------------------------------- #

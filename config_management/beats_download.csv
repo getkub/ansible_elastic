@@ -1,2 +1,8 @@
-product,os_type,os_architecture,version
-filebeat,windows,x86_64,7.6.2
+product,os_type,os_architecture,version,filename_extension
+filebeat,windows,x86_64,7.6.2,zip
+filebeat,linux,x86_64,7.6.2,tar.gz
+packetbeat,linux,x86_64,7.6.2,tar.gz
+packetbeat,windows,x86_64,7.6.2,zip
+metricbeat,windows,x86_64,7.6.2,zip
+metricbeat,linux,x86_64,7.6.2,tar.gz
+winlogbeat,windows,x86_64,7.6.2,zip

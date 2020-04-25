@@ -1,5 +1,5 @@
 product,os_type,os_architecture,version
-filebeat,linux,x86_64,7.6.2
-metricbeat,windows,x86_64,7.6.2
-metricbeat,linux,x86_64,7.6.2
-winlogbeat,windows,x86_64,7.6.2
+elasticsearch,windows,x86_64,zip
+elasticsearch,linux,x86_64,tar.gz
+kibana,linux,x86_64,tar.gz
+kibana,windows,x86_64,zip
