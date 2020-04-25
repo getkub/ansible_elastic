@@ -1,0 +1,5 @@
+---
+# data is stored in a variable whose name is the CSV file name without the extension
+- include_csv:
+    src: "{{beats_download}}"
+    outname: "beats_download_list"

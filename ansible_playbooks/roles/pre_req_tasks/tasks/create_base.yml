@@ -1,0 +1,21 @@
+---
+# Playbook to create apps using templates
+
+- name: Cleaning previous temporary directory if exists
+  file:
+    path: "{{dest_base}}/{{project}}/{{bareApps}}"
+    state: "{{item}}"
+  with_items:
+    - absent
+
+# This needs to be modified with correct permission set if you want to use in serious environment
+- name: Creating Various Temporary directories
+  file:
+    path: "{{dest_base}}/{{project}}/{{item}}"
+    mode: "u=rwx,g=rwx,o=rwx"
+    state: directory
+    recurse: yes
+  with_items:
+     - "{{bareApps}}"
+     - "{{buildDir}}"
+     - "{{downloads}}"

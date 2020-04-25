@@ -1,0 +1,33 @@
+---
+
+- name: "Check if files aready is downloaded and make into a list"
+  find:
+      paths: "{{dest_base}}/{{project}}/{{downloads}}"
+      patterns: "{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}*"
+      file_type: file
+  with_items:
+     - "{{beats_download_list}}"
+  register: downloaded_list
+
+- name: List files NOT already downloaded
+  debug:
+      msg: "{{item.0.files.path}}"
+  with_items:
+     - "{{downloaded_list.results}}"
+
+- name: "Override default download extension for windows beats"
+  set_fact:
+    download_file_extension: "zip"
+  when: item.os_type == 'windows'
+  with_items:
+     - "{{beats_download_list}}"
+
+
+
+# - name: Downloading Beats. Please wait...
+#   get_url:
+#     url: "{{base_url_downloads}}/beats/{{item.product}}/{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}.{{download_file_extension}}"
+#     dest: ""{{dest_base}}/{{project}}/{{downloads}}"
+#     mode: '0440'
+#   with_items:
+#      - "{{beats_download_list}}"

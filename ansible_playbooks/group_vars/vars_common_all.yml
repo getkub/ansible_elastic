@@ -1,0 +1,31 @@
+---
+
+# -------------------------------------------------------------- #
+# Common variables for DEV
+# -------------------------------------------------------------- #
+src_base: ".."
+dest_base: "/tmp/jinja"
+project: "ansible_elastic"
+configs: "config_management"
+buildDir: "buildDir"
+bareApps: "bareApps"
+downloads: "downloads"
+base_url_downloads: "https://artifacts.elastic.co/downloads"
+
+# -------------------------------------------------------------- #
+# Download files Details
+# -------------------------------------------------------------- #
+beats_download: "{{src_base}}/{{configs}}/beats_download.csv"
+#Default extension is tar.gz which get's overridden for Windows
+download_file_extension: "tar.gz"
+# -------------------------------------------------------------- #
+
+# -------------------------------------------------------------- #
+# elk_docker => standalone
+# elk_cluster => cluster
+# Default is elk_docker, but can be overridden in command line using -e flag
+# -------------------------------------------------------------- #
+inputTag: "elk_docker"
+env: "dev"
+
+# -------------------------------------------------------------- #

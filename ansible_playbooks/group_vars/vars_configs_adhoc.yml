@@ -1,0 +1,21 @@
+---
+
+## ========================================================================================== ##
+# Common variables for ELK and beats which cannot be expressed in Config Management
+# Ideally this File should be EMPTY
+## ========================================================================================== ##
+
+protocol: "https"
+phoneHomeIntervalInSecs: 60
+
+# App which contain Certs and credentials
+certApp: "MY_all_certs"
+certAppPass: "welcome"
+
+# splunk app specific
+elkadmin_user: "admin"
+elkadmin_password: "changedme"
+
+# Env specific app where you can put anything wild
+envApp: "MY_all_env_specific"
+licenseFile: "/tmp/elk.license.json"

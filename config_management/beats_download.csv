@@ -1,0 +1,2 @@
+product,os_type,os_architecture,version
+filebeat,windows,x86_64,7.6.2
