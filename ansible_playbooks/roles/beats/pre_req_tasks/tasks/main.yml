@@ -1,8 +1,13 @@
 ---
-# Playbook to create apps using templates
 
-- import_tasks: set_var_beats.yml
-  tags: [set_var_beats]
+- name: "Beats: Set dynamic variables from beats config"
+  import_tasks: beats_set_var.yml
+  tags: [beats_set_var]
 
-- import_tasks: download_beats.yml
-  tags: [download_beats]
+- name: "Beats: Download beat installables if not present"
+  import_tasks: beats_download.yml
+  tags: [beats_download]
+
+- name: "Beats: Build Configs from template"
+  import_tasks: beats_build_configs.yml
+  tags: [beats_build_configs]

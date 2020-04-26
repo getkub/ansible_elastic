@@ -8,7 +8,7 @@
   register: elk_downloaded_list
 
 
-- name: Downloading ELK stacks which are pending. Please wait...
+- name: "Downloading ELK stacks which are pending. Please wait..."
   get_url:
     url: "{{base_url_downloads}}/{{item.item.product}}/{{item.item.product}}-{{item.item.version}}-{{item.item.os_type}}-{{item.item.os_architecture}}.{{item.item.filename_extension}}"
     dest: "{{dest_base}}/{{project}}/{{downloads}}"
