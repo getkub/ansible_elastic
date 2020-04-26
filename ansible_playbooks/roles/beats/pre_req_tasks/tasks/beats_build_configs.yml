@@ -1,1 +1,29 @@
 ---
+
+- name: "Create Various Beats build directories depending on the dowloaded list of products"
+  file:
+    path: "{{dest_base}}/{{project}}/{{buildDir}}/beats/{{item[1].product}}"
+    state: "{{item[0]}}"
+    mode: "u=rwx,g=rwx,o=rwx"
+    recurse: yes
+  with_nested:
+    - directory
+    - "{{beats_download_list}}"
+  register: beats_build_configs_products
+
+
+# - name: "Build apps from ready-made templates"
+#   template:
+#     src: "{{item.src}}"
+#     dest: "{{dest_base}}/{{project}}/{{buildDir}}/beats/{{item.path}}"
+#   with_filetree:
+#     - "../templates/"
+#   when: item.state == 'file'
+
+# https://github.com/ansible/ansible/issues/17136 : Due to the bug of fileglob, using another method
+- name: "Build apps from ready-made templates"
+  template:
+    src: "{{ item }}"
+    dest: "{{dest_base}}/{{project}}/{{buildDir}}/beats/{{ item | replace('.j2', '') | replace(role_path + '/templates/', '')}}"
+  with_lines:
+    - "find {{role_path}}/templates -type f -name '*.j2'"
