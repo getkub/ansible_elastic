@@ -1,0 +1,9 @@
+---
+
+- name: "ElasticSearch: Set Dynamic Variables"
+  import_tasks: elastic_set_var_cluster.yml
+  tags: [elastic_set_var_cluster]
+
+# - name: "ElasticSearch: Download JRE: NOT required with new elastic anymore"
+#   import_tasks: elastic_jre_download.yml
+#   tags: [elastic_jre_download]

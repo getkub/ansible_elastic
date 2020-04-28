@@ -1,0 +1,4 @@
+---
+# Playbook to copy apps using templates
+- import_tasks: elastic_enable_ssl.yml
+  tags: [elastic_enable_ssl]

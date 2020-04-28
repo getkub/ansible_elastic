@@ -1,4 +1,0 @@
----
-# Playbook to copy apps using templates
-- import_tasks: copy_apps.yml
-  tags: [copy_apps]

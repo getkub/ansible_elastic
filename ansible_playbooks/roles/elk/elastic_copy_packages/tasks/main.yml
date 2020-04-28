@@ -1,0 +1,6 @@
+---
+- import_tasks: elastic_copy_apps.yml
+  tags: [elastic_copy_apps]
+
+- import_tasks: elastic_copy_templates.yml
+  tags: [elastic_copy_templates]

@@ -1,9 +1,0 @@
----
-
-- name: "ELK: Set Dynamic Variables for ELK stack"
-  import_tasks: elk_set_var_cluster.yml
-  tags: [elk_set_var_cluster]
-
-- name: "ELK: Download JRE"
-  import_tasks: elk_jre_download.yml
-  tags: [elk_jre_download]

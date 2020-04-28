@@ -1,3 +1,0 @@
-destination_ip,elk_stack,os_type
-192.168.56.101,elasticsearch,linux
-192.168.56.103,kibana,linux
