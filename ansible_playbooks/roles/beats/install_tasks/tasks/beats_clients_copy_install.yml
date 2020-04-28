@@ -1,0 +1,7 @@
+---
+
+- name: "Beats_Copy_Install: Install location is reachable and writable"
+
+- name: "Beats_Copy_Install: Actual copying of the installable"
+
+- name: "Beats_Copy_Install: Unpack the installables"

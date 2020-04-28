@@ -4,10 +4,10 @@
   import_tasks: beats_validate_clients.yml
   tags: [beats_validate_clients]
 
-- name: "Beats: Copoy Beats installables into remote clients"
-  import_tasks: beats_clients_copy.yml
-  tags: [beats_clients_copy]
+- name: "Beats: Copoy Beats installables into remote clients and then install"
+  import_tasks: beats_clients_copy_install.yml
+  tags: [beats_clients_copy_install]
 
-- name: "Beats: Install Beats into remote clients"
-  import_tasks: beats_clients_install.yml
-  tags: [beats_clients_install]
+- name: "Beats: Configure Beats in remote clients"
+  import_tasks: beats_clients_configure.yml
+  tags: [beats_clients_configure]

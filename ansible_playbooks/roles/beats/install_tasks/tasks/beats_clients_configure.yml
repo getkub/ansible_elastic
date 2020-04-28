@@ -1,0 +1,5 @@
+---
+
+- name: "Beats_Configure: Copy configuration from build server"
+
+- name: "Beats_Configure: Reload Configuration"
