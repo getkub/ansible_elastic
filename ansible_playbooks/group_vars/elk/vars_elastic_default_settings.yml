@@ -1,40 +1,33 @@
 ---
+# Default base settings
 es_version: "7.6.2"
-es_use_snapshot_release: false
-es_enable_xpack: true
-es_package_name: "elasticsearch"
-es_version_lock: false
-es_use_repository: true
-es_add_repository: true
-es_templates_fileglob: ""
-es_repo_base: "https://artifacts.elastic.co"
-es_apt_key: "{{ es_repo_base }}/GPG-KEY-elasticsearch"
-es_apt_url: "deb {{ es_repo_base }}/packages/{{ es_repo_name }}/apt stable main"
-es_apt_url_old: "deb http://packages.elastic.co/elasticsearch/{{ es_repo_name }}/debian stable main"
-es_start_service: true
-es_java_install: "{{ false if (es_version is version_compare('7.0.0', '>=')) else true }}"
-update_java: false
-es_restart_on_change: true
-es_plugins_reinstall: false
-es_templates: false
+
+# OS user
 es_user: elasticsearch
 es_group: elasticsearch
-es_config: {}
-es_config_default: "elasticsearch.j2"
-es_config_log4j2: ""
-es_config_jvm: "jvm.options.j2"
+
+# ES_PATH_CONF=/path/to/my/config
 #Need to provide default directories
-es_conf_dir: "/etc/elasticsearch"
-es_pid_dir: "/var/run/elasticsearch"
-es_data_dirs:
-  - "/var/lib/elasticsearch"
-es_log_dir: "/var/log/elasticsearch"
+es_install_dir: "/opt/elasticsearch"
+es_conf_dir: "{{ es_install_dir }}/custom"
+
+# Working and Data directories
+es_data_dirs: "/tmp/elasticsearch/data"
+es_pid_dir: "/tmp/elasticsearch/var/run/elasticsearch"
+es_log_dir: "/tmp/elasticsearch/var/log/elasticsearch"
+
+# Other settings
 es_action_auto_create_index: true
 es_max_open_files: 65536
 es_max_map_count: 262144
 es_allow_downgrades: false
 es_xpack_features: []
 es_xpack_trial: false
+es_enable_xpack: false
+
+
+bootstrap.memory_lock: true
+
 #These are used for internal operations performed by ansible.
 #They do not affect the current configuration
 es_api_scheme: "http"
@@ -45,10 +38,13 @@ es_security_api: "{{ '_security' if es_version is version_compare('7.0.0', '>=')
 es_license_api: "{{ '_license' if es_version is version_compare('7.0.0', '>=') else '_xpack/license' }}"
 es_api_sleep: 15
 es_debian_startup_timeout: 10
+# Default base settings
+
 
 # JVM custom parameters
 es_java_home: ''
 es_jvm_custom_parameters: ''
+es_heap_size: "1g"
 
 # SSL/TLS parameters
 es_enable_auto_ssl_configuration: true

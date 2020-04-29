@@ -1,12 +1,12 @@
+# ============================================ #
+# ELK => End-to-end
+# ============================================ #
 # To create Contained installation from end-to-end
-ansible-playbook -i hosts -c local site.yml --ask-become-pass -e inputTag="elk_docker"
-
-# To create Cluster from end-to-end
-ansible-playbook -i hosts -c local site.yml --ask-become-pass -e inputTag="elk_cluster"
+ansible-playbook -i hosts -c local elk_build.yml
 
 
 # ============================================ #
-# For specific roles use tags (To create per component for Testing)
+# For specific roles use tags
 # ============================================ #
-ansible-playbook -i hosts -c local site.yml --tags "elk_download"
-ansible-playbook -i hosts -c local site.yml --tags "elk_download,set_variables,build_configs" --ask-become-pass
+ansible-playbook -i hosts -c local elk_site.yml --tags "elk_download"
+ansible-playbook -i hosts -c local elk_site.yml --tags "elk_download,set_variables,build_configs"

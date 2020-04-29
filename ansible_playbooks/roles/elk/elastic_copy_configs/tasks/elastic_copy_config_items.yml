@@ -1,0 +1,58 @@
+---
+# Configure Elasticsearch Node
+
+#Create conf directory
+- name: Create Configuration Directory
+  become: yes
+  file:
+    path: "{{ es_conf_dir }}/config"
+    state: "{{ item }}"
+    mode: "2750"
+  with_items:
+    - "absent"
+    - "directory"
+
+#Create pid directory
+- name: Create PID Directory
+  become: yes
+  file:
+    path: "{{ es_pid_dir }}"
+    state: directory
+    mode: "755"
+
+#Create required directories
+- name: Create Others Directories
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: "2750"
+  with_items:
+    - "{{ es_log_dir }}"
+    - "{{ es_data_dirs }}"
+
+- name: "Copy Core Configs to elasticsearch from template"
+  template:
+    src: "{{ item }}"
+    dest: "{{ es_conf_dir }}/config/{{ item | basename | regex_replace('\\.j2','') }}"
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: "0660"
+  with_fileglob:
+    - "../core_elastic_files/*.j2"
+
+- name: "Copy Core Configs to elasticsearch as it is"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ es_conf_dir }}/config/{{ item | basename | regex_replace('\\.final','') }}"
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: "0660"
+  with_fileglob:
+    - "../core_elastic_files/*.final"
+# - name: "Copy Core Configs to elasticsearch"
+#   copy: src={{ item }} dest={{ es_conf_dir }}/config/{{ item | basename | regex_replace('\.j2','') }} owner={{ es_user }} group={{ es_group }} mode=0660
+#   with_fileglob:
+#     - "../core_elastic_files/*.j2"

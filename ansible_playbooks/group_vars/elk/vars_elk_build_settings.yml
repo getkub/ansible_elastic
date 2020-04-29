@@ -1,0 +1,6 @@
+---
+# Default build settings
+
+es_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/elasticsearch/{{configs}}"
+ls_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/logstash/{{configs}}"
+kb_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/kibana/{{configs}}"

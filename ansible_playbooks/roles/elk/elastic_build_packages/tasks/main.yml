@@ -1,0 +1,3 @@
+---
+- import_tasks: elastic_build_config_items.yml
+  tags: [elastic_build_config_items]

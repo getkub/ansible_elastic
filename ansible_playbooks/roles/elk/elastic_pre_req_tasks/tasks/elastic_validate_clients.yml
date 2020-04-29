@@ -18,3 +18,17 @@
     msg: "ansible_selinux.mode={{ ansible_selinux.mode }}"
   with_items:
      - "{{beats_download_list}}"
+
+
+- name: "Check vm.max_map_count is atleast: 262144"
+  debug:
+    msg: "ansible_selinux.mode={{ ansible_selinux.mode }}"
+  with_items:
+     - "{{beats_download_list}}"
+
+
+- name: "Ulimit settings nofile to 65535 /etc/security/limits.conf"
+  debug:
+    msg: "ansible_selinux.mode={{ ansible_selinux.mode }}"
+  with_items:
+     - "{{beats_download_list}}"

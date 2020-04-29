@@ -1,0 +1,14 @@
+---
+# This playbook is to trigger compose files
+
+- name: Project to automate ELK (Standlone & Cluster) with Ansible
+  hosts: dev
+  gather_facts: no
+  vars_files:
+    - group_vars/common/vars_common_all.yml
+    - group_vars/elk/vars_elastic_default_settings.yml
+  roles:
+    - mkouhei.include_csv
+    - common
+    - elk/elastic_pre_req_tasks
+    - elk/elastic_copy_packages

@@ -4,11 +4,11 @@
 # Common variables for DEV
 # -------------------------------------------------------------- #
 src_base: ".."
-dest_base: "/tmp/jinja"
 project: "ansible_elastic"
-configs: "config_management"
+build_base: "/tmp/jinja"
 buildDir: "buildDir"
 downloads: "downloads"
+configs: "config_management"
 base_url_downloads: "https://artifacts.elastic.co/downloads"
 jre_url_downloads: "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jre-8u60-linux-x64.rpm"
 
@@ -26,12 +26,5 @@ beats_hosts_config: "{{src_base}}/{{configs}}/beats_hosts_config.csv"
 elk_hosts_config: "{{src_base}}/{{configs}}/elk_hosts_config.csv"
 # -------------------------------------------------------------- #
 
-# -------------------------------------------------------------- #
-# elk_docker => standalone
-# elk_cluster => cluster
-# Default is elk_docker, but can be overridden in command line using -e flag
-# -------------------------------------------------------------- #
-inputTag: "elk_docker"
-env: "dev"
 
 # -------------------------------------------------------------- #
