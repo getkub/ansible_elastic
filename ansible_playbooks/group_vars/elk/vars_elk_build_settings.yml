@@ -1,6 +1,13 @@
 ---
 # Default build settings
 
-es_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/elasticsearch/{{configs}}"
-ls_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/logstash/{{configs}}"
-kb_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/kibana/{{configs}}"
+es_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/elasticsearch/{{inventory_hostname}}/{{configs}}"
+ls_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/logstash/{{inventory_hostname}}/{{configs}}"
+kb_build_conf_dir: "{{build_base}}/{{project}}/{{buildDir}}/kibana/{{inventory_hostname}}/{{configs}}"
+
+
+# - name: "Check if file has been downloaded already"
+#   stat:
+#     path: "{{dest_base}}/{{project}}/{{downloads}}/{{item.product}}-{{item.version}}-{{item.os_type}}-{{item.os_architecture}}.{{item.filename_extension}}"
+#   with_items:
+#      - "{{elk_download_list}}"

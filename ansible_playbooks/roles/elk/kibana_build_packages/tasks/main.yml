@@ -1,0 +1,3 @@
+---
+- import_tasks: kibana_build_config_items.yml
+  tags: [kibana_build_config_items]

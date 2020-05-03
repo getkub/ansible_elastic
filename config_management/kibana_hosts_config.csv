@@ -1,0 +1,2 @@
+hostname,destination_ip,elastic_tier,os_type
+centos_minimal3,192.168.56.107,node,linux

@@ -1,0 +1,14 @@
+---
+################################
+# kibana_build_config_items
+################################
+
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: [ "{{es_api_uri}}" ]
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+
+## X-Pack security credentials
+#
+elasticsearch.username: elastic
+elasticsearch.password: changeme

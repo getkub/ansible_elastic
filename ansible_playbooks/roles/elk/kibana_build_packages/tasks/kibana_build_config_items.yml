@@ -1,0 +1,26 @@
+---
+# Configure Elasticsearch Node
+
+#Create conf directory
+- name: Create Configuration Directory
+  file:
+    path: "{{ kb_build_conf_dir }}"
+    state: "{{ item }}"
+  with_items:
+    - "absent"
+    - "directory"
+
+- name: "Copy Core Configs to elasticsearch from template"
+  template:
+    src: "{{ item }}"
+    dest: "{{kb_build_conf_dir}}/{{ item | basename | regex_replace('\\.j2','') }}"
+    mode: "0660"
+  with_fileglob:
+    - "../core_kibana_files/*.j2"
+
+- name: "Copy Core Configs to elasticsearch as it is"
+  copy:
+    src: "{{ item }}"
+    dest: "{{kb_build_conf_dir}}/{{ item | basename | regex_replace('\\.final','') }}"
+  with_fileglob:
+    - "../core_kibana_files/*.final"

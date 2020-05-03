@@ -1,0 +1,61 @@
+---
+# Default base settings
+kb_version: "7.6.2"
+
+# OS user
+kb_user: elasticsearch
+kb_group: elasticsearch
+
+# kb_PATH_CONF=/path/to/my/config
+#Need to provide default directories
+kb_install_dir: "/opt/kibana"
+kb_conf_dir: "{{ kb_install_dir }}/custom"
+
+# Working and Data directories
+kb_data_dirs: "/tmp/elasticsearch/data"
+kb_pid_dir: "/tmp/elasticsearch/var/run/elasticsearch"
+kb_log_dir: "/tmp/elasticsearch/var/log/elasticsearch"
+
+# Other settings
+kb_action_auto_create_index: true
+kb_max_open_files: 65536
+kb_max_map_count: 262144
+kb_allow_downgrades: false
+kb_xpack_features: []
+kb_xpack_trial: false
+kb_enable_xpack: false
+
+
+bootstrap.memory_lock: true
+
+#These are used for internal operations performed by ansible.
+#They do not affect the current configuration
+kb_api_scheme: "http"
+kb_api_host: "localhost"
+kb_api_port: 9200
+kb_api_uri: "{{ kb_api_scheme }}://{{ kb_api_host }}:{{ kb_api_port }}"
+# Default base settings
+
+
+# JVM custom parameters
+kb_java_home: ''
+kb_jvm_custom_parameters: ''
+kb_heap_size: "1g"
+
+# SSL/TLS parameters
+kb_enable_auto_ssl_configuration: true
+kb_enable_http_ssl: false
+kb_enable_transport_ssl: false
+kb_ssl_keystore: ""
+kb_ssl_keystore_password: ""
+kb_ssl_truststore: ""
+kb_ssl_truststore_password: ""
+kb_ssl_key: ""
+kb_ssl_key_password: ""
+kb_ssl_certificate: ""
+kb_ssl_certificate_authority: ""
+kb_ssl_certificate_path: "{{ kb_conf_dir }}/certs"
+kb_ssl_verification_mode: "certificate"
+kb_validate_certs: "yes"
+kb_delete_unmanaged_file: true
+kb_delete_unmanaged_native: true
