@@ -16,7 +16,7 @@
   notify: restart elasticsearch
   user:
     state: present
-    name: "{{ es_user }}"
+    name: "{{ es_os_user }}"
     comment: elasticsearch system user
     system: yes
     createhome: no

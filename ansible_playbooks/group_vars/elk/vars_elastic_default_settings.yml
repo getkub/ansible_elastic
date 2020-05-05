@@ -3,8 +3,8 @@
 es_version: "7.6.2"
 
 # OS user
-es_user: elasticsearch
-es_group: elasticsearch
+es_os_user: elasticsearch
+es_os_group: elasticsearch
 
 # ES_PATH_CONF=/path/to/my/config
 #Need to provide default directories

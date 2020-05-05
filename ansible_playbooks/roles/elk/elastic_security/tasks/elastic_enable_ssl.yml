@@ -21,7 +21,7 @@
   copy:
     src: "{{ es_ssl_keystore }}"
     dest: "{{ es_ssl_certificate_path }}/{{ es_ssl_keystore | basename }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "640"
   when: es_ssl_keystore and es_ssl_truststore
@@ -33,7 +33,7 @@
   copy:
     src: "{{ es_ssl_truststore }}"
     dest: "{{ es_ssl_certificate_path }}/{{ es_ssl_truststore | basename }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "640"
   when: es_ssl_keystore and es_ssl_truststore
@@ -45,7 +45,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ es_ssl_certificate_path }}/{{ item | basename }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "640"
   with_items:
@@ -61,7 +61,7 @@
   copy:
     src: "{{ es_ssl_certificate_authority }}"
     dest: "{{ es_ssl_certificate_path }}/{{ es_ssl_certificate_authority | basename }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "640"
   #Restart if this changes

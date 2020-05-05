@@ -1,0 +1,3 @@
+---
+- import_tasks: logstash_build_config_items.yml
+  tags: [logstash_build_config_items]

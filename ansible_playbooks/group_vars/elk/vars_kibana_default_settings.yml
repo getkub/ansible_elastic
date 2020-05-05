@@ -11,22 +11,7 @@ kb_group: elasticsearch
 kb_install_dir: "/opt/kibana"
 kb_conf_dir: "{{ kb_install_dir }}/custom"
 
-# Working and Data directories
-kb_data_dirs: "/tmp/elasticsearch/data"
-kb_pid_dir: "/tmp/elasticsearch/var/run/elasticsearch"
-kb_log_dir: "/tmp/elasticsearch/var/log/elasticsearch"
 
-# Other settings
-kb_action_auto_create_index: true
-kb_max_open_files: 65536
-kb_max_map_count: 262144
-kb_allow_downgrades: false
-kb_xpack_features: []
-kb_xpack_trial: false
-kb_enable_xpack: false
-
-
-bootstrap.memory_lock: true
 
 #These are used for internal operations performed by ansible.
 #They do not affect the current configuration

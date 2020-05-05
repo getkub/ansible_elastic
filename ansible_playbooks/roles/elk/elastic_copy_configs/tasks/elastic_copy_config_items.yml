@@ -26,7 +26,7 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "2750"
   with_items:
@@ -37,7 +37,7 @@
   template:
     src: "{{ item }}"
     dest: "{{ es_conf_dir }}/config/{{ item | basename | regex_replace('\\.j2','') }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "0660"
   with_fileglob:
@@ -47,12 +47,12 @@
   copy:
     src: "{{ item }}"
     dest: "{{ es_conf_dir }}/config/{{ item | basename | regex_replace('\\.final','') }}"
-    owner: "{{ es_user }}"
+    owner: "{{ es_os_user }}"
     group: "{{ es_group }}"
     mode: "0660"
   with_fileglob:
     - "../core_elastic_files/*.final"
 # - name: "Copy Core Configs to elasticsearch"
-#   copy: src={{ item }} dest={{ es_conf_dir }}/config/{{ item | basename | regex_replace('\.j2','') }} owner={{ es_user }} group={{ es_group }} mode=0660
+#   copy: src={{ item }} dest={{ es_conf_dir }}/config/{{ item | basename | regex_replace('\.j2','') }} owner={{ es_os_user }} group={{ es_group }} mode=0660
 #   with_fileglob:
 #     - "../core_elastic_files/*.j2"

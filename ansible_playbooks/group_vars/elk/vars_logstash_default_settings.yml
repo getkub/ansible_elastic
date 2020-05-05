@@ -1,0 +1,46 @@
+---
+# Default base settings
+ls_version: "7.6.2"
+
+# OS user
+ls_user: elasticsearch
+ls_group: elasticsearch
+
+# ls_PATH_CONF=/path/to/my/config
+#Need to provide default directories
+ls_install_dir: "/opt/logstash"
+ls_conf_dir: "{{ ls_install_dir }}/custom"
+
+
+
+#These are used for internal operations performed by ansible.
+#They do not affect the current configuration
+ls_api_scheme: "http"
+ls_api_host: "localhost"
+ls_api_port: 9200
+ls_api_uri: "{{ ls_api_scheme }}://{{ ls_api_host }}:{{ ls_api_port }}"
+# Default base settings
+
+
+# JVM custom parameters
+ls_java_home: ''
+ls_jvm_custom_parameters: ''
+ls_heap_size: "1g"
+
+# SSL/TLS parameters
+ls_enable_auto_ssl_configuration: true
+ls_enable_http_ssl: false
+ls_enable_transport_ssl: false
+ls_ssl_keystore: ""
+ls_ssl_keystore_password: ""
+ls_ssl_truststore: ""
+ls_ssl_truststore_password: ""
+ls_ssl_key: ""
+ls_ssl_key_password: ""
+ls_ssl_certificate: ""
+ls_ssl_certificate_authority: ""
+ls_ssl_certificate_path: "{{ ls_conf_dir }}/certs"
+ls_ssl_verification_mode: "certificate"
+ls_validate_certs: "yes"
+ls_delete_unmanaged_file: true
+ls_delete_unmanaged_native: true

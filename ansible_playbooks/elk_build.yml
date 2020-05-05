@@ -8,10 +8,12 @@
     - group_vars/common/vars_common_all.yml
     - group_vars/elk/vars_elastic_default_settings.yml
     - group_vars/elk/vars_kibana_default_settings.yml
+    - group_vars/elk/vars_logstash_default_settings.yml
     - group_vars/elk/vars_elk_build_settings.yml
   roles:
     - mkouhei.include_csv
     - common
     - elk/elastic_pre_req_tasks
-    - elk/elastic_build_packages
     - elk/kibana_build_packages
+    - elk/kibana_build_packages
+    - elk/logstash_build_packages
