@@ -1,0 +1,16 @@
+db_id="7adfa750-4c81-11e8-b3d7-01146121b73e"
+kibana_host_port="192.168.2.26:5601"
+creds="elastic:changeme"
+export_file="/tmp/sample.json"
+
+# GET
+curl -u ${creds} -X GET "${kibana_host_port}/api/kibana/dashboards/export?dashboard=${db_id}" -o ${export_file}
+
+# https://www.elastic.co/guide/en/kibana/current/saved-objects-api-find.html
+curl -u ${creds} -X GET "${kibana_host_port}/api/saved_objects/_find?type=dashboard&fields=id&fields=title"
+
+#https://www.elastic.co/guide/en/kibana/current/saved-objects-api-delete.html
+curl -u ${creds} -X DELETE -H 'kbn-xsrf: true' -H 'Content-Type: application/json' "${kibana_host_port}/api/saved_objects/dashboard/${db_id}"
+
+# Import
+curl -u ${creds} -X POST -H 'kbn-xsrf: true' -H 'Content-Type: application/json' --data-binary @${export_file} "${kibana_host_port}/api/kibana/dashboards/import?exclude=index-pattern,visualization"
