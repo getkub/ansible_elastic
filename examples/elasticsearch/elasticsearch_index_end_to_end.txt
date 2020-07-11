@@ -1,0 +1,1 @@
+Example given within: https://discuss.elastic.co/t/geospatial-query-with-aggregations-does-not-return-any-results-es7-6/240762/2
