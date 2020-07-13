@@ -1,0 +1,30 @@
+
+GET /octopus_energy/_search
+
+# inline is deprecated
+POST /octopus_energy/_update_by_query
+{
+    "script" : {
+      "inline" : "ctx._source['timeSlotStart']= '2020-07-10T21:00:00.000000Z'; ",
+      "lang"   : "painless"
+      }
+}
+
+# This is more modern
+# Date format: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html
+POST /octopus_energy/_update_by_query
+{
+    "script" : {
+      "source": "ctx._source['timeSlotStart'] = '2020-07-10T20:00:00.000000Z'",
+      "lang"   : "painless"
+      }
+}
+
+# Do manipulation of the field and index 
+POST /octopus_energy/_update_by_query
+{
+    "script" : {
+      "source": "ctx._source['timeSlotStart'] = ctx._source['date'] + 'T' + ctx._source['from'] + '.000000Z'",
+      "lang"   : "painless"
+      }
+}
