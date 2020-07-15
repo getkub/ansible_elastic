@@ -1,0 +1,4 @@
+# Should be DONE at Kibana. NOT elasticsearch
+GET /_security/role/kibana_user
+
+GET /_security/role/some_index_role

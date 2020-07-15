@@ -1,0 +1,15 @@
+we setup ELK from scratch and had few iterations before we learnt what's the best way to make it enterprise ready for our organisation. I would suggest your team to setup a development cluster and play with all sample data before you do into PROD
+
+- Always remember the Data Stack is going to grow and you will have more customers/stakeholders. So design for future.
+- Remember to create indexes in proper standard format and not use the default set
+- This way you can control the index patterns and which RBAC roles have which access
+- For example find a naming pattern (like mycompany_os_windows_yyyy-mm-dd, mycompany_network_cisco_yyyy-mm-dd). So that when you have a index pattern you can just do a star and the similar set of data can be given to the actual role
+
+
+Now specifically for SIEM
+- SIEM works on ECS data modelling (Elastic common Schema). So all fields are mapped into a common denominator and normalised accordingly.
+- You need to ensure any data collection you do needs to be transformed into ECS format using the relevant module. If you are writing your own, ensure the transformation to ECS is done in your code/config
+- By default you can see the  Index pattern for SIEM is
+apm-*-transaction*, auditbeat-*, endgame-*, filebeat-*, packetbeat-*, winlogbeat-*
+
+- Hence check if your data is coming to these patterns. If Else add your index pattern to SIEM app

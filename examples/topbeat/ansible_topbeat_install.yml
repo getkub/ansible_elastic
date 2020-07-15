@@ -1,0 +1,43 @@
+---
+- hosts: all
+  vars:
+   packagename: topbeat_1.0.0-rc1_amd64.deb
+   es_host: 127.0.0.1
+   es_port: 9200
+   period: 30
+   start: true
+   autostart: true
+   install_template: false
+
+  tasks:
+  - name: add elastic repo key
+    apt_key: url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+
+  - name: add beats repository
+    apt_repository: repo='deb https://packages.elastic.co/beats/apt stable main' state=present
+
+  - name: install topbeat
+    apt: pkg=topbeat state=present update_cache=yes
+
+  - name: configure topbeat interval
+    lineinfile: 'dest=/etc/topbeat/topbeat.yml "regexp=^  period:.*" line="  period: {{ period }}"'
+
+  - name: configure topbeat elasticsearch
+    lineinfile: 'dest=/etc/topbeat/topbeat.yml regexp="^    hosts:.*" line="    hosts: [\"{{ es_host }}:{{ es_port }}\"]"'
+
+  - name: ensure curl is installed
+    apt: package=curl state=present update_cache=yes
+    when: install_template
+
+  - name: insert template into elasticsearch
+    shell: 'curl -s {{ es_host }}:{{ es_port }}/_template/topbeat -d @/etc/topbeat/topbeat.template.json '
+    when: install_template
+
+  - name: start topbeat service
+    service: name=topbeat state=started
+    when: start
+
+  - name: add topbeat to autostart
+    shell: update-rc.d topbeat defaults 95 10
+    when: autostart
+    

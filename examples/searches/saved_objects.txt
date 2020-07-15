@@ -1,0 +1,4 @@
+# Should be DONE at Kibana. NOT elasticsearch
+
+# List all dashboards
+GET /api/saved_objects/_find?type=index-pattern&fields=title&per_page=100

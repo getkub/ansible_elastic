@@ -1,0 +1,5 @@
+index => .siem-signals-default
+
+# https://www.elastic.co/guide/en/siem/guide/7.8/rules-api-get.html
+# https://github.com/elastic/examples/blob/master/Security%20Analytics/SIEM-examples/Detections-API/Kibana.postman_collection.v2.json
+GET /api/detection_engine/rules/
