@@ -1,0 +1,24 @@
+# https://github.com/elastic/beats/issues/11595
+
+setup.template.overwrite: true
+xpack.monitoring.enabled: true
+queue.mem:
+  events: 20000
+output.elasticsearch:
+  hosts: ['${ELASTICSEARCH_PROTO}://${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+  username: ${ELASTICSEARCH_USERNAME}
+  password: ${ELASTICSEARCH_PASSWORD}
+  index: "packetbeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+  ssl.enabled: true
+  ssl.verification_mode: none
+  bulk_max_size: 2000
+  worker: 2
+  compression_level: 5
+xpack.monitoring.enabled: true
+setup.kibana.host: ${KIBANA_PROTO}://${KIBANA_HOST}:${KIBANA_PORT:5601}
+setup.kibana.username: ${KIBANA_USERNAME}
+setup.kibana.password: ${KIBANA_PASSWORD}
+setup.template.name: "packetbeat"
+setup.template.pattern: "packetbeat-*"
+setup.template.enabled: true
+setup.template.overwrite: true

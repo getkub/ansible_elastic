@@ -1,0 +1,18 @@
+
+# https://github.com/elastic/beats/issues/11595
+
+output.elasticsearch:
+  hosts: ['${ELASTICSEARCH_PROTO}://${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+  username: ${ELASTICSEARCH_USERNAME}
+  password: ${ELASTICSEARCH_PASSWORD}
+  index: "metricbeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+  ssl.enabled: true
+  ssl.verification_mode: none
+xpack.monitoring.enabled: true
+setup.kibana.host: ${KIBANA_PROTO}://${KIBANA_HOST}:${KIBANA_PORT:5601}
+setup.kibana.username: ${KIBANA_USERNAME}
+setup.kibana.password: ${KIBANA_PASSWORD}
+setup.template.name: "metricbeat"
+setup.template.pattern: "metricbeat-*"
+setup.template.enabled: true
+setup.template.overwrite: true
