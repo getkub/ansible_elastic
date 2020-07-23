@@ -15,4 +15,4 @@ ansible-playbook -i hosts -c local elk_site.yml --tags "elk_download,set_variabl
 # Logstash ONLY
 # -------------------------------------------- #
 # logstash build configs
-ansible-playbook -i hosts -c local elk_build.yml --tags "logstash_build_config_items"
+ansible-playbook -i hosts -c local elk_build.yml --tags "set_variables,build_configs,logstash_build_config_items"

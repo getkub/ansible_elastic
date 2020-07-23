@@ -18,6 +18,6 @@ output {
     hosts => "{{es_api_uri}}"
     user => "{{es_user}}"
     password => "{{es_password}}"
-    index => "%{[@metadata][beat]}-%{[@metadata][version]}
+    index => "%{[@metadata][beat]}-%{[@metadata][version]}"
   }
 }
