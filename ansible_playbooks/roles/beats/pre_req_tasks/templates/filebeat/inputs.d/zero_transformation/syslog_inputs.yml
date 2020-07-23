@@ -1,0 +1,5 @@
+# ============================== Syslog inputs ===============================
+- type: log
+  paths:
+    - /var/log/rsyslog/*.log
+  scan_frequency: 10s

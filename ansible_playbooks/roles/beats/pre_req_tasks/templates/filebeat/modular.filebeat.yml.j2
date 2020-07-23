@@ -1,0 +1,21 @@
+# ============================== Filebeat inputs ===============================
+
+# ------------------------------------------------------------------------------- #
+# Simple Inputs to carry raw events to logstash. No transformation expected
+# Just send the raw event to logstash
+# All input configs are held in separate directory
+# ------------------------------------------------------------------------------- #
+
+# ============================== Filebeat inputs ===============================
+filebeat.config.inputs:
+  enabled: true
+  path: inputs.d/zero_transformation/*.yml
+
+# ============================== Filebeat Modules ===============================
+filebeat.config.modules:
+  enabled: true
+  path: ${path.config}/modules.d/zero_transformation/*.yml
+
+# ============================== Filebeat outputs ===============================
+output.logstash:
+  hosts: ["localhost:5044"]

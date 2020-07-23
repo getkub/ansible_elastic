@@ -1,0 +1,67 @@
+
+# ------------------------------------------ #
+# https://demo.elastic.co/app/kibana#/dev_tools/console
+# Sample query
+# ------------------------------------------ #
+POST /_sql?format=txt
+{
+  "query":"""
+        SELECT
+            AVG(FlightTimeHour) Avg_Flight_Time,
+            OriginCountry
+        FROM flights
+        GROUP BY OriginCountry
+        ORDER BY OriginCountry
+        LIMIT 5
+        """
+}
+
+# ------------------------------------------ #
+# Output
+# ------------------------------------------ #
+Avg_Flight_Time  | OriginCountry
+------------------+---------------
+9.342180244924574 |AE
+13.49582274385201 |AR
+4.704097126921018 |AT
+15.081367354940724|AU
+7.998943401875511 |CA
+
+
+# ------------------------------------------ #
+# Get this translated into Query DSL
+# ------------------------------------------ #
+POST /_sql/translate
+
+# Equivalent Translated
+POST /flights/_search
+{
+  "size" : 0,
+  "_source" : false,
+  "stored_fields" : "_none_",
+  "aggregations" : {
+    "groupby" : {
+      "composite" : {
+        "size" : 5,
+        "sources" : [
+          {
+            "aa0e9c4e" : {
+              "terms" : {
+                "field" : "OriginCountry.keyword",
+                "missing_bucket" : true,
+                "order" : "asc"
+              }
+            }
+          }
+        ]
+      },
+      "aggregations" : {
+        "c4bb48d2" : {
+          "avg" : {
+            "field" : "FlightTimeHour"
+          }
+        }
+      }
+    }
+  }
+}
