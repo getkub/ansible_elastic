@@ -1,0 +1,17 @@
+## Listen to Standard Port
+
+input {
+  tcp {
+    port => 5044
+  }
+  beats {
+    port => 5000
+    type => syslog
+  }
+}
+
+## To display to screen
+
+output {
+  stdout {}
+}

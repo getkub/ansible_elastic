@@ -1,9 +1,16 @@
+# Ensure JAVA_HOME is exported
+# export JAVA_HOME="/opt/elasticsearch/jdk/"
+
+# For syslog, it is better to use "beats" than using "tcp"
 input {
   tcp {
+    port => 5044
+  }
+  beats {
     port => 5000
+    type => syslog
   }
 }
-
 ## Add your filters / logstash plugins configuration here
 
 output {
