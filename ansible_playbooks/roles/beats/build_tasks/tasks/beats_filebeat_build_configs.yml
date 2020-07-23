@@ -1,0 +1,5 @@
+---
+- name: Gather Facts of Host where Elastic Core Stack is going to be installed
+  setup:
+
+- name: "Validate Clients: Check SSH connectivity is in place"

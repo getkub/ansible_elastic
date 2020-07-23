@@ -1,0 +1,5 @@
+---
+
+- name: "Beats: Build Filebeat Configs"
+  import_tasks: beats_filebeat_build_configs.yml
+  tags: [beats_filebeat_build_configs]

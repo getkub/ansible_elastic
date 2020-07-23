@@ -1,0 +1,12 @@
+---
+
+- name: "Create Various Beats build configs"
+  hosts: dev
+  gather_facts: no
+  vars_files:
+    - group_vars/common/vars_common_all.yml
+    - group_vars/elk/vars_configs_adhoc.yml
+  roles:
+    - mkouhei.include_csv
+    - common
+    - beats/build_tasks

@@ -16,3 +16,11 @@ ansible-playbook -i hosts -c local elk_site.yml --tags "elk_download,set_variabl
 # -------------------------------------------- #
 # logstash build configs
 ansible-playbook -i hosts -c local elk_build.yml --tags "set_variables,build_configs,logstash_build_config_items"
+
+
+
+# -------------------------------------------- #
+# Filebeat ONLY
+# -------------------------------------------- #
+# filebeat build configs
+ansible-playbook -i hosts -c local beats_build.yml --tags "set_variables,build_configs,beats_filebeat_build_configs"

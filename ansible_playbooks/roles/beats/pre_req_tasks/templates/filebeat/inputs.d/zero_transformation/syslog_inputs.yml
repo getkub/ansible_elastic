@@ -1,7 +1,0 @@
-# ============================== Syslog inputs ===============================
-
-# This is now set at modules.d
-# - type: log
-#   paths:
-#     - /var/log/rsyslog/*.log
-#   scan_frequency: 10s

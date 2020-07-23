@@ -1,0 +1,26 @@
+# ============================== Syslog inputs ===============================
+
+# This is now set at modules.d
+# - type: log
+#   paths:
+#     - /var/log/rsyslog/*.log
+#   scan_frequency: 10s
+# filebeat.config.inputs:
+#   enabled: true
+#   path: configs/*.yml
+#   reload.enabled: true
+#   reload.period: 10s
+
+- type: log
+  paths:
+    - "/var/log/rsyslog/*/*/*.log"
+  tags: ["syslog"]
+  fields_under_root: true
+
+- type: log
+  paths:
+    - "/var/log/rsyslog/*/*/auth.*.log"
+  tags: ["syslog"]
+  fields:
+    syslog_facility: "auth"
+  fields_under_root: true
