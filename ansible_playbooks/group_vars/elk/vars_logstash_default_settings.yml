@@ -44,3 +44,8 @@ ls_ssl_verification_mode: "certificate"
 ls_validate_certs: "yes"
 ls_delete_unmanaged_file: true
 ls_delete_unmanaged_native: true
+
+
+# Other port settings
+ls_beats_syslog_port: 5000
+ls_tcp_default_port: 5044

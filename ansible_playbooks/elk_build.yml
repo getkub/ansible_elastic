@@ -15,5 +15,4 @@
     - common
     - elk/elastic_pre_req_tasks
     - elk/kibana_build_packages
-    - elk/kibana_build_packages
     - elk/logstash_build_packages
