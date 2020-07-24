@@ -8,6 +8,7 @@ input {
 # https://discuss.elastic.co/t/extracting-filename-from-log-file-path-not-working/222156/7
 # "<%{SYSLOG5424PRI:log.syslog.priority}>%{NUMBER:syslog_version} %{TIMESTAMP_ISO8601:syslog_timestamp} %{SYSLOGHOST:syslog_host} %{SYSLOGPROG:syslog_prog} %{NOTSPACE:syslog_procid} %{NOTSPACE:syslog_msgid} %{NOTSPACE:syslog_structured_msg} %{GREEDYDATA:syslog_non_structured_msg}"
 # https://github.com/elastic/elasticsearch/blob/7.8/libs/grok/src/main/resources/patterns/linux-syslog
+# https://github.com/elastic/ecs-mapper/blob/master/example/logstash.conf
 
 filter {
     grok {
