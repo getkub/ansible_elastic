@@ -1,0 +1,29 @@
+# Pipeline to ensure a specific type of data from source have its own index
+input {
+    pipeline {
+        address => os_nix_syslog_pipeline
+    }
+}
+
+filter {
+    grok {
+        match => {
+            message => "<%{NUMBER:syslog_priority}>%{NUMBER:syslog_version} %{TIMESTAMP_ISO8601:syslog_timestamp} %{SYSLOGHOST:syslog_host} %{SYSLOGPROG:syslog_prog} %{NOTSPACE:syslog_procid} %{NOTSPACE:syslog_msgid} %{NOTSPACE:syslog_structured_msg} %{GREEDYDATA:syslog_non_structured_msg}"
+          }
+    }
+    grok {
+        match => {
+            path => "%{GREEDYDATA}/%{GREEDYDATA:log.syslog.facility.name}\.%{GREEDYDATA:log.syslog.severity.name}\.log"
+          }
+    }
+}
+
+
+output {
+  elasticsearch {
+    hosts => "{{es_api_uri}}"
+    user => "{{es_user}}"
+    password => "{{es_password}}"
+    index => "os_nix_auth_%{+yyyy.MM.dd}"
+  }
+}

@@ -3,7 +3,7 @@
 # Run with path.settings
 # ./bin/logstash --path.settings {{ls_custom_config_path}}
 
-- pipeline.id: os_nix_syslog_pipeline
+- pipeline.id: os_nix_auth_main_pipeline
   config.string: |
     input {
       beats {
@@ -13,14 +13,14 @@
     }
     output {
         if [type] == 'syslog' {
-          pipeline { send_to => os_nix_syslog_auth_pipeline }
+          pipeline { send_to => os_nix_syslog_pipeline }
         } else  {
-          pipeline { send_to => os_nix_syslog_unknown_pipeline }
+          pipeline { send_to => os_nix_unknown_pipeline }
         }
     }
 
-- pipeline.id: os_nix_syslog_auth_pipeline
-  path.config: "{{ls_custom_config_path}}/pipelines/os_nix_syslog_auth_pipeline.conf"
+- pipeline.id: os_nix_syslog_pipeline
+  path.config: "{{ls_custom_config_path}}/pipelines/os_nix_syslog_pipeline.conf"
 
-- pipeline.id: os_nix_syslog_unknown_pipeline
-  path.config: "{{ls_custom_config_path}}/pipelines/os_nix_syslog_unknown_pipeline.conf"
+- pipeline.id: os_nix_unknown_pipeline
+  path.config: "{{ls_custom_config_path}}/pipelines/os_nix_unknown_pipeline.conf"
