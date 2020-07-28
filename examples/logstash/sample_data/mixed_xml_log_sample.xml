@@ -1,0 +1,21 @@
+2020-07-01 10:39:46,046 [72] INFO  - 192.168.1.2:12345 - Terminal Management Request (<root type="object">
+<request type="object">
+  <ClientTimeStamp type="string">20200728</ClientTimeStamp>
+  <AuthToken type="string">XXX123XXX456XXX789</AuthToken>
+  <UpdateRequest type="object">
+    <kernel type="object">
+      <name type="string">OS</name>
+      <version type="string">1.01</version>
+      <a:item xmlns:a="item" item="nexus version" type="string">0.12</a:item>
+      <a:item xmlns:a="item" item="active bank" type="string">0</a:item>
+      <a:item xmlns:a="item" item="active bank flag" type="string">0</a:item>
+      <development type="string">0</development>
+      <serial type="string">12345678</serial>
+      <a:item xmlns:a="item" item="model name" type="string">XXX</a:item>
+      <a:item xmlns:a="item" item="display columns" type="string">200</a:item>
+      <a:item xmlns:a="item" item="display rows" type="string">200</a:item>
+      <a:item xmlns:a="item" item="msr tracks" type="array"></a:item>
+    </kernel>
+  </UpdateRequest>
+</request>
+</root>)
