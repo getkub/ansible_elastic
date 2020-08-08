@@ -1,0 +1,44 @@
+# https://www.youtube.com/watch?v=rXjm-iKeIlM : 02:13mins
+Firewall
+Switches
+Windows Event
+Web-server
+SQL Server
+OS
+Application
+Security System
+
+
+# Decision Making areas : Business Cases
+Security/IOC
+Performance
+Health
+configuration
+Budgeting
+Tactical security
+Compliance
+Forensics
+legal
+General CYA
+
+
+# Systems are talking
+Windows EventLog
+- Failed Logons
+- Security Events
+- Application Health
+- Blocked Pakckets
+- Powershell scripts
+- New processes created
+- Elevated privileges
+
+Firewall data
+- DLP
+- DNS
+- Email
+- Traffic
+- IDS/IPS
+- CIFS
+- SSH
+- AV
+- GTP
