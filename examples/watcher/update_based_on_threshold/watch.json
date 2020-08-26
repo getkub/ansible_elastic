@@ -1,0 +1,89 @@
+PUT _xpack/watcher/watch/org_os_nix_watch
+{
+  "trigger": {
+    "schedule": {
+      "interval": "15m"
+    }
+  },
+  "input": {
+    "chain": {
+      "inputs": [
+        {
+          "thresholds": {
+            "search": {
+              "request": {
+                "indices": [
+                  "threshold"
+                ],
+                "body": {
+                  "query": {
+                    "term": {
+                      "expected_index": "org_os_nix"
+                    }
+                  },
+                  "size": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "count_of_events": {
+            "search": {
+              "request": {
+                "indices": [
+                  "org_os_nix"
+                ],
+                "body": {
+                  "query": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                            "host": {
+                              "value": "{{ctx.payload.thresholds.hits.hits.0._source.host}}"
+                            }
+                          }
+                        },
+                        {
+                          "range": {
+                            "@timestamp": {
+                              "gte": "now-{{ctx.payload.thresholds.hits.hits.0._source.expected_time_period}}"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.count_of_events.hits.total": {
+        "gt": "{{ctx.payload.thresholds.hits.hits.0._source.threshold}}"
+      }
+    }
+  },
+  "actions": {
+    "log_alert": {
+      "logging": {
+        "text": "alert: threshold limit for os_unix_linux reached, threshold is {{ctx.payload.thresholds.hits.hits.0._source.threshold}} in {{ctx.payload.thresholds.hits.hits.0._source.expected_time_period}}, actual count is {{ctx.payload.count_of_events.hits.total}}"
+      }
+    },
+    "index_alert": {
+      "transform": {
+        "script": "return ['host': ctx.payload.thresholds.hits.hits.0._source.host, 'index': 'os_unix_linux', 'actual_count': ctx.payload.count_of_events.hits.total, 'threshold': ctx.payload.thresholds.hits.hits.0._source.threshold, 'time_period': ctx.payload.thresholds.hits.hits.0._source.expected_time_period]"
+      },
+      "index": {
+        "index": "alerts",
+        "doc_type": "_doc"
+      }
+    }
+  }
+}

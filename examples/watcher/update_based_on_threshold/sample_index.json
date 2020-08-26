@@ -1,0 +1,5 @@
+PUT org_os_nix/_doc/1
+{
+  "@timestamp" : "2019-08-28T10:22:38.727Z",
+  "host" : "host1"
+}

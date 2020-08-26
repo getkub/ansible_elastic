@@ -1,0 +1,7 @@
+PUT threshold/_doc/1
+{
+  "host": "host1",
+  "expected_index": "org_os_nix",
+  "threshold": "5",
+  "expected_time_period": "4h"
+}
