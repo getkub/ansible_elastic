@@ -1,8 +1,7 @@
-PUT _xpack/watcher/watch/org_os_nix_watch
 {
   "trigger": {
     "schedule": {
-      "interval": "15m"
+      "interval": "5m"
     }
   },
   "input": {
@@ -12,13 +11,15 @@ PUT _xpack/watcher/watch/org_os_nix_watch
           "thresholds": {
             "search": {
               "request": {
+                "search_type": "query_then_fetch",
                 "indices": [
-                  "threshold"
+                  "alert_threshold"
                 ],
+                "rest_total_hits_as_int": true,
                 "body": {
                   "query": {
                     "term": {
-                      "expected_index": "org_os_nix"
+                      "expected_index": "alert_org_os_nix"
                     }
                   },
                   "size": 1
@@ -31,9 +32,11 @@ PUT _xpack/watcher/watch/org_os_nix_watch
           "count_of_events": {
             "search": {
               "request": {
+                "search_type": "query_then_fetch",
                 "indices": [
-                  "org_os_nix"
+                  "alert_org_os_nix"
                 ],
+                "rest_total_hits_as_int": true,
                 "body": {
                   "query": {
                     "bool": {
@@ -66,19 +69,23 @@ PUT _xpack/watcher/watch/org_os_nix_watch
   "condition": {
     "compare": {
       "ctx.payload.count_of_events.hits.total": {
-        "gt": "{{ctx.payload.thresholds.hits.hits.0._source.threshold}}"
+        "lt": "{{ctx.payload.thresholds.hits.hits.0._source.threshold}}"
       }
     }
   },
   "actions": {
     "log_alert": {
       "logging": {
+        "level": "info",
         "text": "alert: threshold limit for os_unix_linux reached, threshold is {{ctx.payload.thresholds.hits.hits.0._source.threshold}} in {{ctx.payload.thresholds.hits.hits.0._source.expected_time_period}}, actual count is {{ctx.payload.count_of_events.hits.total}}"
       }
     },
     "index_alert": {
       "transform": {
-        "script": "return ['host': ctx.payload.thresholds.hits.hits.0._source.host, 'index': 'os_unix_linux', 'actual_count': ctx.payload.count_of_events.hits.total, 'threshold': ctx.payload.thresholds.hits.hits.0._source.threshold, 'time_period': ctx.payload.thresholds.hits.hits.0._source.expected_time_period]"
+        "script": {
+          "source": "return [ 'watch_id': ctx.watch_id, 'execution_time': ctx.execution_time,'scheduled_time': ctx.trigger.scheduled_time,'triggered_time': ctx.trigger.triggered_time,  'host': ctx.payload.thresholds.hits.hits.0._source.host, 'index': 'alert_os_unix_linux', 'actual_count': ctx.payload.count_of_events.hits.total, 'threshold': ctx.payload.thresholds.hits.hits.0._source.threshold, 'time_period': ctx.payload.thresholds.hits.hits.0._source.expected_time_period]",
+          "lang": "painless"
+        }
       },
       "index": {
         "index": "alerts",

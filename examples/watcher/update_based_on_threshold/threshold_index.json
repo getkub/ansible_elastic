@@ -1,7 +1,7 @@
-PUT threshold/_doc/1
+PUT alert_threshold/_doc/1
 {
   "host": "host1",
-  "expected_index": "org_os_nix",
+  "expected_index": "alert_org_os_nix",
   "threshold": "5",
   "expected_time_period": "4h"
 }
