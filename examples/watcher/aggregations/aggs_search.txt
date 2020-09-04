@@ -1,0 +1,39 @@
+
+GET kibana_sample_data_logs/_search
+{
+    "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-3h"
+                    }
+                  }
+                },
+                {
+                  "match": {
+                    "event.dataset": "sample_web_logs"
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "group_by_src": {
+              "terms": {
+                "field": "geo.src",
+                "size": 5
+              },
+              "aggs": {
+                "group_by_dest": {
+                  "terms": {
+                    "field": "geo.dest",
+                    "size": 5
+                  }
+                }
+              }
+            }
+          }
+        }
