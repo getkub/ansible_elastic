@@ -1,0 +1,93 @@
+PUT _watcher/watch/meetup_kibana_sample_data
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "kibana_sample_data_logs"
+        ],
+        "rest_total_hits_as_int": true,
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-3h"
+                    }
+                  }
+                },
+                {
+                  "match": {
+                    "event.dataset": "sample_web_logs"
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "group_by_src": {
+              "terms": {
+                "field": "geo.src",
+                "size": 5
+              },
+              "aggs": {
+                "group_by_dest": {
+                  "terms": {
+                    "field": "geo.dest",
+                    "size": 5
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "transform": {
+  "script" :
+  """
+      return [
+        'my_group_array': ctx.payload.aggregations.group_by_src.buckets.stream()
+          .map(t-> {return [t.key: t.group_by_dest.buckets]})
+          .collect(Collectors.toList()),
+        'my_group_fields': ctx.payload.aggregations.group_by_src.buckets.stream()
+        .map(t-> {return [t.group_by_dest.buckets.key: t.group_by_dest.buckets.doc_count]})
+        .collect(Collectors.toList())
+      ]
+  """   },
+  "actions": {
+    "log": {
+      "logging": {
+        "level": "info",
+        "text": "{{ctx.payload.my_group_fields}}; {{ctx.payload.my_group_array}}"
+      }
+    },
+    "email_admin": {
+        "email": {
+        "to": "dummydummy@dummydummy.org",
+        "subject": "{{ctx.watch_id}} executed",
+        "body": {
+            "html": "<table><tr><th>Company</th><th>Contact</th><th>Country</th></tr><tr><td>Alfreds Futterkiste</td><td>Maria Anders</td><td>Germany</td></tr></table>"
+         }
+        }
+        
+    }
+  }
+}
