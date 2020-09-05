@@ -68,7 +68,7 @@ PUT _watcher/watch/meetup_kibana_sample_data
           .map(t-> {return [t.key: t.group_by_dest.buckets]})
           .collect(Collectors.toList()),
         'my_group_fields': ctx.payload.aggregations.group_by_src.buckets.stream()
-        .map(t-> {return [t.group_by_dest.buckets.key: t.group_by_dest.buckets.doc_count]})
+        .map(t-> {return [t.key: t.doc_count]})
         .collect(Collectors.toList())
       ]
   """   },
@@ -84,7 +84,14 @@ PUT _watcher/watch/meetup_kibana_sample_data
         "to": "dummydummy@dummydummy.org",
         "subject": "{{ctx.watch_id}} executed",
         "body": {
-            "html": "<table><tr><th>Company</th><th>Contact</th><th>Country</th></tr><tr><td>Alfreds Futterkiste</td><td>Maria Anders</td><td>Germany</td></tr></table>"
+            "html": """
+              <table>
+                <tr>
+                  <th>Key</th>
+                  <th>doc_count</th>
+                </tr>
+                  {{#ctx.payload.my_group_array.0.CN}}<tr><td>{{key}}</td><td>{{doc_count}}</td></tr>{{/ctx.payload.my_group_array.0.CN}}</table>
+                """
          }
         }
         
