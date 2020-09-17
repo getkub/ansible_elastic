@@ -1,0 +1,71 @@
+PUT _watcher/watch/account_create_delete
+{
+  "trigger": {
+    "schedule": {
+      "interval": "5m"
+    }
+  },
+  "input": {
+    "chain": {
+      "inputs": [
+        {
+          "account_create": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  "winlogbeat*"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "query": {
+                    "term": {
+                      "winlog.event_id":"4720"
+                    }
+                  },
+                  "size": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "account_delete": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  "winlogbeat*"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "query": {
+                    "term": {
+                      "winlog.event_id":"4726"
+                    }
+                  },
+                  "size": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.account_delete.hits.hits.0._source.winlog.event_data.TargetUserName": {
+        "eq": "{{ctx.payload.account_create.hits.hits.0._source.winlog.event_data.TargetUserName}}"
+      }
+    }
+  },
+  "actions": {
+    "log_alert": {
+      "logging": {
+        "level": "info",
+        "text": "alert: Account Created: {{ctx.payload.account_create.hits.hits.0._source.winlog.event_data.TargetUserName}}, Account Deleted: {{ctx.payload.account_delete.hits.hits.0._source.winlog.event_data.TargetUserName}}"
+      }
+    }
+  }
+}
