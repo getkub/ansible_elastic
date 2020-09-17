@@ -1,3 +1,7 @@
+
+https://www.elastic.co/blog/introducing-event-query-language
+
+
 GET /winlogbeat-7.9.1-2020.09.15-000001/_eql/search?filter_path=hits,sequences.join_keys
 {
   "event_category_field": "event.kind",
