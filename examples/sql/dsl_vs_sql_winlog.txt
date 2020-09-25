@@ -1,0 +1,46 @@
+POST _sql/?format=txt
+{
+  "query": """
+  SELECT 
+    "winlog.channel",count(*)
+  FROM "winlog*"
+  WHERE "@timestamp" <  NOW() - INTERVAL 10 DAYS
+  GROUP BY "winlog.channel"
+  """
+}
+
+# Equivalent below
+GET winlog*/_search?format=txt
+{
+  "query": {
+    "bool": {
+      "must": [],
+      "filter": [
+        {
+          "match_all": {}
+        },
+        {
+          "range": {
+            "@timestamp": {
+              "gte": "now-10d",
+              "lte": "now",
+              "format": "strict_date_optional_time"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "2": {
+      "terms": {
+        "field": "winlog.channel",
+        "order": {
+          "_count": "desc"
+        },
+        "size": 5
+      }
+    }
+  },
+  "size":0
+}
