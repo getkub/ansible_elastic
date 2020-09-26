@@ -7,17 +7,17 @@ GET _search
   "query": {
     "bool": {
       "filter": [
-                {
-                  "bool": {
-                    "must": [
-                      {
-                        "match": {
-                          "_index": ".monitoring-es-7-2020.09.26"
-                        }
-                      }
-                    ]
-                  }
+        {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "_index": ".monitoring-es-7-2020.09.26"
                 }
+              }
+            ]
+          }
+        }
       ]
     }
   }
