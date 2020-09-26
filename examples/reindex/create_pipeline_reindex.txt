@@ -1,0 +1,27 @@
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/scripts-and-search-speed.html
+
+## Create pipeline
+
+PUT _ingest/pipeline/my_test_scores_pipeline
+{
+  "description": "Calculates the total test score",
+  "processors": [
+    {
+      "script": {
+        "source": "ctx.total_score = (ctx.math_score + ctx.verbal_score)"
+      }
+    }
+  ]
+}
+
+## Now reindex
+POST /_reindex
+{
+  "source": {
+    "index": "my_old_index"
+  },
+  "dest": {
+    "index": "my_new_index",
+    "pipeline": "my_test_scores_pipeline"
+  }
+}
