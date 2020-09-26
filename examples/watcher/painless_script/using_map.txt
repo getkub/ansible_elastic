@@ -55,8 +55,9 @@
             def documents = ctx.payload.hits.hits.stream()
                 .map(hit -> [
                   "@timestamp": ctx.execution_time,
-                  "cluster_name": hit._source.cluster_name, 
-                  "severity": "high" 
+                  "cluster_name": hit._source.cluster_name,
+                  "jvm_version": hit._source.cluster_stats.nodes.jvm.versions.0.version,
+                  "severity": "high"
                 ])
                 .collect(Collectors.toList());
             return [ "_doc" : documents]; 
