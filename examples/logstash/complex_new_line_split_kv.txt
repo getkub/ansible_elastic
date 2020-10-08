@@ -1,0 +1,19 @@
+# https://stackoverflow.com/questions/34817569/logstash-kv-filter-issue-with-r-n-as-field-split-backslash
+
+Host: mobile.bpifrance.fr\r\nConnection: keep-alive\r\nAccept: application/json, text/plain, */*\r\nUser-Agent: Mozilla/5.0 (Linux; Android 5.0.2; SM-G901F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Crosswalk/IP.IP.IP.IP Mobile Safari/537.36\r\nAccept-Encoding: gzip, deflate\r\nAccept-Language: fr-fr\r\nCookie: MRHSHint=deleted; XXXX=1z1z1z1452251835z14400; LastMRH_Session=0175d881; JSESSIONID=836A243928E475506091D32FB585D812; TDF=123456.789.1000; TDF=123456.789.1000; TS01748689=01450ecb576c294567faa529b12c3299cf27b272dc5d54fe2c1f98fca83fc436733ad811cd33162b0ce794a6658d86242d07407c8a\r\nX-Forwarded-For: IP.IP.IP.IP\r\nX-Forwarded-Remote-User: xxxx\r\nsession-id: 0175d881\r\nsession-key: 6ab68177c496ec366d5c45240175d881\r\nusername: xxxx\r\n\r\n
+
+
+filter {
+  mutate {
+    gsub => [ "message", "[\\\\]r", "_" ]
+    gsub => [ "message", "[\\\\]n", "#" ]
+  }
+}
+
+filter {
+    kv {
+      field_split => "_#"
+      value_split => ":"
+      source => "message"
+    }
+ }
