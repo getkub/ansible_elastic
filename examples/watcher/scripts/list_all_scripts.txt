@@ -1,0 +1,7 @@
+GET _cluster/state/metadata?pretty&filter_path=**.stored_scripts
+
+
+if 'scripts' in test:
+    for script in test['scripts']:
+        with open(script['path'], 'r') as script_file:
+            es.put_script(id=script["name"],body=json.loads(script_file.read()))
