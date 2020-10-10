@@ -52,7 +52,7 @@ Dec 11 2018 08:01:39 <IP>: %ASA-4-106023: Deny udp src dmz:213.205.240.49/5679 d
 Dec 11 2018 08:01:53 <IP>: %ASA-6-302013: Built outbound TCP connection 447237 for outside:213.205.240.49/1234 (213.205.240.49/1234) to dmz:213.205.240.49/65000 (213.205.240.49/65000)
 Dec 11 2018 08:01:53 <IP>: %ASA-6-302013: Built outbound TCP connection 447237 for outside:217.146.82.180/1234 (217.146.82.180/1234) to dmz:217.146.82.180/65000 (217.146.82.180/65000)
 Dec 11 2018 08:01:53 <IP>: %ASA-6-302014: Teardown TCP connection 447237 for outside:217.146.82.180/1234 to dmz:10.10.10.10/1235 duration 23:59:59 bytes 11420 TCP FINs
-Aug 15 2012 23:30:09 : %ASA-6-302016 Teardown UDP connection 40 for outside:10.44.4.4/500 to inside:10.44.2.2/500 duration 0:02:02 bytes 1416
+Aug 15 2012 23:30:09 : %ASA-6-302016: Teardown UDP connection 40 for outside:10.44.4.4/500 to inside:10.44.2.2/500 duration 0:02:02 bytes 1416
 Sep 12 2014 06:50:53 GIFRCHN01 : %ASA-2-106016: Deny IP spoof from (0.0.0.0) to 217.146.82.180 on interface Mobile_Traffic
 Sep 12 2014 06:51:01 GIFRCHN01 : %ASA-2-106016: Deny IP spoof from (0.0.0.0) to 217.146.82.180 on interface Mobile_Traffic
 Sep 12 2014 06:51:05 GIFRCHN01 : %ASA-2-106016: Deny IP spoof from (0.0.0.0) to 217.146.82.180 on interface Mobile_Traffic
