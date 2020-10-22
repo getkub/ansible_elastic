@@ -1,0 +1,41 @@
+
+input {
+dead_letter_queue {
+    path => "/usr/logstash/dead_letter_queue"
+    commit_offsets => true
+    pipeline_id => "my-orig-pipeline-id" 
+  }
+}
+
+filter {
+    ruby {
+        code => "event.set('original_message', event.to_json())"
+    }
+    prune {
+        whitelist_names => [ "^original_message$" ]
+    }
+    # Pull useful information out of the event metadata provided by the dead
+    # letter queue, and add it to the new event.
+    mutate {
+        add_field => {
+            "dlq_entry_time" => "%{[@metadata][dead_letter_queue][entry_time]}"
+            "message" => "%{[@metadata][dead_letter_queue][reason]}"
+            "plugin_id" => "%{[@metadata][dead_letter_queue][plugin_id]}"
+            "plugin_type" => "%{[@metadata][dead_letter_queue][plugin_type]}"
+        }
+    }    
+    # Apply the date filter.
+    date {
+        match => [ "dlq_entry_time", "ISO8601" ]
+    }
+
+}
+
+output {
+  elasticsearch {
+    index => "my-dlq-index"
+    hosts => ["localhost:9200"]
+    user => "admin"
+    password => "password"
+  }
+}
