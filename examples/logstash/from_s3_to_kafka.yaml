@@ -1,0 +1,48 @@
+input {
+      s3 {
+        access_key_id => "${AWS_ACCESS_KEY_ID}"
+        secret_access_key => "${AWS_SECRET_ACCESS_KEY}"
+        "bucket" => "something-csec1"
+        "region" => "eu-west-1"
+        "proxy_uri" => "https://1.2.3.4:3128"
+        "codec" => "json_lines"
+        "prefix" => "org/AWSLogs/somekey/12344557/CloudTrail/eu-west-1/2019/04/12"
+        "role_arn" => "arn:aws:iam::7890267:role/myorg-mydept-ro"
+      }
+}    
+
+filter { 
+        
+
+# Split out the inputs into individual entries as the cloud trail files are in a single array
+        ruby {
+            code => '
+                event.get("Records").each do |item|
+                     newevent = item.to_hash
+                     generated = LogStash::Event.new(newevent)
+                     new_event_block.call(generated)
+                end
+                event.cancel
+                '
+            }
+}
+output {
+
+kafka {
+    bootstrap_servers => "server1:9092,server2:9092"
+    topic_id => "my-specific-topic-id"
+    codec => json
+  }
+
+  kafka {
+    bootstrap_servers => "server3:9092,server4:9092"
+    security_protocol => "SASL_SSL"
+    ssl_truststore_location => "/opt/certs/kafka.truststore.jks"
+    ssl_truststore_password => "uniquepass"
+    ssl_truststore_type => "JKS"
+    sasl_mechanism => "PLAIN"
+    sasl_jaas_config => "org.apache.kafka.common.security.plain.PlainLoginModule required username='something' password='passwsomething';"
+    topic_id => "my-specific-topic-id2"
+    codec => "json"
+  }
+}
