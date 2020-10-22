@@ -1,0 +1,40 @@
+POST mywindows*/_search
+{
+  "size" : 0,
+  "query" : {
+    "range" : {
+      "@timestamp" : {
+        "from" : "2020-10-19T00:00:00.000Z",
+        "to" : "2020-10-22T00:00:00.000Z",
+        "format" : "strict_date_time"
+      }
+    }
+  },
+  "aggregations" : {
+    "groupby" : {
+      "composite" : {
+        "size" : 1000,
+        "sources" : [
+          {
+            "winlog_channel" : {
+              "terms" : {
+                "field" : "winlog.channel.keyword",
+                "missing_bucket" : true,
+                "order" : "asc"
+              }
+            }
+          },
+          {
+            "winlog_event_id" : {
+              "terms" : {
+                "field" : "winlog.event_id",
+                "missing_bucket" : true,
+                "order" : "asc"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
