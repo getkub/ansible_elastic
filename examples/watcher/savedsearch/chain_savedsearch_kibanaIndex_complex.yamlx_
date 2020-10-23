@@ -1,0 +1,105 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1h"
+    }
+  },
+  "input": {
+    "chain": {
+      "inputs": [
+        {
+          "findSavedSearchByIDByID": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  ".kibana"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "query": {
+                    "term": {
+                      "_id": "{{ctx.metadata.savedSearchId}}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "parseSavedSearch": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  ".kibana"
+                ],
+                "rest_total_hits_as_int": true,
+                "template": {
+                  "source": """{"query":{"term":{"_id":"{{ctx.payload.findSavedSearchByID.hits.hits.0._id}}"}},"aggs":{"id":{"terms":{"field": "_id"},"meta":{"searchSourceJSON": {{#toJson}}ctx.payload.findSavedSearchByID.hits.hits.0._source.search.kibanaSavedObjectMeta.searchSourceJSON{{/toJson}} }}}}""",
+                  "lang": "mustache"
+                }
+              }
+            }
+          }
+        },
+        {
+          "savedSearchQuery": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  "myindex"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "size": 10000,
+                  "query": {
+                    "bool": {
+                      "must": {
+                        "query_string": {
+                          "query": "(NOT watcherState.keyword:processed) AND ({{ctx.payload.parseSavedSearch.aggregations.id.meta.searchSourceJSON.query.query}})"
+                        }
+                      },
+                      "filter": {
+                        "range": {
+                          "@timestamp": {
+                            "gte": "now-1h"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "condition": {
+    "script": {
+      "source": "return ctx.payload.savedSearchQuery.hits.hits.size() > 0"
+    }
+  },
+  "actions": {
+    "send_email": {
+      "email": {
+        "profile": "standard",
+        "from": "testtesttest@test.com",
+        "to": [
+          "testtesttest@testtesttest.com"
+        ],
+        "subject": " {{ctx.metadata.name}}",
+        "body": {
+          "html": """somenitceHTML"""
+        }
+      }
+    }
+  },
+  "metadata": {
+    "savedSearchId": "search:123455-cd99-11e9-a687-123455"
+  }
+}
