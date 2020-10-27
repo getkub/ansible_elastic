@@ -1,0 +1,189 @@
+#== Cisco ASA ==
+CISCO_TAGGED_SYSLOG %{CISCOTIMESTAMP:cisco_timestamp}(%{SPACE}(%{SYSLOGHOST:sysloghost}|%{NOTSPACE:sysloghost_notspace})%{SPACE})?: %%{CISCOTAG:ciscotag}:\s*%{GREEDYDATA:cisco_message}
+CISCOTIMESTAMP %{MONTH} +%{MONTHDAY}(?: %{YEAR})? %{TIME}
+CISCOTAG [A-Z0-9]+-%{NONNEGINT:cisco_severity}-%{POSINT:cisco_msg_id}
+
+
+# Common Particles
+CISCO_ACTION Built|Teardown|Deny|Denied|denied|requested|permitted|denied by ACL|discarded|est-allowed|Dropping|created|deleted
+CISCO_REASON Duplicate TCP SYN|Failed to locate egress interface|Invalid transport field|No matching connection|DNS Response|DNS Query|(?:%{WORD}\s*)*
+CISCO_DIRECTION Inbound|inbound|Outbound|outbound
+CISCO_INTERVAL first hit|%{INT}-second interval
+CISCO_XLATE_TYPE static|dynamic
+EMAIL_DOMAIN \b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\.?|\b)
+USER_EMAILADDRESS %{EMAILLOCALPART}@%{EMAIL_DOMAIN}
+USER_WITH_DOMAIN [a-zA-Z0-9._-]+\\[a-zA-Z0-9._-]+
+CISCO_USER %{USER_WITH_DOMAIN}|%{USER_EMAILADDRESS}|%{USER}
+
+CISCOFW725016 ^Device selects trust-point %{NOTSPACE:trustpoint} for %{NOTSPACE:peer_type} %{NOTSPACE:interface}\s*:%{IP:source_ip}/%{INT:source_port} to %{IPORHOST:destination_address}/%{INT:destination_port}
+CISCOFW722022 ^Group (<)?%{USERNAME:group_name}(>)? User (<)?%{CISCO_USER:user_name}(>)? IP (<)?%{IP:source_ip}(>)? %{WORD:network_transport}
+CISCOFW722023 ^Group (<)?%{USERNAME:group_name}(>)? User (<)?%{CISCO_USER:user_name}(>)? IP (<)?%{IP:source_ip}(>)? %{WORD:network_transport}
+CISCOFW722051 ^Group (<)?%{USERNAME:group_name}(>)? User (<)?%{CISCO_USER:user_name}(>)? IP (<)?%{IP:source_ip}(>)? IPv4 Address (<)?%{IPV4:destination_ip}(>)? IPv6 address (<)?%{IPV6:destination_ip}(>)?
+CISCOFW722055 ^Group (<)?%{USERNAME:group_name}(>)? User (<)?%{CISCO_USER:user_name}(>)? IP (<)?%{IP:source_ip}(>)? Client Type: %{GREEDYDATA:user_agent.original}$
+# ====================================================== 
+
+# ASA-1-104001
+CISCOFW104001 \((?:Primary|Secondary)\) Switching to ACTIVE - %{GREEDYDATA:switch_reason}
+# ASA-1-104002
+CISCOFW104002 \((?:Primary|Secondary)\) Switching to STANDBY - %{GREEDYDATA:switch_reason}
+# ASA-1-104003
+CISCOFW104003 \((?:Primary|Secondary)\) Switching to FAILED\.
+# ASA-1-104004
+CISCOFW104004 \((?:Primary|Secondary)\) Switching to OK\.
+# ASA-1-105003
+CISCOFW105003 \((?:Primary|Secondary)\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} waiting
+# ASA-1-105004
+CISCOFW105004 \((?:Primary|Secondary)\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} normal
+# ASA-1-105005
+CISCOFW105005 \((?:Primary|Secondary)\) Lost Failover communications with mate on [Ii]nterface %{GREEDYDATA:interface_name}
+# ASA-1-105008
+CISCOFW105008 \((?:Primary|Secondary)\) Testing [Ii]nterface %{GREEDYDATA:interface_name}
+# ASA-1-105009
+CISCOFW105009 \((?:Primary|Secondary)\) Testing on [Ii]nterface %{GREEDYDATA:interface_name} (?:Passed|Failed)
+# ASA-2-106001
+CISCOFW106001 %{CISCO_DIRECTION:direction} %{WORD:protocol} connection %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{GREEDYDATA:tcp_flags} on interface %{GREEDYDATA:interface}
+# ASA-2-106006, ASA-2-106007, ASA-2-106010
+CISCOFW106006 %{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} (?:from|src) %{IP:source_ip}/%{INT:source_port}(\(%{DATA:src_fwuser}\))? (?:to|dst) %{IP:dst_ip}/%{INT:dst_port}(\(%{DATA:dst_fwuser}\))? (?:on interface %{DATA:interface}|due to %{CISCO_REASON:reason})
+CISCOFW106007 %{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} (?:from|src) %{IP:source_ip}/%{INT:source_port}(\(%{DATA:src_fwuser}\))? (?:to|dst) %{IP:dst_ip}/%{INT:dst_port}(\(%{DATA:dst_fwuser}\))? (?:on interface %{DATA:interface}|due to %{CISCO_REASON:reason})
+CISCOFW106010 %{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} (?:from|src) %{IP:source_ip}/%{INT:source_port}(\(%{DATA:src_fwuser}\))? (?:to|dst) %{IP:dst_ip}/%{INT:dst_port}(\(%{DATA:dst_fwuser}\))? (?:on interface %{DATA:interface}|due to %{CISCO_REASON:reason})
+# ASA-3-106014
+CISCOFW106014 %{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} src %{DATA:src_interface}:%{IP:source_ip}(\(%{DATA:src_fwuser}\))? dst %{DATA:dst_interface}:%{IP:dst_ip}(\(%{DATA:dst_fwuser}\))? \(type %{INT:icmp_type}, code %{INT:icmp_code}\)
+# ASA-6-106015
+CISCOFW106015 %{CISCO_ACTION:action} %{WORD:protocol} \(%{DATA:policy_id}\) from %{IP:source_ip}/%{INT:source_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{DATA:tcp_flags}  on interface %{GREEDYDATA:interface}
+# ASA-1-106021
+CISCOFW106021 %{CISCO_ACTION:action} %{WORD:protocol} reverse path check from %{IP:source_ip} to %{IP:dst_ip} on interface %{GREEDYDATA:interface}
+# ASA-4-106023
+CISCOFW106023 %{CISCO_ACTION:action} %{WORD:protocol} src %{DATA:src_interface}:%{IP:source_ip}(/%{INT:source_port})?(\(%{DATA:src_fwuser}\))? dst %{DATA:dst_interface}:%{IP:dst_ip}(/%{INT:dst_port})?(\(%{DATA:dst_fwuser}\))?( \(type %{INT:icmp_type}, code %{INT:icmp_code}\))? by access-group %{NOTSPACE:policy_id} \[%{DATA:hashcode1}, %{DATA:hashcode2}\]
+# ASA-5-106100
+CISCOFW106100 access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} %{DATA:src_interface}/%{IP:source_ip}\(%{INT:source_port}\)(\(%{DATA:src_fwuser}\))? -> %{DATA:dst_interface}/%{IP:dst_ip}\(%{INT:dst_port}\)(\(%{DATA:src_fwuser}\))? hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \[%{DATA:hashcode1}, %{DATA:hashcode2}\]
+# ASA-6-110002
+CISCOFW110002 %{CISCO_REASON:reason} for %{WORD:protocol} from %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port} to %{IP:dst_ip}/%{INT:dst_port}
+# ASA-6-302010
+CISCOFW302010 %{INT:connection_count} in use, %{INT:connection_count_max} most used
+# ASA-6-302013, ASA-6-302014, ASA-6-302015, ASA-6-302016
+CISCOFW302013 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port}( \(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\))?(\(%{DATA:src_fwuser}\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\))?(\(%{DATA:dst_fwuser}\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \(%{DATA:user}\))?
+CISCOFW302014 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port}( \(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\))?(\(%{DATA:src_fwuser}\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\))?(\(%{DATA:dst_fwuser}\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \(%{DATA:user}\))?
+CISCOFW302015 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port}( \(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\))?(\(%{DATA:src_fwuser}\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\))?(\(%{DATA:dst_fwuser}\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \(%{DATA:user}\))?
+CISCOFW302016 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port}( \(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\))?(\(%{DATA:src_fwuser}\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\))?(\(%{DATA:dst_fwuser}\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \(%{DATA:user}\))?
+
+# ASA-6-302020, ASA-6-302021
+CISCOFW302020 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:dst_ip}/%{INT:icmp_seq_num}(?:\(%{DATA:fwuser}\))? gaddr %{IP:src_xlated_ip}/%{INT:icmp_code_xlated} laddr %{IP:source_ip}/%{INT:icmp_code}( \(%{DATA:user}\))?
+CISCOFW302021 %{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:dst_ip}/%{INT:icmp_seq_num}(?:\(%{DATA:fwuser}\))? gaddr %{IP:src_xlated_ip}/%{INT:icmp_code_xlated} laddr %{IP:source_ip}/%{INT:icmp_code}( \(%{DATA:user}\))?
+# ASA-6-305011
+CISCOFW305011 %{CISCO_ACTION:action} %{CISCO_XLATE_TYPE:xlate_type} %{WORD:protocol} translation from %{DATA:src_interface}:%{IP:source_ip}(/%{INT:source_port})?(\(%{DATA:src_fwuser}\))? to %{DATA:src_xlated_interface}:%{IP:src_xlated_ip}/%{DATA:src_xlated_port}
+# ASA-3-313001, ASA-3-313004, ASA-3-313008
+CISCOFW313001 %{CISCO_ACTION:action} %{WORD:protocol} type=%{INT:icmp_type}, code=%{INT:icmp_code} from %{IP:source_ip} on interface %{DATA:interface}( to %{IP:dst_ip})?
+CISCOFW313004 %{CISCO_ACTION:action} %{WORD:protocol} type=%{INT:icmp_type}, code=%{INT:icmp_code} from %{IP:source_ip} on interface %{DATA:interface}( to %{IP:dst_ip})?
+CISCOFW313008 %{CISCO_ACTION:action} %{WORD:protocol} type=%{INT:icmp_type}, code=%{INT:icmp_code} from %{IP:source_ip} on interface %{DATA:interface}( to %{IP:dst_ip})?
+# ASA-4-313005
+CISCOFW313005 %{CISCO_REASON:reason} for %{WORD:protocol} error message: %{WORD:err_protocol} src %{DATA:err_src_interface}:%{IP:err_source_ip}(\(%{DATA:err_src_fwuser}\))? dst %{DATA:err_dst_interface}:%{IP:err_dst_ip}(\(%{DATA:err_dst_fwuser}\))? \(type %{INT:err_icmp_type}, code %{INT:err_icmp_code}\) on %{DATA:interface} interface\.  Original IP payload: %{WORD:protocol} src %{IP:orig_source_ip}/%{INT:orig_source_port}(\(%{DATA:orig_src_fwuser}\))? dst %{IP:orig_dst_ip}/%{INT:orig_dst_port}(\(%{DATA:orig_dst_fwuser}\))?
+# ASA-5-321001
+CISCOFW321001 Resource '%{WORD:resource_name}' limit of %{POSINT:resource_limit} reached for system
+# ASA-4-402117
+CISCOFW402117 %{WORD:protocol}: Received a non-IPSec packet \(protocol= %{WORD:orig_protocol}\) from %{IP:source_ip} to %{IP:dst_ip}
+# ASA-4-402119
+CISCOFW402119 %{WORD:protocol}: Received an %{WORD:orig_protocol} packet \(SPI= %{DATA:spi}, sequence number= %{DATA:seq_num}\) from %{IP:source_ip} \(user= %{DATA:user}\) to %{IP:dst_ip} that failed anti-replay checking
+# ASA-4-419001
+CISCOFW419001 %{CISCO_ACTION:action} %{WORD:protocol} packet from %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}, reason: %{GREEDYDATA:reason}
+# ASA-4-419002
+CISCOFW419002 %{CISCO_REASON:reason} from %{DATA:src_interface}:%{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port} with different initial sequence number
+# ASA-4-500004
+CISCOFW500004 %{CISCO_REASON:reason} for protocol=%{WORD:protocol}, from %{IP:source_ip}/%{INT:source_port} to %{IP:dst_ip}/%{INT:dst_port}
+# ASA-6-602303, ASA-6-602304
+CISCOFW602303 %{WORD:protocol}: An %{CISCO_DIRECTION:direction} %{GREEDYDATA:tunnel_type} SA \(SPI= %{DATA:spi}\) between %{IP:source_ip} and %{IP:dst_ip} \(user= %{DATA:user}\) has been %{CISCO_ACTION:action}
+CISCOFW602304 %{WORD:protocol}: An %{CISCO_DIRECTION:direction} %{GREEDYDATA:tunnel_type} SA \(SPI= %{DATA:spi}\) between %{IP:source_ip} and %{IP:dst_ip} \(user= %{DATA:user}\) has been %{CISCO_ACTION:action}
+# ASA-7-710001, ASA-7-710002, ASA-7-710003, ASA-7-710005, ASA-7-710006
+CISCOFW710001 %{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}
+CISCOFW710002 %{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}
+CISCOFW710003 %{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}
+CISCOFW710005 %{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}
+CISCOFW710006 %{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:source_ip}/%{INT:source_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}
+# ASA-6-713172
+CISCOFW713172 Group = %{GREEDYDATA:group}, IP = %{IP:source_ip}, Automatic NAT Detection Status:\s+Remote end\s*%{DATA:is_remote_natted}\s*behind a NAT device\s+This\s+end\s*%{DATA:is_local_natted}\s*behind a NAT device
+# ASA-4-733100
+CISCOFW733100 \[\s*%{DATA:drop_type}\s*\] drop %{DATA:drop_rate_id} exceeded. Current burst rate is %{INT:drop_rate_current_burst} per second, max configured rate is %{INT:drop_rate_max_burst}; Current average rate is %{INT:drop_rate_current_avg} per second, max configured rate is %{INT:drop_rate_max_avg}; Cumulative total count is %{INT:drop_total_count}
+#== End Cisco ASA ==
+
+
+
+# ==================================================================================== #
+# To Convert from FileBeat to LogStash
+# - dissect\:\n.+==\s*\'(\d+).+\n.+\n.+pattern:\s*(.+)  => dissect__CISCOFW$1 $2
+# - grok\:\n.+==\s*\'(\d+).+\n.+\n.+patterns:\n.+\-\s*(.+)  => grok__CISCOFW$1 $2
+# egrep 'dissect__|grok__' /tmp/cisco_msg2.txt > /tmp/cisco3.txt
+# %{network.transport}, %{event.outcome}, %{network.direction}, source.address, destination.address, source.user.name, source.port, source.mac, source.domain, host.user.name => %{NOTSPACE:xxxxx}
+# _temp_.cisco.list_id, _temp_.cisco.source_interface, _temp_.duration_hms, _temp_.cisco.icmp_type => NOTSPACE
+# {_temp_.cisco.threat_category}, _temp_.cisco.cli_outcome => {GREEDYDATA:_temp_.cisco.threat_category}
+# \{[^N|^G]+\} => check for anything
+# ==================================================================================== #
+CUSTOM_CISCOFW106001 %{NOTSPACE:network_direction} %{NOTSPACE:network_transport} connection %{NOTSPACE:event_outcome} from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} flags %{} on interface %{NOTSPACE}
+CUSTOM_CISCOFW106002 %{NOTSPACE:network_transport} Connection %{NOTSPACE:event_outcome} by %{NOTSPACE:network_direction} list %{NOTSPACE} src %{NOTSPACE:source_address} dest %{NOTSPACE:destination_address}
+CUSTOM_CISCOFW106006 %{NOTSPACE:event_outcome} %{NOTSPACE:network_direction} %{NOTSPACE:network_transport} from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} on interface %{NOTSPACE}
+CUSTOM_CISCOFW106007 %{NOTSPACE:event_outcome} %{NOTSPACE:network_direction} %{NOTSPACE:network_transport} from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} due to %{network_protocol} %{}
+CUSTOM_CISCOFW106010 %{NOTSPACE:event_outcome} %{NOTSPACE:network_direction} %{NOTSPACE:network_transport} src %{NOTSPACE:NOTSPACE}:%{NOTSPACE:source_address}/%{POSINT:source_port} (%{DATA})?dst %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{POSINT:destination_port}(%{GREEDYDATA})?
+CUSTOM_CISCOFW106013 Dropping echo request from %{NOTSPACE:source_address} to PAT address %{NOTSPACE:destination_address}
+CUSTOM_CISCOFW106014 %{NOTSPACE:event_outcome} %{NOTSPACE:network_direction} %{NOTSPACE:network_transport} src %{NOTSPACE:NOTSPACE}:%{NOTSPACE:source_address} (%{DATA})?dst %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}(%{GREEDYDATA})?
+CUSTOM_CISCOFW106015 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} %{NOTSPACE} from %{IP:source_address}/%{POSINT:source_port} to %{IP:destination_address}/%{POSINT:destination_port} flags %{DATA} on interface %{NOTSPACE:NOTSPACE}
+CUSTOM_CISCOFW106016 %{NOTSPACE:event_outcome} IP spoof from (%{NOTSPACE:source_address}) to %{NOTSPACE:destination_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW106017 %{NOTSPACE:event_outcome} IP due to Land Attack from %{NOTSPACE:source_address} to %{NOTSPACE:destination_address}
+CUSTOM_CISCOFW106018 %{NOTSPACE:network_transport} packet type %{NOTSPACE} %{NOTSPACE:event_outcome} by %{NOTSPACE:network_direction} list %{NOTSPACE} src %{NOTSPACE:source_address} dest %{NOTSPACE:destination_address}
+CUSTOM_CISCOFW106020 %{NOTSPACE:event_outcome} IP teardrop fragment (size = %{}, offset = %{}) from %{NOTSPACE:source_address} to %{NOTSPACE:destination_address}
+CUSTOM_CISCOFW106021 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} reverse path check from %{NOTSPACE:source_address} to %{NOTSPACE:destination_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW106022 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} connection spoof from %{NOTSPACE:source_address} to %{NOTSPACE:destination_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW106023 ^%{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} src %{NOTSPACE:NOTSPACE}:%{IPORHOST:source_address}(/%{POSINT:source_port})?\s*(%{GREEDYDATA:cisco_source_username} )?dst %{NOTSPACE:cisco_destination_interface}:%{IPORHOST:destination_address}(/%{POSINT:destination_port})?%{DATA}by access_group "%{NOTSPACE:NOTSPACE}"
+CUSTOM_CISCOFW106027 %{} %{NOTSPACE:event_outcome} src %{NOTSPACE:source_address} dst %{NOTSPACE:destination_address} by access-group "%{NOTSPACE}"
+CUSTOM_CISCOFW106100 access-list %{NOTSPACE} %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} %{NOTSPACE}/%{NOTSPACE:source_address}(%{NOTSPACE:source_port})%{}-> %{NOTSPACE:cisco_destination_interface}/%{NOTSPACE:destination_address}(%{NOTSPACE:destination_port})%{}
+CUSTOM_CISCOFW106103 access-list %{NOTSPACE} %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} for user %{user_name} %{NOTSPACE}/%{NOTSPACE:source_address}(%{NOTSPACE:source_port})%{}-> %{NOTSPACE:cisco_destination_interface}/%{NOTSPACE:destination_address}(%{NOTSPACE:destination_port})%{}
+CUSTOM_CISCOFW111004 %{NOTSPACE:source_address} end configuration: %{GREEDYDATA:cisco_cli_outcome}
+CUSTOM_CISCOFW111009 ^%{NOTSPACE} '%{NOTSPACE:{NOTSPACE:host_user_name}}' executed %{NOTSPACE} %{GREEDYDATA:cisco_command_line_arguments}
+CUSTOM_CISCOFW111010 User '%{NOTSPACE:{NOTSPACE:host_user_name}}', running %{QUOTEDSTRING} from IP %{IP:source_address}, executed %{QUOTEDSTRING:cisco_command_line_arguments}
+CUSTOM_CISCOFW113019 Group = %{}, Username = %{NOTSPACE:source_user_name}, IP = %{NOTSPACE:destination_address}, Session disconnected_ Session Type: %{}, Duration: %{NOTSPACE}, Bytes xmt: %{NOTSPACE:source_bytes}, Bytes rcv: %{destination_bytes}, Reason: %{message}
+CUSTOM_CISCOFW303002 %{network_protocol} connection from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}, user %{client_user_name} %{} file %{GREEDYDATA:file_path}
+CUSTOM_CISCOFW302012 Teardown %{} %{NOTSPACE:network_transport} translation from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} duration %{NOTSPACE}
+CUSTOM_CISCOFW302020 Built %{NOTSPACE:network_direction} %{NOTSPACE:network_protocol} connection for faddr %{IP:destination_address}/%{NUMBER} (%{DATA})?gaddr %{IP:NOTSPACE}/%{NUMBER} laddr %{IP:source_address}/%{NUMBER}(%{GREEDYDATA})?
+CUSTOM_CISCOFW302022 Built %{} stub %{NOTSPACE:network_transport} connection for %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}
+CUSTOM_CISCOFW304001 %{IP:source_address} %{DATA} (%{NOTSPACE}@)?%{IP:destination_address}:%{GREEDYDATA:url_original}
+CUSTOM_CISCOFW304002 Access %{NOTSPACE:event_outcome} URL %{NOTSPACE:url_original} SRC %{NOTSPACE:source_address} %{}EST %{NOTSPACE:destination_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW305011 Built %{} %{NOTSPACE:network_transport} translation from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}
+CUSTOM_CISCOFW313001 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} type=%{NOTSPACE}, code=%{NOTSPACE} from %{NOTSPACE:source_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW313004 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} type=%{NOTSPACE}, from%{}addr %{NOTSPACE:source_address} on interface %{NOTSPACE} to %{NOTSPACE:destination_address}: no matching session
+CUSTOM_CISCOFW313005 No matching connection for %{NOTSPACE:network_transport} error message: %{} on %{NOTSPACE} interface_%{}riginal IP payload: %{}
+CUSTOM_CISCOFW313008 %{NOTSPACE:event_outcome} %{NOTSPACE:network_transport} type=%{NOTSPACE}, code=%{NOTSPACE} from %{NOTSPACE:source_address} on interface %{NOTSPACE}
+CUSTOM_CISCOFW313009 %{NOTSPACE:event_outcome} invalid %{NOTSPACE:network_transport} code %{NOTSPACE}, for %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}
+CUSTOM_CISCOFW322001 %{NOTSPACE:event_outcome} MAC address %{NOTSPACE:source_mac}, possible spoof attempt on interface %{NOTSPACE}
+CUSTOM_CISCOFW338001 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{NOTSPACE:source_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338002 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{destination_domain}
+CUSTOM_CISCOFW338003 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338004 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338005 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{NOTSPACE:source_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338006 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{destination_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338007 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338008 Dynamic filter %{NOTSPACE:event_outcome} blacklisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338101 Dynamic filter %{NOTSPACE:event_outcome} whitelisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{NOTSPACE:source_domain}
+CUSTOM_CISCOFW338102 Dynamic filter %{NOTSPACE:event_outcome} whitelisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{destination_domain}
+CUSTOM_CISCOFW338103 Dynamic filter %{NOTSPACE:event_outcome} whitelisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{}
+CUSTOM_CISCOFW338104 Dynamic filter %{NOTSPACE:event_outcome} whitelisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{}
+CUSTOM_CISCOFW338201 Dynamic filter %{NOTSPACE:event_outcome} greylisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{NOTSPACE:source_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338202 Dynamic filter %{NOTSPACE:event_outcome} greylisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{destination_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338203 Dynamic filter %{NOTSPACE:event_outcome} greylisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})%{}source %{} resolved from %{NOTSPACE} list: %{NOTSPACE:source_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338204 Dynamic filter %{NOTSPACE:event_outcome} greylisted %{NOTSPACE:network_transport} traffic from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})listedestination %{} resolved from %{NOTSPACE} list: %{destination_domain}, threat-level: %{NOTSPACE}, category: %{GREEDYDATA:cisco_threat_category}
+CUSTOM_CISCOFW338301 Intercepted DNS reply for domain %{NOTSPACE:source_domain} from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}, matched %{NOTSPACE}
+CUSTOM_CISCOFW502103 User priv level changed: Uname: %{{NOTSPACE:host_user_name}} From: %{cisco_privilege_old} To: %{cisco_privilege_new}
+CUSTOM_CISCOFW507003 %{NOTSPACE:network_transport} flow from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} terminated by inspection engine, reason - %{message}
+CUSTOM_CISCOFW605004 Login %{NOTSPACE:event_outcome} from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{network_protocol} for user "%{NOTSPACE:source_user_name}"
+CUSTOM_CISCOFW605005 Login %{NOTSPACE:event_outcome} from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{network_protocol} for user "%{NOTSPACE:source_user_name}"
+CUSTOM_CISCOFW609001 Built local-host %{NOTSPACE}:%{NOTSPACE:source_address}
+CUSTOM_CISCOFW609002 Teardown local-host %{NOTSPACE}:%{NOTSPACE:source_address} duration %{NOTSPACE}
+CUSTOM_CISCOFW611102 User authentication %{NOTSPACE:event_outcome}: IP address: %{NOTSPACE:source_address}, Uname: %{{NOTSPACE:host_user_name}}
+CUSTOM_CISCOFW611101 User authentication %{NOTSPACE:event_outcome}: IP address: %{NOTSPACE:source_address}, Uname: %{{NOTSPACE:host_user_name}}
+CUSTOM_CISCOFW710003 %{NOTSPACE:network_transport} access denied by ACL from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}
+CUSTOM_CISCOFW710005 %{NOTSPACE:network_transport} request discarded from %{NOTSPACE:source_address}/%{NOTSPACE:source_port} to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port}
+CUSTOM_CISCOFW713049 Group = %{}, IP = %{NOTSPACE:source_address}, Security negotiation complete for LAN-to-LAN Group (%{}) %{}, Inbound SPI = %{}, Outbound SPI = %{}
+CUSTOM_CISCOFW716002 Group %{} User %{NOTSPACE:source_user_name} IP %{NOTSPACE:source_address} WebVPN session terminated: User Requested_
+CUSTOM_CISCOFW722051 Group %{} User %{NOTSPACE:source_user_name} IP %{NOTSPACE:source_address} IPv4 Address %{cisco_assigned_ip} %{}
+CUSTOM_CISCOFW733100 [%{NOTSPACE}] drop %{NOTSPACE} exceeded_ Current burst rate is %{cisco_burst_current_rate} per second, max configured rate is %{cisco_burst_configured_rate}; Current average rate is %{cisco_burst_avg_rate} per second, max configured rate is %{cisco_burst_configured_avg_rate}; Cumulative total count is %{cisco_burst_cumulative_count}
+CUSTOM_CISCOFW734001 DAP: User %{NOTSPACE:user_email}, Addr %{NOTSPACE:source_address}, Connection %{cisco_connection_type}: The following DAP records were selected for this connection: %{GREEDYDATA:cisco_dap_records->}
+CUSTOM_CISCOFW805001 Offloaded %{NOTSPACE:network_transport} for connection %{cisco_connection_id} from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})
+CUSTOM_CISCOFW805002 %{NOTSPACE:network_transport} Flow is no longer offloaded for connection %{cisco_connection_id} from %{NOTSPACE}:%{NOTSPACE:source_address}/%{NOTSPACE:source_port} (%{NOTSPACE}/%{NOTSPACE}) to %{NOTSPACE:cisco_destination_interface}:%{NOTSPACE:destination_address}/%{NOTSPACE:destination_port} (%{NOTSPACE:natdstip}/%{NOTSPACE:cisco_mapped_destination_port})
+
+# ==============================
