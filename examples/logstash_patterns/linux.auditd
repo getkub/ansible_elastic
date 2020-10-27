@@ -1,0 +1,69 @@
+HOST \b(?:[0-9A-Za-z][0-9A-Za-z_-]{0,62})(?:\.(?:[0-9A-Za-z][0-9A-Za-z_-]{0,62}))*(\.?|\b)
+AUDITDTRIAL type=%{WORD:audit_type} msg=audit\(%{NUMBER:audit_epoch}:%{NUMBER:audit_counter}\):
+
+### USER_START, USER_END, CRED_ACQ, USER_ACCT, CRED_DISP, CRED_REFR, USER_AUTH, USER_ERR
+AUDITD_01 (user )?pid=%{INT:audit_pid} uid=%{INT:audit_uid} auid=%{INT:audit_auid} ses=%{INT:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op}( grantors=%{DATA:audit_grantors})? acct=\"(%{WORD:user}|\?)\" exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### LOGIN
+AUDITD_02 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid}( subj=%{DATA:audit_subject})? (old[-\s]+)auid=%{NUMBER:audit_oldauid} (new[-\s]+)auid=%{NUMBER:audit_auid} (old[-\s]+)ses=%{NUMBER:audit_oldses} (new[-\s]+)ses=%{NUMBER:audit_ses}( res=%{GREEDYDATA:audit_res})?
+
+### SYSCALL
+AUDITD_03 arch=%{DATA} syscall=%{NUMBER:audit_syscall} success=%{WORD:audit_success} exit=%{INT:audit_exit} a0=%{WORD:audit_a0} a1=%{WORD:audit_a1} a2=%{WORD:audit_a2} a3=%{WORD:audit_a3} items=%{INT:audit_items} ppid=%{INT:audit_ppid} pid=%{INT:audit_pid} auid=%{INT:audit_auid} uid=%{INT:audit_uid} gid=%{INT:audit_gid} euid=%{INT:audit_euid} suid=%{INT:audit_suid} fsuid=%{INT:audit_fsuid} egid=%{INT:audit_egid} sgid=%{INT:audit_sgid} fsgid=%{INT:audit_fsgid} tty=%{DATA:audit_tty} ses=%{INT:audit_ses} comm=\"%{WORD:audit_comm}\" exe=\"%{DATA:audit_exe}\" subj=%{DATA:audit_subj} key=%{DATA:audit_key}
+
+### NETFILTER_CFG
+AUDITD_04 table=%{WORD:audit_table} family=%{INT:audit_family} entries=%{INT:audit_entries}
+
+### CRYPTO_KEY_USER
+AUDITD_05 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op} kind=%{WORD:audit_kind} fp=%{DATA:audit_fp} direction=%{DATA:audit_direction} spid=%{INT:audit_spid} suid=%{INT:audit_suid}( rport=%{INT:src_port} laddr=%{IPV4:dst_ip} lport=%{INT:dst_port})?\s+exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### AVC
+AUDITD_06 %{AUDITDTRIAL} avc:\s+%{WORD:audit_avcaction}\s+\{ %{DATA:audit_avcop} \} for\s+pid=%{INT:audit_pid} comm=\"%{WORD:audit_comm}\" path=\"%{DATA:audit_path}\" dev=%{DATA:audit_dev} ino=%{INT:audit_ino} scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{WORD:audit_tclass}	
+AUDITD_07 avc:\s+%{WORD:audit_avcaction}\s+\{ %{WORD:audit_avcop} \} for\s+pid=%{INT:audit_pid} comm=\"%{WORD:audit_comm}\" capability=%{INT:audit_capability}\s+scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{WORD:audit_tclass}
+AUDITD_08 avc:\s+%{WORD:audit_avcaction}\s+\{ %{WORD:audit_avcop} \} for\s+pid=%{INT:audit_pid} comm=\"%{WORD:audit_comm}\" name=\"%{DATA:audit_name}\" scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{WORD:audit_tclass}
+AUDITD_25 avc:\s+%{WORD:audit_avcaction}\s+\{ %{WORD:audit_avcop} \} for\s+pid=%{INT:audit_pid} comm=\"%{WORD:audit_comm}\" name=\"%{DATA:audit_name}\" dev=\"%{WORD:audit_dev}\" ino=%{INT:audit_ino} scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{DATA:audit_tclass}
+AUDITD_26 avc:\s+%{WORD:audit_avcaction}\s+\{ %{WORD:audit_avcop} \} for\s+pid=%{INT:audit_pid} comm=%{WORD:audit_comm} dest=%{INT:audit_dest}\s+scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{WORD:audit_tclass}
+
+### SERVICE_START, SERVICE_STOP
+AUDITD_09 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\' comm=%{DATA:audit_comm} exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### CRYPTO_SESSION
+AUDITD_10 pid=%{INT:audit_pid} uid=%{INT:audit_uid} auid=%{INT:audit_auid} ses=%{INT:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op} direction=%{DATA:audit_direction} cipher=%{DATA:audit_cipher} ksize=%{INT:audit_ksize} mac=%{DATA:audit_mac} pfs=%{DATA:audit_pfs} spid=%{INT:audit_spid} suid=%{INT:audit_suid} rport=%{INT:src_port} laddr=%{IPV4:dst_ip} lport=%{INT:dst_port}\s+exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+
+### USER_LOGIN, USER_LOGOUT, USER_CHAUTHOK, ADD_USER, ADD_GROUP, USER_ERR
+AUDITD_11 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op} id=%{INT:audit_id} exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+AUDITD_12 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op} acct=\"%{DATA:user}\" exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### USER_ROLE_CHANGE
+AUDITD_13 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'pam: default-context=%{DATA:audit_defaultcontext} selected-context=%{DATA:audit_selectedcontext} exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### USER_CMD
+AUDITD_14 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'cwd=%{DATA:audit_cwd} cmd=%{DATA:audit_cmd} terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### USER_AVC
+AUDITD_15 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'avc:\s+%{WORD:audit_avcaction}\s+\{ %{WORD:audit_avcop} \}\s+for auid=%{INT:audit_auid} uid=%{INT:audit_uid} gid=%{INT:audit_gid} path=\"%{DATA:audit_path}\" cmdline=\"%{DATA:audit_cmdline}\" scontext=%{DATA:audit_scontext} tcontext=%{DATA:audit_tcontext} tclass=%{WORD:audit_tclass}\s+exe=\"%{DATA:audit_exe}\" sauid=%{INT:audit_sauid} hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal}\'
+AUDITD_16 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'avc:\s+%{DATA:audit_avcmsg}\s+exe=\"%{DATA:audit_exe}\" sauid=%{INT:audit_sauid} hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal}\'
+
+### ANOM_PROMISCUOUS
+AUDITD_17 dev=%{WORD:audit_dev} prom=%{INT:audit_prom} old_prom=%{INT:audit_oldprom} auid=%{INT:audit_auid} uid=%{INT:audit_uid} gid=%{INT:audit_gid} ses=%{INT:audit_ses}
+
+### MAC_STATUS
+AUDITD_18 enforcing=%{INT:audit_enforcing} old_enforcing=%{INT:audit_oldenforcing} auid=%{INT:audit_auid} ses=%{INT:audit_ses}
+
+### ANON_ABEND
+AUDITD_19 auid=%{NUMBER:audit_auid} uid=%{NUMBER:audit_uid} gid=%{INT:audit_gid} ses=%{INT:audit_ses}( subj=%{DATA:audit_subject})? pid=%{INT:audit_pid} comm=\"%{WORD:audit_comm}\" reason=\"%{DATA:audit_reason}\" sig=%{INT:audit_sig}
+
+### USER_MGMT
+AUDITD_20 pid=%{NUMBER:audit_pid} uid=%{NUMBER:audit_uid} auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}( subj=%{DATA:audit_subject})? msg=\'op=%{DATA:audit_op} grp=\"%{WORD:audit_id}\" acct=\"%{DATA:user}\" exe=\"%{DATA:audit_exe}\" hostname=%{DATA} addr=(%{IPV4:src_ip}|\?) terminal=%{DATA:audit_terminal} res=%{DATA:audit_res}\'
+
+### MAC_POLICY_LOADED
+AUDITD_21 policy loaded auid=%{NUMBER:audit_auid} ses=%{NUMBER:audit_ses}
+
+### EXECVE
+AUDITD_22 argc=%{INT:audit_argc} a0=\"%{DATA:audit_a0}\"%{GREEDYDATA:audit_args}
+
+### CWD
+AUDITD_23 cwd=\"%{DATA:audit_cwd}\"
+
+### PATH
+AUDITD_24 item=%{INT:audit_item} name=\"?%{DATA:audit_name}\"? inode=%{INT:audit_inode} dev=%{DATA:audit_dev} mode=%{INT:audit_mode} ouid=%{INT:audit_ouid} ogid=%{INT:audit_ogid} rdev=%{DATA:audit_rdev} obj=%{DATA:audit_obj} nametype=%{WORD:audit_nametype}
