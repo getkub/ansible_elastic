@@ -1,0 +1,122 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "4h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "test*"
+        ],
+        "rest_total_hits_as_int": true,
+        "body": {
+          "size": 50,
+          "query": {
+            "bool" : {
+                "must" : [
+                    {
+                        "bool" : {
+                            "should" : [
+                            {
+                                "terms" : {
+                                "eventName.keyword" : [
+                                    "ScheduleKeyDeletion",
+                                    "CancelKeyDeletion",
+                                    "disconnect-custom-key-store",
+                                    "disablekey",
+                                    "enablekey",
+                                    "importkeymaterial",
+                                    "deleteimportedkeymaterial"
+                                ]
+                                }
+                            },
+                            {
+                                "wildcard" : {
+                                "eventName.keyword" : {
+                                    "wildcard" : "Delete*"
+                                }
+                                }
+                            }
+                            ]
+                        }
+                    },
+                    {
+                        "wildcard" : {
+                        "eventSource.keyword" : {
+                            "wildcard" : "amazonaws*"
+                        }
+                        }
+                    },
+                    {
+                    "range" : {
+                        "@timestamp" : {
+                            "gte": "now-4h",
+                            "lte": "now",
+                            "format": "strict_date_optional_time||epoch_millis"
+                        }
+                    }
+                    }
+                ]
+            }
+          },
+            "_source" : {
+                "includes" : [
+                "eventName",
+                "eventSource",
+                "recipientAccountId",
+                "user"
+                ],
+                "excludes" : [ ]
+            }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "transform": {
+    "script" :
+    """
+        return [
+            'my_group_array': ctx.payload.hits.hits,
+            'my_group_fields': ctx.payload.hits.hits.stream()
+            .map(t-> {return ['eventSource': t._source.eventSource, 'eventName': t._source.eventName, 'recipientAccountId': t._source.recipientAccountId, 'test_user': t._source.test_user]})
+            .collect(Collectors.toList())
+        ]
+    """   
+  },
+  "actions": {
+        "log": {
+            "logging": {
+                "level": "info",
+                "text": """
+                {{#ctx.payload.my_group_array}}
+                    {{#_source}}
+                        <tr>
+                            <td>{{eventSource}}</td>
+                            <td>{{eventName}}</td>
+                            <td>{{recipientAccountId}}</td>
+                            <td>{{test_user}}</td>
+                        </tr>
+                    {{/_source}}
+                {{/ctx.payload.my_group_array}}
+                """
+            }
+        }
+  },
+  "metadata": {
+    "xpack": {
+      "type": "json"
+    },
+    "name": "test"
+  }
+}
+
