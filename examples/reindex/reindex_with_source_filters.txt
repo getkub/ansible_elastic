@@ -1,0 +1,51 @@
+POST _reindex
+{
+  "source": {
+    "index": "my_os_windows",
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "bool": {
+              "should": [
+                {
+                "match": {
+                  "event.code": 1102
+                }
+              },
+              {
+                "wildcard": {
+                  "_index": "my_os_windows-*" 
+                }
+              }
+              ]
+            }
+        },
+        {
+          "range" : {
+              "@timestamp" : {
+                  "gte": "now-14d",
+                  "lte": "now",
+                  "format": "strict_date_optional_time||epoch_millis"
+              }
+          }
+        }
+        ]
+      }
+    }
+  },
+  "script": {
+    "lang": "painless",
+    "source": """
+      ctx._source['@timestamp'] = params.timenow;
+      ctx._source.transform_type = params.transform_type
+    """,
+    "params": {
+        "timenow": "2020-11-09T13:00:00.000Z",
+        "transform_type":"redindexed_timestamp2"
+    }
+  },
+  "dest": {
+    "index": "new_my_os_windowst"
+  }
+}
