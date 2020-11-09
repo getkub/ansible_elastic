@@ -1,0 +1,18 @@
+POST _reindex
+{
+  "source": {
+    "index": "my_windows_index",
+    "query": {
+      "bool": {
+        "filter": {
+          "match": {
+            "event.code": 1102
+          }
+        }
+      }
+    }
+  },
+  "dest": {
+    "index": "new_windows_index"
+  }
+}
