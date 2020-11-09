@@ -12,6 +12,17 @@ POST _reindex
       }
     }
   },
+  "script": {
+    "lang": "painless",
+    "source": """
+      ctx._source['@timestamp'] = params.timenow;
+      ctx._source.transform_type = params.transform_type
+    """,
+    "params": {
+        "timenow": "2020-11-09T11:00:00.000Z",
+        "transform_type":"redindexed_timestmp"
+    }
+  },
   "dest": {
     "index": "new_windows_index"
   }
