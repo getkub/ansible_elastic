@@ -1,0 +1,235 @@
+POST _watcher/watch/_execute
+{
+  "watch": {
+    "trigger": {
+      "schedule": {
+        "hourly": {}
+      }
+    },
+    "input": {
+      "simple": {
+        "aggregations": {
+          "group_by_log_level": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "doc_count": 29623,
+                "group_by_1st_namespace": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "doc_count": 8638,
+                      "group_by_pipeline": {
+                        "doc_count_error_upper_bound": 0,
+                        "sum_other_doc_count": 0,
+                        "buckets": [
+                          {
+                            "doc_count": 4319,
+                            "key": "my-sample",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 4319,
+                                  "key": "my-sample"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "doc_count": 4319,
+                            "key": "my-sample11",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 4319,
+                                  "key": "my-sample11"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "key": "my-sample34"
+                    },
+                    {
+                      "doc_count": 8638,
+                      "group_by_pipeline": {
+                        "doc_count_error_upper_bound": 0,
+                        "sum_other_doc_count": 0,
+                        "buckets": [
+                          {
+                            "doc_count": 8638,
+                            "key": "my-sample2",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 8638,
+                                  "key": "my-sample2"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "key": "my-sample21"
+                    },
+                    {
+                      "doc_count": 7354,
+                      "group_by_pipeline": {
+                        "doc_count_error_upper_bound": 0,
+                        "sum_other_doc_count": 0,
+                        "buckets": [
+                          {
+                            "doc_count": 3669,
+                            "key": "my-sample3",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 2313,
+                                  "key": "my-sample3"
+                                },
+                                {
+                                  "doc_count": 1356,
+                                  "key": "my-sample3"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "doc_count": 3102,
+                            "key": "my-sample4",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 1875,
+                                  "key": "my-sample4"
+                                },
+                                {
+                                  "doc_count": 1227,
+                                  "key": "my-sample4"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "doc_count": 469,
+                            "key": "my-sample5",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 251,
+                                  "key": "my-sample5"
+                                },
+                                {
+                                  "doc_count": 218,
+                                  "key": "my-sample5"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "doc_count": 61,
+                            "key": "my-sample6",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 37,
+                                  "key": "my-sample6"
+                                },
+                                {
+                                  "doc_count": 24,
+                                  "key": "my-sample6"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "doc_count": 53,
+                            "key": "my-sample7",
+                            "group_by_error_type": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                {
+                                  "doc_count": 31,
+                                  "key": "my-sample7"
+                                },
+                                {
+                                  "doc_count": 22,
+                                  "key": "my-sample7"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "key": "my-sample7"
+                    },
+                  ]
+                },
+                "key": "my-sample7-aggs"
+              },
+            ]
+          }
+        }
+      }
+    },
+    "actions": {
+      "index_action": {
+        "transform": {
+          "script": """
+          
+          // list of documents to index
+          def docs = [];
+          
+          // iterate over log levels
+          for (def log_level: ctx.payload.aggregations.group_by_log_level.buckets) {
+            // .. namespace
+            for (def namespace: log_level.group_by_1st_namespace.buckets) {
+              // .. pipelines
+              for (def pipeline: namespace.group_by_pipeline.buckets) {
+                // .. and error_types
+                for (def etype: pipeline.group_by_error_type.buckets) {
+                  // construct a document using all those values
+                  docs.add([
+                    
+                    // TODO: add any other metadata associated with this watch
+                    
+                    'log_level': log_level.key,
+                    'namespace': namespace.key,
+                    'pipeline': pipeline.key,
+                    'error_type': etype.key,
+                    'doc_count': pipeline.doc_count
+                  ]);
+                }
+              }
+            }
+          }
+          
+          // return all of these documents so they get indexed
+          return ['_doc': docs]
+          """
+        },
+        "index": {
+          "index": "host-alerts"
+        }
+      }
+    }
+  }
+}
