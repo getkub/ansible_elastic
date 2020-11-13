@@ -1,0 +1,4 @@
+{ "index" : { "_index" : "host_compare", "_id" : "1" } }
+{ "host_name" : "myhost1" , "host_count" : "10", "@timestamp": "2020-11-12T02:00:00Z" }
+{ "index" : { "_index" : "host_compare", "_id" : "2" } }
+{ "host_name" : "myhost2" , "host_count" : "20", "@timestamp": "2020-11-13T02:00:00Z" }
