@@ -1,0 +1,97 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "5m"
+      }
+    },
+    "input": {
+      "chain": {
+        "inputs": [
+          {
+            "leftHand": {
+              "search": {
+                "request": {
+                  "search_type": "query_then_fetch",
+                  "indices": [
+                    "host_compare"
+                  ],
+                  "rest_total_hits_as_int": true,
+                  "body": {
+                    "query": {
+                      "term": {
+                        "@timestamp": "2020-11-11T02:00:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "rightHand": {
+              "search": {
+                "request": {
+                  "search_type": "query_then_fetch",
+                  "indices": [
+                    "host_compare"
+                  ],
+                  "rest_total_hits_as_int": true,
+                  "body": {
+                    "query": {
+                      "bool": {
+                        "filter": [
+                          {
+                            "term": {
+                                "@timestamp": "2020-11-13T02:00:00.000Z"
+                              }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "condition": {
+      "compare": {
+        "ctx.payload.leftHand.hits.total": {
+          "gt": 0
+        }
+      }
+    },
+    "actions": {
+      "log_alert": {
+        "transform": {
+            "script": """
+            def leftHand_array = [];
+            def rightHand_array = [];
+            leftHand_array = ctx.payload.leftHand.hits.hits.stream()
+                .map(t-> {return [t._source.host_name, t._source.host_count, t._source.host_name + "__" + t._source.host_count]})
+                .collect(Collectors.toList());
+
+            rightHand_array = ctx.payload.rightHand.hits.hits.stream()
+            .map(t-> {return [t._source.host_name, t._source.host_count, t._source.host_name + "__" + t._source.host_count]})
+            .collect(Collectors.toList());  
+
+            def difference = [];
+            difference = leftHand_array.stream()
+            .filter(aObject -> ! rightHand_array.contains(aObject))
+            .collect(Collectors.toList());
+
+            return ['difference': difference]
+            """
+        },
+        "logging": {
+          "level": "info",
+          "text": """
+           {{ctx.payload.difference}}
+          """
+        }
+      }
+    }
+  }
+  
