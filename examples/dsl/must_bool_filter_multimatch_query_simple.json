@@ -1,0 +1,26 @@
+{
+    "query": {
+        "bool": {
+            "must": {
+                "multi_match": {
+                    "operator": "and",
+                    "fields": [
+                        "author",
+                        "title",
+                        "publisher",
+                        "year"
+                    ],
+                    "query": "George Orwell"
+                }
+            },
+            "filter": {
+                "terms": {
+                    "year": [
+                        1980,
+                        1981
+                    ]
+                }
+            }
+        }
+    }
+}
