@@ -1,0 +1,35 @@
+POST _bulk
+{ "index" : { "_index" : "nw_test","_id":1} }
+{"@timestamp": "2020-11-15T02:00:00Z",  "event_type": "process", "user_name": "root", "process_name": "whoami"}
+{ "index" : { "_index" : "nw_test","_id":2} }
+{"@timestamp": "2020-11-15T02:01:00Z",  "event_type": "process", "user_name": "root", "process_name": "whoami"}
+{ "index" : { "_index" : "nw_test","_id":3} }
+{"@timestamp": "2020-11-15T02:02:00Z",  "event_type": "process", "user_name": "user", "process_name": "hostname"}
+{ "index" : { "_index" : "nw_test","_id":4} }
+{"@timestamp": "2020-11-15T02:03:00Z",  "event_type": "process", "user_name": "root", "process_name": "hostname"}
+{ "index" : { "_index" : "nw_test","_id":5} }
+{"@timestamp": "2020-11-15T02:04:00Z",  "event_type": "process", "user_name": "root", "process_name": "hostname"}
+{ "index" : { "_index" : "nw_test","_id":6} }
+{"@timestamp": "2020-11-15T02:05:00Z",  "event_type": "process", "user_name": "user", "process_name": "whoami"}
+{ "index" : { "_index" : "nw_test","_id":7} }
+{"@timestamp": "2020-11-15T02:06:00Z",  "event_type": "process", "user_name": "root", "process_name": "whoami"}
+{ "index" : { "_index" : "nw_test","_id":8} }
+{"@timestamp": "2020-11-15T02:07:00Z",  "event_type": "process", "user_name": "user", "process_name": "hostname"}
+{ "index" : { "_index" : "nw_test","_id":9} }
+{"@timestamp": "2020-11-15T02:08:00Z",  "event_type": "process", "user_name": "root", "process_name": "ifconfig"}
+{ "index" : { "_index" : "nw_test","_id":10} }
+{"@timestamp": "2020-11-15T02:09:00Z",  "event_type": "process", "user_name": "user", "process_name": "ifconfig"}
+{ "index" : { "_index" : "nw_test","_id":11} }
+{"@timestamp": "2020-11-15T02:10:00Z",  "event_type": "process", "user_name": "root", "process_name": "ifconfig"}
+
+# https://eql.readthedocs.io/en/latest/query-guide/implementation.html
+GET /nw_test/_eql/search
+{
+  "event_category_field": "event.kind",
+  "query": """
+    sequence by user_name
+     [process where process_name == "whoami"]
+     [process where process_name == "hostname"]
+     [process where process_name == "ifconfig"]
+  """
+}
