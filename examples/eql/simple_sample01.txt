@@ -30,3 +30,23 @@ GET /win_test/_eql/search
        [ account_manipulate where event.code == "4726" ]
   """
 }
+
+
+# Hybrid Search using DSL & _eql & regex
+# Filters is powerful for text searches: 
+# Avoid using the == or : operators to perform exact matching on text field values.
+GET /win_test/_eql/search
+{
+  "event_category_field": "event.category",
+  "filter": {
+    "match": {
+      "winlog.event_data.TargetUserName": {
+        "query": "USERB"
+      }
+    }
+  },
+  "query": """
+  winlog where event.code == "4720"
+  and match(winlog.event_data.TargetUserName, "[a-zA-Z]+")
+  """
+}
