@@ -1,0 +1,27 @@
+DELETE win_test
+
+POST _bulk
+{ "index" : { "_index" : "win_test", "_id" : "1" } }
+{ "@timestamp": "2020-11-12T02:00:00Z", "event_type": "process", "host_name" : "myhost1" , "event": {"category": "winlog", "code" : "4720", "type": "create", "kind": "account_manipulate"}, "winlog": {"event_data": {"TargetUserName": "userA"}}}
+{ "index" : { "_index" : "win_test", "_id" : "2" } }
+{ "@timestamp": "2020-11-12T02:02:00Z", "event_type": "process", "host_name" : "myhost1" , "event": {"category": "winlog", "code" : "4726", "type": "delete", "kind": "account_manipulate"}, "winlog": {"event_data": {"TargetUserName": "userA"}}}
+
+GET win_test/_search
+
+GET /win_test/_eql/search
+{
+  "event_category_field": "event.category",
+  "query": """
+  winlog where event.code == "4720"
+  """
+}
+
+GET /win_test/_eql/search
+{
+  "event_category_field": "event.kind",
+  "query": """
+    sequence by winlog.event_data.TargetUserName
+       [ account_manipulate where event.code == "4720" ]
+       [ account_manipulate where event.code == "4726" ]
+  """
+}
