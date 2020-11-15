@@ -25,7 +25,7 @@ POST _bulk
 # https://eql.readthedocs.io/en/latest/query-guide/implementation.html
 GET /nw_test/_eql/search
 {
-  "event_category_field": "event.kind",
+  "event_category_field": "event_type",
   "query": """
     sequence by user_name
      [process where process_name == "whoami"]
