@@ -1,0 +1,16 @@
+#Feb 20 21:54:44 localhost sshd[3402]: Accepted publickey for vagrant from 10.0.2.2 port 63673 ssh2: RSA 39:33:99:e9:a0:dc:f2:33:a3:e5:72:3b:7c:3a:56:84
+#Feb 21 00:13:35 localhost sshd[7483]: Accepted password for vagrant from 192.168.33.1 port 58803 ssh2
+#Feb 21 08:35:22 localhost sshd[5774]: Failed password for root from 116.31.116.24 port 29160 ssh2
+AUTH_01 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} sshd(?:\[%{POSINT:system.auth.pid}\])?: %{DATA:system.auth.ssh.event} %{DATA:system.auth.ssh.method} for (invalid user )?%{DATA:system.auth.user} from %{IPORHOST:system.auth.ip} port %{NUMBER:system.auth.port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+#Feb 21 19:19:26 localhost sshd[16153]: Failed password for invalid user
+AUTH_02 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} sshd(?:\[%{POSINT:system.auth.pid}\])?: %{DATA:system.auth.ssh.event} %{DATA:system.auth.credential_type} for %{DATA:system.auth.ssh.user} user
+
+#Feb 23 00:08:48 localhost sudo: vagrant : TTY=pts/1 ; PWD=/home/vagrant ; USER=root ; COMMAND=/bin/cat /var/log/secure
+#Feb 24 00:13:02 precise32 sudo:      tsg : user NOT in sudoers ; TTY=pts/1 ; PWD=/home/vagrant ; USER=root ; COMMAND=/bin/ls
+AUTH_03 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} sudo(?:\[%{POSINT:system.auth.pid}\])?: \s*%{DATA:system.auth.user} :( %{DATA:system.auth.sudo.error} ;)? TTY=%{DATA:system.auth.sudo.tty} ; PWD=%{DATA:system.auth.sudo.pwd} ; USER=%{DATA:system.auth.sudo.user} ; COMMAND=%{GREEDYDATA:system.auth.sudo.command}
+
+#Feb 22 11:47:05 localhost groupadd[6991]: new group: name=apache, GID=48
+#Feb 22 11:47:05 localhost useradd[6995]: new user: name=apache, UID=48, GID=48, home=/usr/share/httpd, shell=/sbin/nologin
+AUTH_04 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} groupadd(?:\[%{POSINT:system.auth.pid}\])?: new group: name=%{DATA:system.auth.groupadd.name}, GID=%{NUMBER:system.auth.groupadd.gid}
+AUTH_05 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} useradd(?:\[%{POSINT:system.auth.pid}\])?: new user: name=%{DATA:system.auth.useradd.name}, UID=%{NUMBER:system.auth.useradd.uid}, GID=%{NUMBER:system.auth.useradd.gid}, home=%{DATA:system.auth.useradd.home}, shell=%{DATA:system.auth.useradd.shell}$
