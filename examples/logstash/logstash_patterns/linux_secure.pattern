@@ -14,3 +14,7 @@ AUTH_03 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostna
 #Feb 22 11:47:05 localhost useradd[6995]: new user: name=apache, UID=48, GID=48, home=/usr/share/httpd, shell=/sbin/nologin
 AUTH_04 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} groupadd(?:\[%{POSINT:system.auth.pid}\])?: new group: name=%{DATA:system.auth.groupadd.name}, GID=%{NUMBER:system.auth.groupadd.gid}
 AUTH_05 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} useradd(?:\[%{POSINT:system.auth.pid}\])?: new user: name=%{DATA:system.auth.useradd.name}, UID=%{NUMBER:system.auth.useradd.uid}, GID=%{NUMBER:system.auth.useradd.gid}, home=%{DATA:system.auth.useradd.home}, shell=%{DATA:system.auth.useradd.shell}$
+
+#Dec  1 11:49:55 somehost sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
+#Dec  1 11:49:50 somehost sudo: pam_unix(sudo:session): session closed for user root
+AUTH_06 %{SYSLOGTIMESTAMP:system.auth.timestamp} %{SYSLOGHOST:system.auth.hostname} sudo:\s*%{DATA:system.auth.pam_module}\(%{DATA:system.auth.pam_type}\): session %{DATA:system.auth.session.status} for user %{DATA:system.auth.user}( by \(uid=%{NUMBER:system.auth.uid}\))?$
