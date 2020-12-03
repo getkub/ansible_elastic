@@ -1,0 +1,25 @@
+...
+# Get data based on aggregation. use "min_doc_count". Then in condition, check for the aggregation & path
+          "aggs": {
+            "source_user_name": {
+              "terms": {
+                "field": "source.user.name.keyword",
+                "min_doc_count": 4
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "array_compare": {
+      "ctx.payload.aggregations.source_user_name.buckets": {
+        "path": "doc_count",
+        "gte": {
+          "value": 6,
+          "quantifier": "some"
+        }
+      }
+    }
+  },
