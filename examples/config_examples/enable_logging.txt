@@ -1,0 +1,9 @@
+# ================================== Logging ===================================
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 3
+  permissions: 0644
+# ================================== ======= ===================================
