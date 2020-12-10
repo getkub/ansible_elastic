@@ -1,0 +1,8 @@
+                <table border="2" cellpadding="5px" cellspacing="1px" >
+                    <th>Event Details</th>
+                    {{#ctx.payload._doc}}
+                    <tr>
+                        <td>{{.}}</td>
+                    </tr>
+                    {{/ctx.payload._doc}}
+                </table>
