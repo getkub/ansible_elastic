@@ -1,0 +1,36 @@
+{
+          "size": 0,
+          "query": {
+            "bool": {
+                "must": [
+                  {
+                      "bool": {
+                        "should": [
+{% for item in ansible_template_list.list %}
+                          {                            
+                            "bool": {
+                              "must": {
+                                  "wildcard": {"message.keyword": "*{{item.phrase}}*"}
+  {%- if item.lm_expected_not_phrase|length > 2 -%}
+                              },
+                              "must_not": {
+                                  "wildcard": {"message.keyword": "*{{item.phrase_unwanted}}*"}
+  {%- endif %}                          
+                              }
+                            }
+                          }{{ "," if not loop.last else "" }}
+{% endfor %}
+                        ]
+                    }
+                  },
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "gte": "now-30m",
+                        "lte": "now"
+                       }
+                    }
+                  }
+                ]
+              }
+            }
