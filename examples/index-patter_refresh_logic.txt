@@ -1,0 +1,30 @@
+- name: "REFRESH: index_pattern : GET list"
+  uri:
+    url: "{{kibana_uri}}/saved_objects/_find?type=index-pattern&fields=id&fields=title"
+    method: GET
+    user: "{{user}}"
+    password: "{{pass}}"
+    validate_certs: no
+    force_basic_auth: yes
+    status_code: [200, 202, 204]
+    headers:
+      kbn-xsrf: true
+      Content-Type: application/json
+  register: refresh_index_pattern_list_find
+
+- name: "REFRESH: index_pattern : PUT"
+  uri:
+    url: "{{kibana_uri}}/saved_objects/index-pattern/{{item.id}}"
+    method: PUT
+    user: "{{user}}"
+    password: "{{pass}}"
+    validate_certs: no
+    force_basic_auth: yes
+    status_code: [200, 202, 204]
+    headers:
+      kbn-xsrf: true
+      Content-Type: application/json
+    return_content: true
+    body_format: json
+    body: '{"attributes": { "title": "{{item.attributes.title}}" }}'
+  loop: '{{refresh_index_pattern_list_find.json.saved_objects | list}}'
