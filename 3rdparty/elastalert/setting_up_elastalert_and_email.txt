@@ -82,4 +82,10 @@ sudo systemctl restart postfix
 ```
 echo "Testing" | mail -s "Test Email" myspecialemail@gmail.com
 sudo postqueue -p
+# In case if you need to flush queue   
+# sudo postqueue -f
 ```
+
+
+# To simulate syslog entry
+sudo logger -t MYTAG  testing_message
