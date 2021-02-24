@@ -1,0 +1,5 @@
+filebeat setup -e --modules apache,cyberark,cef,...,... \
+  -E output.elasticsearch.hosts=['localhost:9200'] \
+  -E output.elasticsearch.username=filebeat_internal \
+  -E output.elasticsearch.password=YOUR_PASSWORD \
+  -E setup.kibana.host=localhost:5601
