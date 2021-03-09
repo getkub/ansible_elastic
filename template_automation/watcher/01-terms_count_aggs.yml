@@ -1,0 +1,33 @@
+  vars:
+    fields_ordered: "{{ uc_siem_aggregate_dict.dict[L2_UseCaseId]['fields_ordered'] }}"
+    fields_aggs_list: "{{ fields_ordered.split('|') }}"
+    fields_aggs_length: "{{ fields_aggs_list|length }}"
+    fields_aggs_yaml: |
+      {% for i in range(fields_aggs_length|int) %}
+      {{ '"aggs"'|indent(width=(i*4+4), indentfirst=true) }}: {
+        {{ '"ag_'|indent(width=(i*4+4), indentfirst=true) }}{{i+1}}": {
+          {{ '"terms": {'|indent(width=(i*4+4), indentfirst=true) }}"field": "{{ fields_aggs_list[i]}}", "missing": "N/A" {{ '},' if not loop.last else '}'}}
+      {% endfor %}
+      {% for i in range(fields_aggs_length|int) %}
+      {% set j = fields_aggs_length|int - i %}
+      {{ '}' |indent(width=(j*4+4), indentfirst=true) }}
+      {{ '}' |indent(width=(j*4+2), indentfirst=true) }}
+      {% endfor %}
+    fields_aggs_template: "{{fields_aggs_yaml}}"
+    fields_transform_yaml: |
+      {{'def bt = [];'|indent(width=(8), indentfirst=true) }}
+      {{'def aggs_0 = ctx.payload.aggregations;'|indent(width=(8), indentfirst=true) }}
+      {% for i in range(fields_aggs_length|int) %}
+        {{ 'for (def '|indent(width=(i*4+4), indentfirst=true) }}aggs_{{i+1}}: aggs_{{i}}.ag_{{i+1}}.buckets) {
+      {% endfor %}
+      {{ 'bt.add([' |indent(width=(fields_aggs_length|int*4+4), indentfirst=true) }}
+      {% for i in range(fields_aggs_length|int) %}
+        {{ '"'|indent(width=(fields_aggs_length|int*4+4), indentfirst=true) }}{{fields_aggs_list[i]}}": aggs_{{i+1}}.key,
+      {% endfor %}
+      {{ '"doc_count"'|indent(width=(fields_aggs_length|int*4+6), indentfirst=true) }}: aggs_{{fields_aggs_length|int}}.doc_count
+      {{ ']);'|indent(width=(fields_aggs_length|int*4+4), indentfirst=true) }}
+      {% for i in range(fields_aggs_length|int) %}
+      {% set j = fields_aggs_length|int - i %}
+      {{ '}' |indent(width=(j*4+2), indentfirst=true) }}
+      {% endfor %}
+      {{ 'return ["_doc": bt];'|indent(width=(8), indentfirst=true) }}
