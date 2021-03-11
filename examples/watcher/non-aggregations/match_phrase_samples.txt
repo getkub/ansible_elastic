@@ -1,0 +1,100 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "30m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "my_index*"
+        ],
+        "body": {
+          "size": 10000,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-30m"
+                    }
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "message": "Configured from"
+                  }
+                }
+              ],
+              "must_not": [
+                {
+                  "match": {
+                    "message": "some sample"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "message": "to be or not to be"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "message": "hello=txt"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "transform": {
+    "script":
+    """
+    def time = Instant.ofEpochMilli(new Date().getTime());
+    def documents = ctx.payload.hits.hits.stream()
+      .map(hit -> [
+        'alert.name': 'my_name',
+        'alert.severity': 2,
+        '@timestamp': time,
+        'alert.log': hit._source.message
+      ])
+      .collect(Collectors.toList());
+    return [ '_doc' : documents];
+    """
+  },
+  "actions": {
+    "index_alert": {
+        "transform": {
+            "script":
+            """
+            def docsHost = [];
+            docsHost.add([
+              'alert_aggs': ctx.payload._doc
+            ]);
+            return ['_doc': docsHost]
+            """
+        },
+        "index": {
+            "index": "my_indexed_alert"
+        }
+    }
+  },
+  "metadata": {
+    "xpack": {
+      "type": "json"
+    },
+    "name": "Sample match_phrase"
+  }
+}
