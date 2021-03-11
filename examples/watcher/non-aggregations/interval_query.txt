@@ -1,0 +1,60 @@
+"intervals": {
+                          "message": {
+                            "all_of": {
+                              "ordered": true,
+                              "max_gaps": 0,
+                              "intervals": [
+                                {
+                                  "any_of": {
+                                    "intervals": [
+                                      {
+                                        "match": {
+                                          "query": "logged out",
+                                          "ordered": true,
+                                          "max_gaps": 0
+                                        }
+                                      },
+                                      {
+                                        "match": {
+                                          "query": "logged in",
+                                          "ordered": true,
+                                          "max_gaps": 0
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "any_of": {
+                                    "intervals": [
+                                      {
+                                        "match": {
+                                          "query": "my shell",
+                                          "ordered": true,
+                                          "max_gaps": 0
+                                        }
+                                      },
+                                      {
+                                        "match": {
+                                          "query": "show blah",
+                                          "ordered": true,
+                                          "max_gaps": 0
+                                        }
+                                      },
+                                       {
+                                        "match": {
+                                          "query": "blah blah"
+                                        }
+                                      },
+                                      {
+                                        "match": {
+                                          "query": "request"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
