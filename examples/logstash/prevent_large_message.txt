@@ -1,0 +1,6 @@
+filter {
+    ruby {
+        init => "require 'json'"
+        code => "event.cancel if event.to_json.size > 16768"
+      }
+ }
