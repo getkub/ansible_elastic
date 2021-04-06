@@ -1,0 +1,16 @@
+POST _sql?format=txt
+{
+  "fetch_size": 10000,
+  "request_timeout": "180s",
+  "filter": {
+    "exists": {
+      "field" : "node_stats.fs.total.available_in_bytes"
+    }
+  },
+    "query": """
+    SELECT HISTOGRAM(timestamp, INTERVAL 1 DAY) AS date, source_node.name as node,min(node_stats.fs.total.available_in_bytes/1073741824) as fs_available_GB,avg(node_stats.fs.total.total_in_bytes/1073741824) as fs_total_GB
+    FROM "prl-mon:.monitoring*"
+    WHERE "timestamp" > TODAY() - INTERVAL 90 DAYS
+    GROUP BY date,node
+  """
+}
