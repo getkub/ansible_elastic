@@ -8,7 +8,7 @@ output {
 # stdout { codec => rubydebug }
   elasticsearch {
       hosts => ["https://localhost:9210"]
-      index => "hackernews_import"
+      index => "myindex"
       document_id => "%{[@metadata][id]}"
       user => "elastic"
       password => "mypass"
