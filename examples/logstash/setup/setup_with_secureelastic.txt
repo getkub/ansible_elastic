@@ -1,0 +1,19 @@
+# Get the certificate
+openssl x509 -in <(openssl s_client -connect localhost:9210 -prexit 2>/dev/null) -out /tmp/elastic.default.crt
+
+
+# Then in Stanza use cacert
+
+output {
+# stdout { codec => rubydebug }
+  elasticsearch {
+      hosts => ["https://localhost:9210"]
+      index => "hackernews_import"
+      document_id => "%{[@metadata][id]}"
+      user => "elastic"
+      password => "mypass"
+      #ssl => true
+      ssl_certificate_verification => false
+      cacert => "/tmp/elastic.default.crt"
+   }
+}
