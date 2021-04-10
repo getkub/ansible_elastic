@@ -1,0 +1,8 @@
+def str='alias blah-blah-2.';
+def first = str.indexOf(" ");
+def second = first + 1 + str.substring(first + 1).indexOf(".");
+def parts = [
+      str.substring(0, first), str.substring(first, second)
+];
+return parts[1];
+
