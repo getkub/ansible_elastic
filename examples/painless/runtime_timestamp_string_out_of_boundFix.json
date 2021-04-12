@@ -1,0 +1,26 @@
+{
+  "size": 0,
+  "runtime_mappings": {
+    "normalized_genre": {
+      "type": "keyword",
+      "script": """
+        String str = doc['@timestamp'].value.dayOfWeekEnum.getDisplayName(TextStyle.FULL, Locale.ROOT);
+        def p = str.indexOf('day');
+        if (p > 0) {
+        def idx = str.substring(0,p);
+        emit(idx);
+        }
+        else {
+          emit('unknown');
+        }
+      """
+    }
+  },
+  "aggs": {
+    "genres": {
+      "terms": {
+        "field": "normalized_genre"
+      }
+    }
+  }
+}
