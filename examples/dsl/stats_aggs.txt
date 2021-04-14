@@ -1,0 +1,17 @@
+{
+  "size": 1, 
+  "query": {
+    "match_phrase": {
+      "_index": "myIndex"
+    }
+  },
+  "aggs": {
+    "avg_actual_event_count": {
+      "stats": {
+        "field": "actual_event_count"
+      }
+    }
+  },
+ "fields": ["_index", "avg_actual_event_count"],
+ "_source": "false"
+}
