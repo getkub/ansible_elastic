@@ -1,0 +1,63 @@
+- module: apache
+  access:
+    enabled: true
+    # default - var.paths: ["/path/to/log/apache/access.log*"]
+    input:
+      type: kafka
+      hosts:
+        - <ip_address>:<port>
+      topics: ["<topic>"]
+      group_id: <group_id>
+      processors:
+        - decode_json_fields:
+            fields: ["message"]
+            process_array: false
+            max_depth: 1
+            target: "processing"
+            overwrite_keys: false
+            add_error_key: true
+        - drop_fields:
+            fields: ["message"]
+            ignore_missing: false
+        - rename:
+            fields:
+              - from: "processing.value.message"
+                to: "message"
+              - from: "processing.value.myfield"
+                to: "myfield"
+            ignore_missing: false
+            fail_on_error: true
+        - drop_fields:
+            fields: ["fileset", "input"]
+            ignore_missing: false
+  error:
+    enabled: true
+    # default - var.paths: ["/path/to/log/apache/error.log*"]
+    input:
+      type: kafka
+      hosts:
+        - <ip_address>:<port>
+      topics: ["<topic>"]
+      group_id: <group_id>
+      processors:
+        - decode_json_fields:
+            fields: ["message"]
+            process_array: false
+            max_depth: 1
+            target: "processing"
+            overwrite_keys: false
+            add_error_key: true
+        - drop_fields:
+            fields: ["message"]
+            ignore_missing: false
+        - rename:
+            fields:
+              - from: "processing.value.message"
+                to: "message"
+              - from: "processing.value.myfield"
+                to: "myfield"
+            ignore_missing: false
+            fail_on_error: true
+        - drop_fields:
+            fields: ["fileset", "input"]
+            ignore_missing: false
