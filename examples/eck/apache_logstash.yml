@@ -1,0 +1,227 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apache-logstash-config
+  labels:
+    app.kubernetes.io/name: apache-logstash
+    app.kubernets.io/component: logstash
+data:
+  pipelines.yml: |
+    - pipeline.id: logstash
+      path.config: "/usr/share/logstash/pipeline/logstash.conf"
+  logstash.yml: |
+    http.host: "0.0.0.0"
+  jvm.options: |
+    ## JVM configuration
+
+    # Xms represents the initial size of total heap space
+    # Xmx represents the maximum size of total heap space
+
+    -Xms1g
+    -Xmx1g
+
+    ################################################################
+    ## Expert settings
+    ################################################################
+    ##
+    ## All settings below this section are considered
+    ## expert settings. Don't tamper with them unless
+    ## you understand what you are doing
+    ##
+    ################################################################
+
+    ## GC configuration
+    -XX:+UseConcMarkSweepGC
+    -XX:CMSInitiatingOccupancyFraction=75
+    -XX:+UseCMSInitiatingOccupancyOnly
+
+    ## Locale
+    # Set the locale language
+    #-Duser.language=en
+
+    # Set the locale country
+    #-Duser.country=US
+
+    # Set the locale variant, if any
+    #-Duser.variant=
+
+    ## basic
+
+    # set the I/O temp directory
+    #-Djava.io.tmpdir=$HOME
+
+    # set to headless, just in case
+    -Djava.awt.headless=true
+
+    # ensure UTF-8 encoding by default (e.g. filenames)
+    -Dfile.encoding=UTF-8
+
+    # use our provided JNA always versus the system one
+    #-Djna.nosys=true
+
+    # Turn on JRuby invokedynamic
+    -Djruby.compile.invokedynamic=true
+    # Force Compilation
+    -Djruby.jit.threshold=0
+    # Make sure joni regexp interruptability is enabled
+    -Djruby.regexp.interruptible=true
+
+    ## heap dumps
+
+    # generate a heap dump when an allocation from the Java heap fails
+    # heap dumps are created in the working directory of the JVM
+    -XX:+HeapDumpOnOutOfMemoryError
+
+    # specify an alternative path for heap dumps
+    # ensure the directory exists and has sufficient space
+    #-XX:HeapDumpPath=${LOGSTASH_HOME}/heapdump.hprof
+
+    ## GC logging
+    #-XX:+PrintGCDetails
+    #-XX:+PrintGCTimeStamps
+    #-XX:+PrintGCDateStamps
+    #-XX:+PrintClassHistogram
+    #-XX:+PrintTenuringDistribution
+    #-XX:+PrintGCApplicationStoppedTime
+
+    # log GC status to a file with time stamps
+    # ensure the directory exists
+    #-Xloggc:${LS_GC_LOG_FILE}
+
+    # Entropy source for randomness
+    -Djava.security.egd=file:/dev/urandom
+
+    # Copy the logging context from parent threads to children
+    -Dlog4j2.isThreadContextMapInheritable=true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apache-logstash-pipeline
+  labels:
+    app.kubernetes.io/name: apache-logstash
+    app.kubernets.io/component: logstash
+data:
+  logstash.conf: |
+    input {
+      beats {
+        port => 5044
+      }
+    }
+
+    filter {
+      mutate {
+        remove_field => ["month","day","time","logdate","path","logdate","@version","cloud","tags","log","ecs","service","agent"]
+      }
+    }
+
+    output {
+      if [@metadata][pipeline] {
+        elasticsearch {
+          hosts => [ "${ES_HOSTS}" ]
+          user => "${ES_USER}"
+          password => "${ES_PASSWORD}"
+          index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+          pipeline => "%{[@metadata][pipeline]}"
+          cacert => "/etc/logstash/certificates/ca.crt"
+          manage_template => false
+        }
+      } else {
+        elasticsearch {
+          hosts => [ "${ES_HOSTS}" ]
+          user => "${ES_USER}"
+          password => "${ES_PASSWORD}"
+          index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+          cacert => "/etc/logstash/certificates/ca.crt"
+          manage_template => false
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-logstash
+  labels:
+    app.kubernetes.io/name: apache-logstash
+    app.kubernets.io/component: logstash
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: apache-logstash
+      app.kubernets.io/component: logstash
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: apache-logstash
+        app.kubernets.io/component: logstash
+    spec:
+      containers:
+        - name: apache-logstash
+          image: docker.elastic.co/logstash/logstash:7.11.2
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 1
+            limits:
+              memory: 2Gi
+              cpu: 1
+          env:
+            - name: ES_HOSTS
+              value: "<elasticsearch_url>"
+            - name: ES_USER
+              value: "elastic"
+            - name: ES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vodafone-es-elastic-user
+                  key: elastic
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/logstash/config
+            - name: pipeline-volume
+              mountPath: /usr/share/logstash/pipeline
+            - name: ca-certs
+              mountPath: /etc/logstash/certificates
+              readOnly: true
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      volumes:
+        - name: config-volume
+          configMap:
+            name: apache-logstash-config
+        - name: pipeline-volume
+          configMap:
+            name: apache-logstash-pipeline
+        - name: ca-certs
+          secret:
+            secretName: <http-cert-k8s-secret>
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: machinetype
+                operator: In
+                values:
+                - physical
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-logstash
+  labels:
+    app.kubernetes.io/name: apache-logstash
+    app.kubernets.io/component: logstash
+spec:
+  ports:
+    - name: "tcp-beats"
+      port: 5044
+      targetPort: 5044
+  selector:
+    app.kubernetes.io/name: apache-logstash
+    app.kubernets.io/component: logstash
+...
