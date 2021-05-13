@@ -1,0 +1,17 @@
+GET my-index-*/_eql/search
+{
+  "filter": {
+    "range": {
+      "@timestamp": {
+        "gte": "now-1d/d",
+        "lt": "now/d"
+      }
+    }
+  },
+  "event_category_field": "event.kind",
+  "query": """
+    sequence by winlog.event_data.TargetUserName
+       [ account_manipulate where event.code == "4720" ]
+       [ account_manipulate where event.code == "4726" ]
+  """
+}
