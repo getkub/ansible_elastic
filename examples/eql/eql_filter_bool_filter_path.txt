@@ -1,0 +1,28 @@
+GET my_index*/_eql/search?filter_path=hits.sequences.events._source.winlog.event_data.TargetUserName,hits.sequences.events._source.host.hostname
+{
+  "filter": {
+      "bool": {
+          "must": [
+            {
+              "term": {
+                "winlog.event_data.TargetUserName": "someone"
+              }
+            },
+            {
+              "range": {
+                "@timestamp": {
+                  "gte": "now-1h",
+                  "lt": "now"
+                }
+              }
+            }
+          ]
+      }
+  },
+  "event_category_field": "event.kind",
+  "query": """
+sequence
+[ event where event.code == "4624" ]
+[ event where event.code == "4634" ]
+  """
+}
