@@ -1,0 +1,35 @@
+def time = Instant.ofEpochMilli(new Date().getTime());
+
+Pattern ipAddressRegex = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
+
+List list_object = new ArrayList();
+List ipAddresses = new ArrayList();
+
+for (Map ip: ctx.payload.second.aggregations.routers.buckets) {
+  ipAddresses.add(ip.key);
+}
+
+ctx.payload.ipAddresses = ipAddresses;
+
+for (Map hit: ctx.payload.first.hits.hits){
+  Matcher matcher = ipAddressRegex.matcher(hit._source.message);
+  if (matcher.find()) {
+      hit.ip_address = matcher.group(1);
+      if (!ipAddresses.contains(hit.ip_address)) {
+        list_object.add(hit);
+      }
+  }
+}
+
+def documents = list_object.stream()
+  .map(hit -> [
+    '_index': 'sec-soc-alert',
+    '_id': hit._id,
+    'alert.name': 'test test',
+    'alert.severity': 5,
+    '@timestamp': time,
+    'alert.log': hit._source.message,
+    'router_ip': hit.ip_address
+  ])
+  .collect(Collectors.toList());
+return [ "_doc" : documents];
