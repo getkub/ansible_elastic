@@ -1,0 +1,140 @@
+{
+  "trigger": {
+    "schedule": {
+      "daily": {
+        "at": [
+          "01:00"
+        ]
+      }
+    }
+  },
+  "input": {
+    "chain": {
+      "inputs": [
+        {
+          "leftHand": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  "sec-soc-reference"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "size": 2000,
+                  "query": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                              "event.dataset": "my_index"
+                          }
+                        },              
+                        {
+                          "range": {
+                            "@timestamp": {
+                              "gte": "now-72h",
+                              "lte": "now-48h",
+                              "format": "strict_date_optional_time||epoch_millis"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+				  "aggs": {
+					  "host_name": {
+						"terms": {
+							"field": "host_name.keyword"
+						}
+					  }
+					}
+                }
+              }
+            }
+          }
+        },
+        {          
+          "rightHand": {
+            "search": {
+              "request": {
+                "search_type": "query_then_fetch",
+                "indices": [
+                  "sec-soc-reference"
+                ],
+                "rest_total_hits_as_int": true,
+                "body": {
+                  "size": 2000,
+                  "query": {
+                    "bool": {
+                      "filter": [
+                        {
+                          "term": {
+                              "event.dataset": "my_event"
+                          }
+                        },              
+                        {
+                          "range": {
+                            "@timestamp": {
+                              "gte": "now-48h",
+                              "lte": "now-24h",
+                              "format": "strict_date_optional_time||epoch_millis"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+				   "aggs": {
+					  "host_name": {
+						"terms": {
+							"field": "host_name.keyword"
+						}
+					  }
+					}
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "transform": {
+      "script":
+      """
+              def leftHand_array = [];
+              def rightHand_array = [];
+              leftHand_array = ctx.payload.leftHand.hits.hits.stream()
+                  .map(t-> {return [t._source.host_name]})
+                  .collect(Collectors.toList());
+
+              rightHand_array = ctx.payload.rightHand.hits.hits.stream()
+                  .map(t-> {return [t._source.host_name]})
+                  .collect(Collectors.toList());  
+
+              def hosts_missing = [];
+              hosts_missing = leftHand_array.stream()
+              .filter(aObject -> ! rightHand_array.contains(aObject))
+              .collect(Collectors.toList());
+
+              def doc_size = hosts_missing.size();
+              return ['tdoc': hosts_missing, 'tdoc_size': doc_size]
+      """
+  },
+  "actions": {
+    "my-logging-action": {
+      "logging": {
+        "text": "There are {{ctx.payload}}"
+      }
+    }
+  },
+  "metadata": {
+    "xpack": {
+      "type": "json"
+    },
+    "name": "test_watcher"
+  }
+}
+
+
