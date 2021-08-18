@@ -1,0 +1,23 @@
+        def count = 0;
+        def tdict = [:];
+        def aggs_0 = params.aggregations;
+      for (def aggs_1: aggs_0.ag_1.buckets) {
+        count = count + 1 ;
+          for (def aggs_2: aggs_1.ag_2.buckets) {
+              for (def aggs_3: aggs_2.ag_3.buckets) {
+                  for (def aggs_4: aggs_3.ag_4.buckets) {
+                    def tbucket = [];
+                    tbucket.add([
+                      "ts": aggs_1.key_as_string,
+                      "description": aggs_2.key,
+                      "account": aggs_3.key,
+                      "userName": aggs_4.key,
+                      "doc_count": aggs_4.doc_count
+                    ]);
+                    tdict[count] = tbucket ;
+                  }
+              }
+          }
+      }
+        
+        return ["_doc": tdict];
