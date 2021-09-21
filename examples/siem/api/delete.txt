@@ -5,5 +5,8 @@ base_url="https://xyzblah:port"
 api_endpoint="api/detection_engine/rules"
 api_item="id=0e04aede-6d3a-4b85-93e5-96057e4999ef"
 
+# Have a check in Browser
+# https://${base_url}/api/detection_engine/rules/_find?page=1&per_page=5&sort_field=enabled&sort_order=asc&filter=alert.attributes.name:windows
+
 curl -k -u $myuser -H "kbn-xsrf: true" -H "Content-Type: application/json" -X GET ${base_url}/${api_endpoint}?${api_item}
 curl -k -u $myuser -H "kbn-xsrf: true" -H "Content-Type: application/json" -X DELETE ${base_url}/${api_endpoint}?${api_item}
