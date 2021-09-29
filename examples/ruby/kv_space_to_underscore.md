@@ -12,7 +12,7 @@ This script has three parameters:
 ~~~
 filter {
   ruby {
-    path => "${PWD}/estimate-serialized-size.logstash-filter-ruby.rb"
+    path => "${PWD}/kv_space_to_underscore.rb"
     script_params => {
       transform => 'underscore_whitespace'
       source => '[path][to][source][field]'
