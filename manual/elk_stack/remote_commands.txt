@@ -1,7 +1,0 @@
-remoteServer="root@192.168.56.103"
-basepath="/home/user/desktop"
-ssh ${remoteServer} "mkdir /opt/elasticsearch/"
-scp /$basepath/elasticsearch-7.6.2-linux-x86_64.tar.gz ${remoteServer}:/opt/elasticsearch/
-ssh ${remoteServer} "rm -rf /opt/elasticsearch/elasticsearch-7.6.2; ls -l /opt/elasticsearch/"
-ssh ${remoteServer} "tar -xf /opt/elasticsearch/elasticsearch-7.6.2-linux-x86_64.tar.gz -C /opt/elasticsearch/ --strip-components 1; ls -l /opt/elasticsearch/"
-ssh ${remoteServer} "rm -f /opt/elasticsearch/elasticsearch-7.6.2-linux-x86_64.tar.gz; ls -l /opt/elasticsearch/"
