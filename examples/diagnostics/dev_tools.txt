@@ -1,0 +1,2 @@
+# Find any hung nodes
+GET _cat/thread_pool
