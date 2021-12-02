@@ -1,2 +1,5 @@
 # Find any hung nodes
 GET _cat/thread_pool
+
+# translog
+GET /_cat/recovery/my-own-alias?format=json
