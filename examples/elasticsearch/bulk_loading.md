@@ -18,6 +18,7 @@ curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/_snapshot/
 }'
 ```
 
+https://github.com/elastic/examples/tree/master/Security%20Analytics/malware_analysis
 ## Restore the index data
 ```
 curl -XPOST "localhost:9200/_snapshot/wanna_cry/snapshot-wanna-cry/_restore"
