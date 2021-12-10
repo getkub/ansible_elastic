@@ -17,3 +17,8 @@ curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/_snapshot/
     }
 }'
 ```
+
+## Restore the index data
+```
+curl -XPOST "localhost:9200/_snapshot/wanna_cry/snapshot-wanna-cry/_restore"
+```
