@@ -23,7 +23,7 @@ for (Map hit: ctx.payload.first.hits.hits){
 
 def documents = list_object.stream()
   .map(hit -> [
-    '_index': 'sec-soc-alert',
+    '_index': 'my-index',
     '_id': hit._id,
     'alert.name': 'test test',
     'alert.severity': 5,
