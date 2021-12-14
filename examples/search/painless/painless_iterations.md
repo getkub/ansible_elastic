@@ -23,6 +23,7 @@ for (Map l1: buy_list) {
 }
 
 // Lambda version
+// https://stackoverflow.com/a/51062494/1221358
 Map items = new HashMap();
 for (Map l1: buy_list) {
   items.computeIfAbsent(l1.key, k -> new ArrayList()).add(l1.category);
