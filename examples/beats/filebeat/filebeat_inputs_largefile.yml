@@ -1,0 +1,17 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+        - /var/log/sudolog
+        - /var/log/cron
+        - /var/log/secure
+        - /var/log/maillog
+        - /var/log/errlog
+        - /var/log/messages
+        - /var/log/audit/*.log
+        - /var/log/*.log
+        - /var/log/*beat/*beat
+  ignore_older: 24h
+  close_inactive: 1m
+  close_renamed: true
