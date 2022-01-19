@@ -1,0 +1,99 @@
+
+replicas: 1
+
+resources:
+  requests:
+    cpu: 0.25
+    memory: 1Gi
+  limits:
+    cpu: 1
+    memory: 1Gi
+
+logstashJavaOpts: "-Xmx500m -Xms500m"
+
+image: "dockerhub/googlepubsub"
+imageTag: "test"
+
+secretMounts:
+  - name: truststore-jks
+    secretName: truststore-jks
+    path: /usr/share/logstash/config/certs
+  - name: logstash-pubsub-service-credentials
+    secretName: logstash-pubsub-service-credentials
+    path: /etc/logstash/
+
+extraEnvs:
+  - name: LOGSTASH_SSL_TRUSTSTORE
+    valueFrom:
+      secretKeyRef:
+        name: logstash-ssl-truststore
+        key: password
+  - name: LOGSTASH_API_KEY_test
+    valueFrom:
+      secretKeyRef:
+        name: logstash-api-key-test
+        key: password
+
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: cloud.google.com/gke-nodepool
+        operator: In
+        values:
+        - logstash
+
+antiAffinity: soft
+
+labels:
+  scrape: ls
+
+logstashConfig: 
+  logstash.yml: |
+      http.host: "0.0.0.0"
+      pipeline.workers: 1
+      pipeline.batch.size: 500
+      monitoring:
+        enabled: false
+        cluster_uuid: xxxxx-3Sc2Q
+      #log.level: "debug"
+  pipelines.yml: |
+      - pipeline.id: org-test-gcp-resourcemanager-es-prod
+        path.config: "/usr/share/logstash/pipeline"
+
+logstashPipeline:
+  logstash.conf: |
+    input {
+        google_pubsub {
+            project_id => "my-grp-org-tst-landing"
+            topic => "org-ref-gcp-resourcemanager-sub"
+            subscription => "org-ref-gcp-sub"
+            json_key_file => "/etc/logstash/google.scc.credentials"
+            max_messages => 1
+            codec => "json"
+            #include_metadata => true
+        }
+    }
+
+    filter {
+        mutate {
+            add_field => { "[agent][my_ingestion][name]" => "org-test-gcp-resourcemanager" }
+        }
+    
+      mutate {
+        add_field => { "[observer][vendor]" => "myapp" }
+      }
+    }
+
+    output {
+      #stdout { codec => "json" }
+      elasticsearch {
+        index => "org-test-index"
+        hosts => ["https://elastichost:9200"]
+        truststore => "/usr/share/logstash/config/certs/truststore.jks"
+        truststore_password => "${LOGSTASH_SSL_TRUSTSTORE}"
+        api_key => "${LOGSTASH_API_KEY_test}"
+        ssl => true
+
+      }
+    }
