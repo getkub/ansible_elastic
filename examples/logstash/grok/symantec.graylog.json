@@ -1,0 +1,560 @@
+{
+  "v": "1",
+  "id": "6c30659f-dd52-4ee2-97e5-09ffc7b56167",
+  "rev": 12,
+  "name": "Symantec Endpoint Protection Manager 14",
+  "summary": "Content pack for SEPM 14.3 RU1 MP1",
+  "description": "This content pack contains a Stream,Pipeline, Pipeline rules, and Grok patterns for SEPM 14.3 RU1 MP1.",
+  "vendor": "connellyt",
+  "url": "https://github.com/connellyt/graylog3-sepm-content-pack",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "ce40a4d7-98e0-4e74-876b-f49cdf55c665",
+      "data": {
+        "name": "MD5hash",
+        "pattern": "[a-fA-F0-9]{32}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.4+1149fe1"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "e5ec3d2e-1869-4193-a296-1ebe09e798ac",
+      "data": {
+        "name": "SymantecMAC",
+        "pattern": "[A-Fa-f0-9]{12}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.4+1149fe1"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "a9c80fe8-a958-4e47-96cd-da50c515178b",
+      "data": {
+        "name": "SHA256hash",
+        "pattern": "[A-Fa-f0-9]{64}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.4+1149fe1"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "2752a805-b758-4303-8e5e-9e5bce93464b",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Endpoint Protection"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Endpoint Protection"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"Symantec Endpoint Protection\"\nstage 0 match either\nrule \"Symantec Client Logs\"\nrule \"Symantec Traffic Logs\"\nrule \"Symantec Server Logs\"\nrule \"Symantec Device Manager Logs\"\nrule \"Symantec Application Control Logs 1\"\nrule \"Symantec Application Control Logs 2\"\nrule \"SEPM Authentication Events\"\nrule \"Symantec IPS Logs\"\nrule \"Symantec Scan Results\"\nend"
+        },
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "eab9050b-9f45-473f-a5df-4a205aee3dc3"
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.4+1149fe1"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "2ee3fe97-8879-461b-bd38-b95780518e9a",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Virus Detection"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Virus or security risk found"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Virus Detection\"\nwhen\n    to_bool(regex(\"\\\\(Virus found || Security risk found\\\\)\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: (Virus found ||Security risk found),IP Address: %{IP:src_addr},Computer name: %{GREEDYDATA:src_hostname},Source: %{GREEDYDATA:method},Risk name: %{GREEDYDATA:risk_name},Occurrences: %{INT:repeat_count},File path: (%{GREEDYDATA:file_path})?,Description: (%{GREEDYDATA:event_description})?,Actual action: %{GREEDYDATA:actual_action},Requested action: %{GREEDYDATA:requested_action},Secondary action: %{GREEDYDATA:secondary_action},Event time: %{GREEDYDATA:start_time},Event Insert Time: %{GREEDYDATA:event_insert_time},End Time: %{GREEDYDATA:end_time},Last update time: %{GREEDYDATA:last_update_time},Domain Name: %{GREEDYDATA:domain_origin},Group Name: %{GREEDYDATA:symantec_ou},Server Name: %{HOSTNAME:sepm_server},User Name: (%{GREEDYDATA:user_origin})?,Source Computer Name: (%{GREEDYDATA:source_computer_hostname})?,Source Computer IP: (%{GREEDYDATA:source_computer_ip})?,Disposition: (%{GREEDYDATA:dispositon})?,Download site: (%{GREEDYDATA:download_site})?,Web domain: (%{GREEDYDATA:web_domain})?,Downloaded by: (%{GREEDYDATA:downloaded_by})?,Prevalence: (%{GREEDYDATA:prevalence})?,Confidence: (%{GREEDYDATA:confidence})?,URL Tracking Status: (%{GREEDYDATA:url_tracking_status})?,First Seen: (%{GREEDYDATA:first_seen})?,Sensitivity: (%{GREEDYDATA:sensitivity})?,Allowed application reason: (%{GREEDYDATA:permitted_reason})?,Application hash: (%{SHA256hash:sha256_hash})?,Hash type: (%{GREEDYDATA:hash_type})?,Company name: (%{GREEDYDATA:company_name})?,Application name: (%{GREEDYDATA:application_name})?,Application version: (%{GREEDYDATA:application_version})?,Application type: (%{GREEDYDATA:application_type})?,File size \\\\(bytes\\\\): %{INT:file_size},Category set: %{GREEDYDATA:category_set},Category type: %{GREEDYDATA:category_type},Location: %{GREEDYDATA:source_location_name},Intensive Protection Level: %{INT:protection_level},Certificate issuer: (%{GREEDYDATA:cert_issuer})?,Certificate signer: (%{GREEDYDATA:cert_signer})?,Certificate thumbprint: (%{GREEDYDATA:cert_thumbprint})?,Signing timestamp: (%{GREEDYDATA:signing_timestamp})?,Certificate serial( number:%{GREEDYDATA:cert_serial_number})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "c8259691-997f-44a0-b1d0-778c5c3cdc55",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Server Logs"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Server Logs"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Server Logs\"\nwhen\n    to_bool(regex(\"Site:\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: (%{GREEDYDATA:symantec_server})?Site: %{GREEDYDATA:symantec_site},Server Name: %{HOSTNAME:local_hostname},(\\\")?Event Description: %{GREEDYDATA:event_description}\",to_string($message.message),true        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "9b316d98-690a-46e0-86d6-d442991860ee",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Traffic Logs"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Traffic Logs"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Traffic Logs\"\nwhen\n    to_bool(regex(\"\\\\(TCP||ICMP||UDP||8\\\\)\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{GREEDYDATA:local_hostname},Local Host IP: %{IP:local_addr},Local Port: %{NUMBER:local_port},Local Host MAC: %{SymantecMAC:local_mac},Remote Host IP: %{IP:remote_addr},Remote Host Name: (%{GREEDYDATA:remote_hostname})?,Remote Port: %{NUMBER:remote_port},Remote Host MAC: %{SymantecMAC:remote_mac},(%{DATA:protocol})?,%{WORD:direction},Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: %{GREEDYDATA:application},Rule: %{GREEDYDATA:rule_name},Location: %{GREEDYDATA:source_location_name},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Action: %{WORD:action},SHA-256: (%{SHA256hash: sha256_hash})?,MD-5:( %{MD5hash:md5_hash})?\",to_string($message.message),true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "b3eea521-4542-4a18-99ea-9746e2eb5934",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Scan Results"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Scan Results"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Scan Results\"\nwhen\n    to_bool(regex(\"Scan ID\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: (%{GREEDYDATA:symantec_server})?Scan ID: %{INT:scan_id},Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},%{WORD:status},Duration \\\\(seconds\\\\): %{INT:duration},User1: %{WORD:user1},User2: (%{WORD:user2})?,%{GREEDYDATA:event_description},%{GREEDYDATA:result},Command: %{GREEDYDATA:command},Threats: %{INT:threats},Infected: %{INT:infected},Total files: %{INT:files_scanned},Omitted: %{INT:not_scanned},Computer: %{HOSTNAME:src_host},IP Address: %{IP:src_ip},Domain Name: %{GREEDYDATA:domain_origin},Group Name: %{GREEDYDATA:symantec_ou},Server Name: %{HOSTNAME:sepm_server}\",to_string($message.message),true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "d2533205-7b2b-4d5c-b095-eea19f5e6fab",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 3"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 3"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Application Control Logs 3\"\nwhen\n    to_bool(regex(\"Device ID:\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},(%{IP:local_addr}||%{DATA:UNWANTED})?,%{WORD:action},%{GREEDYDATA:api_name},Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Rule:(%{GREEDYDATA:rule_name})?,%{INT:ProcessID},%{GREEDYDATA:ParentProcess},%{INT:UNWANTED},(%{GREEDYDATA:module_name})?,%{GREEDYDATA:Process},User Name: (%{GREEDYDATA:user_origin})?,Domain Name: (%{GREEDYDATA:domain_origin})?,Action Type: (%{GREEDYDATA:action_type})?,File size \\\\(bytes\\\\): (%{INT:file_size})?,Device ID:( %{GREEDYDATA:device_id})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "bfa3d565-b469-4a0e-bfd1-dc9995e71b01",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 1"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 1"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Application Control Logs 1\"\nwhen\n    to_bool(regex(\"Device ID:\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},(%{IP:local_addr}||%{DATA:UNWANTED})?,%{WORD:action}, (- Caller SHA256=%{SHA256hash:SHA256_hash} - Target Arguments=)?%{GREEDYDATA:arguments},%{GREEDYDATA:api_name},Begin:%{GREEDYDATA:start_time},End Time:%{GREEDYDATA:end_time},Rule:(%{GREEDYDATA:rule_name})?,%{INT:ProcessID},%{GREEDYDATA:ParentProcess},%{INT:UNWANTED},(%{GREEDYDATA:module_name})?,%{GREEDYDATA:Process},User Name:(%{GREEDYDATA:user_origin})?,Domain Name: (%{GREEDYDATA:domain_origin})?,Action Type: (%{GREEDYDATA:action_type})?,File size \\\\(bytes\\\\): (%{INT:file_size})?,Device ID:( %{GREEDYDATA:device_id})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "540b93cc-0efd-4690-bbbc-f20be9504e1a",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec IPS Logs 1"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec IPS Logs 1"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec IPS Logs 1\"\nwhen\n    to_bool(regex(\"CIDS Signature ID\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},Event Description: %{GREEDYDATA:event_description}. Application path: (%{GREEDYDATA:application_path})?,Event Type:(%{GREEDYDATA:event_type})?,Local Host IP: %{IP:local_addr},Local Host MAC: %{GREEDYDATA:dest_mac},Remote Host Name: (%{GREEDYDATA:remote_hostname})?,Remote Host IP: (%{IP:remote_ip})?,Remote Host MAC: (%{GREEDYDATA:remote_mac})?,(%{WORD:direction})?,(%{WORD:protocol})?,(%{WORD:action})?,Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: (%{GREEDYDATA:application})?,Location: %{GREEDYDATA:source_location_name},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Local Port: %{INT:local_port},Remote Port: %{INT:remote_port},CIDS Signature ID: %{GREEDYDATA:sig_id1},CIDS Signature string: (%{GREEDYDATA:sig_name})?,CIDS Signature SubID: %{GREEDYDATA:sig_id2},Intrusion URL: (%{GREEDYDATA:intrusion_url})?,Intrusion Payload URL: (%{GREEDYDATA:payload_url})?,SHA-256: (%{GREEDYDATA:sha256_hash})?,MD-5:(%{GREEDYDATA:md5_hash})?,Intensive Protection Level: (%{GREEDYDATA:intensive_protection_level})?,URL Risk: (%{GREEDYDATA:url_risk})?,URL Category: (%{GREEDYDATA:url_category})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "5682b979-0538-4180-9964-a1798e319e11",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Traffic Blocked"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Traffic blocked to to attempted attack"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Traffic Blocked\"\nwhen\n    to_bool(regex(\"Event Description: The client will block traffic\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: %{GREEDYDATA:local_hostname},Event Description: %{GREEDYDATA:event_description}.,Local Host IP: %{IP:local_addr},Local Host MAC: %{SymantecMAC:local_mac},Remote Host Name: (%{GREEDYDATA:remote_hostname})?,Remote Host IP: %{IP:remote_addr},Remote Host MAC: %{SymantecMAC:remote_mac},%{WORD:direction},%{WORD:others},,Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: (%{GREEDYDATA:application})?,Location: %{GREEDYDATA:location},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Local Port: %{INT:local_port},Remote Port: %{INT:remote_port},CIDS Signature ID: %{GREEDYDATA:sig_id1},CIDS Signature string: (%{GREEDYDATA:sig_name})?,CIDS Signature SubID: %{GREEDYDATA:sig_id2},Intrusion URL: (%{GREEDYDATA:intrusion_url})?,Intrusion Payload URL: (%{GREEDYDATA:payload_url})?,SHA-256: (%{SHA256hash:sha256_hash})?,MD-5:( %{MD5hash:md5_hash})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "98ed1e13-4a61-427c-bba0-88591ea22264",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec IPS Logs 2"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "ISP Logs 2 block traffic for application"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec IPS Logs 2\"\nwhen\n    to_bool(regex(\"CIDS Signature ID\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},Event Description: %{GREEDYDATA:event_description}. Traffic has been blocked for this application: (%{GREEDYDATA:application_path})?,(Event Type: %{GREEDYDATA:event_type})?,Local Host IP: %{IP:local_addr},Local Host MAC: %{GREEDYDATA:dest_mac},Remote Host Name: (%{GREEDYDATA:remote_hostname})?,Remote Host IP: (%{IP:remote_ip})?,Remote Host MAC: (%{GREEDYDATA:remote_mac})?,(%{WORD:direction})?,(%{WORD:protocol})?,(%{WORD:action})?,Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: (%{GREEDYDATA:application})?,Location: %{GREEDYDATA:source_location_name},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Local Port: %{INT:local_port},Remote Port: %{INT:remote_port},CIDS Signature ID: %{GREEDYDATA:sig_id1},CIDS Signature string: (%{GREEDYDATA:sig_name})?,CIDS Signature SubID: %{GREEDYDATA:sig_id2},Intrusion URL: (%{GREEDYDATA:intrusion_url})?,Intrusion Payload URL: (%{GREEDYDATA:payload_url})?,SHA-256: (%{GREEDYDATA:sha256_hash})?,MD-5:(%{GREEDYDATA:md5_hash})?,Intensive Protection Level: (%{GREEDYDATA:intensive_protection_level})?,URL Risk: (%{GREEDYDATA:url_risk})?,URL Category: (%{GREEDYDATA:url_category})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "214e6184-90fc-4bb1-976b-7ab03ef4c048",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "SEPM Authentication Events"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Endpoint Protection Manager Authentication Events"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"SEPM Authentication Events\"\nwhen\n    to_bool(regex(\"Site:\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: (%{GREEDYDATA:symantec_server})?Site: %{GREEDYDATA:symantec_site},Server Name: %{HOSTNAME:src_hostname}(,Domain Name: %{GREEDYDATA:origin_domain},)?(Admin: %{WORD:user_impacted})?,Event Description: %{GREEDYDATA:event_description}\",to_string($message.message),true        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "df811a30-bf4f-40ff-ba88-4f87c3ceecbe",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Client Logs"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Client Logs"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Client Logs\"\nwhen\n    to_bool(regex(\"\\\\,(Smc||REP||SYLINK||Symantec AntiVirus||Symantec Endpoint Protection||LiveUpdate Manager||Network Intrusion Protection Sys||Memory Exploit Mitigation System||CVE)\\\\,\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: %{HOSTNAME:symantec_server},%{DATA:src_hostname},Category: %{NUMBER:UNWANTED},%{DATA:event_category},Event Description:%{GREEDYDATA:event_description},Event time: %{GREEDYDATA:end_time},Group Name: %{GREEDYDATA:symantec_ou}\",to_string($message.message),true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "2368b6d0-2f30-428e-a28d-a77aff7c24c9",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 2"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Application Control Logs 2"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Application Control Logs 2\"\nwhen\n    to_bool(regex(\"Device ID:\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},%{IP:local_addr},%{WORD:action},(%{GREEDYDATA:event_description})?( )?- Caller SHA256=%{SHA256hash:SHA256_hash},%{GREEDYDATA:api_name},Begin:%{GREEDYDATA:start_time},End Time:%{GREEDYDATA:end_time},Rule:(%{GREEDYDATA:rule_name})?,%{INT:ProcessID},%{GREEDYDATA:ParentProcess},%{INT:UNWANTED},(%{GREEDYDATA:module_name})?,%{GREEDYDATA:Process},User Name: (%{GREEDYDATA:user_origin})?,Domain Name: (%{GREEDYDATA:domain_origin})?,Action Type: (%{GREEDYDATA:action_type})?,File size \\\\(bytes\\\\): (%{INT:file_size})?,Device ID:( %{GREEDYDATA:device_id})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "22c4bfec-8277-4b06-ab49-0707d948b626",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Device Manager Logs"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Device Manager logs"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Device Manager Logs\"\nwhen\n    to_bool(regex(\"Device Manager\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"%{HOSTNAME:symantec_server} SymantecServer: %{HOSTNAME:local_hostname},(\\\")?Event Description: %{GREEDYDATA:event_description}. \\\\[name\\\\]:%{GREEDYDATA:device_name} \\\\[class\\\\]:%{GREEDYDATA:device_class} \\\\[guid\\\\]:%{UUID:device_guid}   \\\\[deviceID\\\\]:%{GREEDYDATA:device_id},Local Host IP: %{IP:local_addr},Local Host MAC: %{GREEDYDATA:src_mac},Remote Host Name: (%{GREEDYDATA:dest_hostname})?,Remote Host IP: (%{IP:dest_ip})?,Remote Host MAC: (%{GREEDYDATA:dest_mac})?,(%{GREEDYDATA:UNWANTED})?,(%{GREEDYDATA:UNWANTED})?,,Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: (%{GREEDYDATA:application})?,Location: %{GREEDYDATA:source_location_name},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Local Port: %{INT:src_port},Remote Port: %{INT:dest_port},CIDS Signature ID: %{GREEDYDATA:sig_id1},CIDS Signature string: (%{GREEDYDATA:sig_name})?,CIDS Signature SubID: %{GREEDYDATA:sig_id2},Intrusion URL: (%{GREEDYDATA:intrusion_url})?,Intrusion Payload URL: (%{GREEDYDATA:payload_url})?,SHA-256: (%{GREEDYDATA:sha256_hash})?,MD-5:(%{GREEDYDATA:md5_hash})? ,Intensive Protection Level: N/A,URL Risk: N/A,URL Category:\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4d0edd1b-5544-435d-84e4-0c0cfa11da64",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Security Logs"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Security Logs"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Symantec Security Logs\"\nwhen\n    to_bool(regex(\"CIDS Signature ID\",to_string($message.message)).matches)\nthen\n    set_fields(\n        grok(\n            \"SymantecServer: %{HOSTNAME:symantec_server},%{HOSTNAME:local_hostname},Event Description: %{GREEDYDATA:event_description},Local Host IP: %{IP:local_addr},Local Host MAC: %{SymantecMAC:local_mac},Remote Host Name: (%{GREEDYDATA:remote_hostname})?,Remote Host IP: %{IP:remote_addr},Remote Host MAC: %{SymantecMAC:remote_mac},%{WORD:direction},(%{DATA:protocol})?,(Intrusion ID: %{INT:int_id},)?Begin: %{GREEDYDATA:start_time},End Time: %{GREEDYDATA:end_time},Occurrences: %{INT:repeat_count},Application: (%{GREEDYDATA:application})?,Location: %{GREEDYDATA:source_location_name},User Name: %{GREEDYDATA:user_origin},Domain Name: %{GREEDYDATA:domain_origin},Local Port: %{NUMBER:local_port},Remote Port: %{NUMBER:remote_port},CIDS Signature ID: %{INT:sig_id1},CIDS Signature string: %{GREEDYDATA:sig_name},CIDS Signature SubID: %{INT:sig_id2},Intrusion URL: (%{GREEDYDATA:int_url})?,Intrusion Payload URL: (%{GREEDYDATA:int_payload_url})?,SHA-256: (%{SHA256hash: sha256_hash})?,MD-5:( %{MD5hash:md5_hash})?\",\n           to_string($message.message),\n           true\n        )\n    );\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "08b87f3d-3c6c-4c4a-a029-ae7b5471b4e5",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "title": {
+          "@type": "string",
+          "@value": "Symantec Endpoint Protection"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "CONTAINS"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "message"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "SymantecServer"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Looks for SymantecServer in message"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Symantec Endpoint Protection"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.11+9335407"
+        }
+      ]
+    }
+  ]
+}
