@@ -1,0 +1,16 @@
+      def tbucket = [];
+      String start_time, src_hostname, category_type, file_path, actual_action;
+      for (def ctx_payload: ctx.payload.hits.hits) {
+        for (key in ctx_payload._source.keySet()) {
+          start_time = ctx_payload._source["start_time"];
+          src_hostname = ctx_payload._source["src_hostname"];
+          category_type = ctx_payload._source["category_type"];
+        }
+
+        tbucket.add([
+          'start_time': start_time,
+          'src_hostname': src_hostname,
+          'category_type': category_type
+        ]);
+      }
+      return ['_doc': tbucket]
