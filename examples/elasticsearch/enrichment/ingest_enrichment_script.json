@@ -1,0 +1,66 @@
+[
+  {
+    "script": {
+      "source": "ctx.host.new_hostname = ctx.host.hostname.substring(0, ctx.host.hostname.indexOf(\".\")).toUpperCase()",
+      "description": "Remove FQDN & uppercase",
+      "on_failure": [
+        {
+          "script": {
+            "source": "ctx.host.new_hostname = ctx.host.hostname.toUpperCase()",
+            "ignore_failure": true,
+            "description": "Assume hostname same as it comes"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "enrich": {
+      "field": "host.new_hostname",
+      "policy_name": "hostname-enrich-policy",
+      "target_field": "myenrich",
+      "ignore_missing": true,
+      "ignore_failure": true,
+      "description": "Policy to enrich hostname"
+    }
+  },
+  {
+    "append": {
+      "field": "myenrich.team_lead",
+      "value": [
+        "{{{organization.name}}}"
+      ],
+      "if": "ctx.organization?.name != null",
+      "ignore_failure": true,
+      "allow_duplicates": false
+    }
+  },
+  {
+    "set": {
+      "field": "myenrich.owner",
+      "value": "{{{myenrich.cmdb.OWNER_NAME}}}",
+      "ignore_empty_value": true,
+      "ignore_failure": true,
+      "description": "SET Value"
+    }
+  },
+  {
+    "set": {
+      "field": "myenrich.owner",
+      "value": "{{{organization.name}}}",
+      "override": false,
+      "ignore_empty_value": true,
+      "if": "!(ctx.containsKey('myenrich.owner'))",
+      "description": "Set myenrich.owner a value if no enrichment occurs"
+    }
+  },
+  {
+    "remove": {
+      "field": [
+        "myenrich.owner"
+      ],
+      "ignore_missing": true,
+      "ignore_failure": true
+    }
+  }
+]
