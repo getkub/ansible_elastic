@@ -1,0 +1,7 @@
+https://www.elastic.co/guide/en/beats/filebeat/7.16/filebeat-module-imperva.html
+https://www.elastic.co/guide/en/beats/libbeat/current/release-notes-7.9.0.html#:~:text=Imperva
+https://github.com/elastic/beats/blob/v7.16.1/x-pack/filebeat/module/imperva/securesphere/ingest/pipeline.yml
+www.elastic.co/guide/en/elasticsearch/reference/7.16/get-pipeline-api.html
+
+# Logstash ingest converter
+https://www.elastic.co/guide/en/logstash/7.16/ingest-converter.html
