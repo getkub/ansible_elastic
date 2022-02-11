@@ -1,0 +1,1 @@
+^<%{NONNEGINT:syslog.pri}>%{NONNEGINT:syslog.version}%{SPACE}(?:-|%{TIMESTAMP_ISO8601:syslog.timestamp})%{SPACE}(?:-|%{IPORHOST:syslog.hostname})%{SPACE}(%{WORD:syslog.program}(\[%{WORD:syslog.process_id}\]\:)?|-)?%{SPACE}(-|%{WORD:syslog.process_id})?%{SPACE}(-|%{WORD:syslog.message_id})?%{SPACE}(-|\[%{DATA:syslog.structured_data}\])?%{SPACE}(?:-|%{GREEDYDATA:syslog.message})
