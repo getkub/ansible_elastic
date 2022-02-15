@@ -1,0 +1,13 @@
+      throttle {
+        before_count => 10
+        after_count => 500
+        period => 600
+        max_age => 1200
+        key => "%{[host][hostname]}"
+        add_tag => "throttled"
+      }
+      
+      if "throttled" in [tags] {
+        drop { }
+      }
+  
