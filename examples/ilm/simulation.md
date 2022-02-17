@@ -28,7 +28,7 @@ PUT _index_template/testindextemplate
   }
 }
 
-PUT testindex-000001
+PUT %3Ctestindex-%7Bnow%2Fd%7Byyyy-MM-dd%7D%7D-000001%3E
 {
   "aliases": {
     "testindex": {
