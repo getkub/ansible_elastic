@@ -1,0 +1,11 @@
+GET _search
+{
+    "_source": false,
+    "query": {
+        "match_all": {}
+    },
+    "sort": [
+        {"@timestamp": { "order": "asc", "format": "strict_data_optional_nanos"}}
+    ],
+    "fields": [ "@timestamp", "message"]
+}
