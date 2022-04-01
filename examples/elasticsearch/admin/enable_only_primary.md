@@ -1,0 +1,8 @@
+```
+PUT _cluster/settings
+{
+"persistent": {
+"cluster.routing.allocation.enable": "primaries"
+}
+}
+```
