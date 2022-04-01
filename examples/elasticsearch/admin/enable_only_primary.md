@@ -1,3 +1,4 @@
+### Ensure routing allocation made to primary 
 ```
 PUT _cluster/settings
 {
@@ -6,7 +7,7 @@ PUT _cluster/settings
 }
 }
 ```
-
+## Delete the data node
 
 ### and back to normal
 ```
