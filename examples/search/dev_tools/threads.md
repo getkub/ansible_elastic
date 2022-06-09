@@ -1,0 +1,4 @@
+## Threadpools
+```
+/_cat/threadpools
+```
