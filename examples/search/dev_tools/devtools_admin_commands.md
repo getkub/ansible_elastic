@@ -9,10 +9,11 @@ GET _cat/shards?v&s=node:asc,store:desc
 GET _tasks
 ```
 
-## Indices checks
+## Indices checks, stats, size
 ```
 GET _cat/indices?v&s=index&h=index
 GET my-index-alias/_stats/store
+GET /_cat/shards/my-index-alias
 ```
 
 ## Node checks
