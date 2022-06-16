@@ -12,7 +12,7 @@ GET _tasks
 ## Indices checks
 ```
 GET _cat/indices?v&s=index&h=index
-GET my-index-2021-10-20-00001/_stats/store
+GET my-index-alias/_stats/store
 ```
 
 ## Node checks
