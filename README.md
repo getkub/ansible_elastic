@@ -1,5 +1,5 @@
 # Getting the bigger picture
-Elastic (ELK) stack, Beats & Ansible automation
+Elastic (ELK) stack, Beats & Ansible Automation & Examples
 
 ## What we are trying to achieve
 - ELK stack deployment, clustering and configuration done consistently
@@ -11,4 +11,5 @@ Elastic (ELK) stack, Beats & Ansible automation
 ## Also, this repository contains many examples & patterns
 - Various documentation and Kubernetes examples
 - Pipeline examples
+- DEV tools examples
 - Sample Data & index patterns and filters
