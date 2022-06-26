@@ -1,14 +1,22 @@
-## Create an ephermal filebeat and connect to ES
+## Create an ephermal filebeat 
 ```
-filebeat setup --pipelines --modules fortinet -e 
+Put connection configs to ElasticSearch in filebeat.yml
 ```
 
-## GET details of ingest pipelines
+## Setup Ingest pipelines in the ElasticSearch as follows
+```
+modulenames="fortinet,infoblox"
+filebeat setup --pipelines --modules ${modulenames} -e 
+```
+
+## GET details of ingest pipelines into a JSON file
 ```
 curl -o /tmp/ingest_pipeline.json http://localhost:9200/_ingest/pipeline
 ```
 
+## To remove all ingest pipelines 
 ```
+# Below is a simple script attached alongside
 python3 ./json_extract.py
 
 python3 ./json_extract.py | grep filebeat | while read i
