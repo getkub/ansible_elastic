@@ -1,0 +1,1 @@
+- New integrations for Beats/Ingest/Fleet => https://github.com/elastic/integrations/tree/main/packages/infoblox_nios/data_stream/log/elasticsearch/ingest_pipeline
