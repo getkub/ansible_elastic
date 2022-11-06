@@ -1,3 +1,7 @@
 def result = '';
 result = params['hits']['total']['value'];
+
+# Below also the same
+def documents = params.hits.total.value;
+
 return result;
