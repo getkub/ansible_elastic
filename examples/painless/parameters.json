@@ -1,5 +1,5 @@
 {
-  "took": 6,
+  "took": 68,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -23,12 +23,139 @@
         {
           "key": "Low Tide Media",
           "doc_count": 1553,
-          "time_aggs": {
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 3122,
             "buckets": [
               {
-                "key_as_string": "2016-01-01T00:00:00.000Z",
-                "key": 1451606400000,
-                "doc_count": 1553
+                "key": "Lace-up boots - resin coffee",
+                "doc_count": 85,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 85
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - black",
+                "doc_count": 54,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 54
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 38,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 38
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-ups - black",
+                "doc_count": 35,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 35
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jumper - black",
+                "doc_count": 29,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 29
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jumper - dark blue",
+                "doc_count": 28,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 28
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sweatshirt - black",
+                "doc_count": 28,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 28
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Trainers - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - cognac",
+                "doc_count": 26,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 26
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -36,13 +163,1267 @@
         {
           "key": "Elitelligence",
           "doc_count": 1370,
-          "time_aggs": {
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 2688,
             "buckets": [
               {
-                "key_as_string": "2016-01-01T00:00:00.000Z",
-                "key": 1451606400000,
-                "doc_count": 1370
+                "key": "Print T-shirt - white",
+                "doc_count": 56,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 56
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jumper - black",
+                "doc_count": 48,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 48
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 43,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 43
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Trainers - black",
+                "doc_count": 41,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 41
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - resin coffee",
+                "doc_count": 40,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 40
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sweatshirt - black",
+                "doc_count": 39,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 39
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - black",
+                "doc_count": 34,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 34
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "High-top trainers - black",
+                "doc_count": 32,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 32
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tracksuit top - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 22,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 22
+                    }
+                  ]
+                }
               }
+            ]
+          }
+        },
+        {
+          "key": "Oceanavigations",
+          "doc_count": 1218,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 2453,
+            "buckets": [
+              {
+                "key": "Boots - black",
+                "doc_count": 37,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 37
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - black",
+                "doc_count": 34,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 34
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 32,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 32
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Dress with Defined Waist",
+                "doc_count": 31,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 31
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 29,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 29
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - white",
+                "doc_count": 28,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 28
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Maxi dress - black",
+                "doc_count": 25,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 25
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Belt - black",
+                "doc_count": 24,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 24
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sweatshirt - black",
+                "doc_count": 23,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 23
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Rucksack - black",
+                "doc_count": 18,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 18
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Tigress Enterprises",
+          "doc_count": 1055,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 2053,
+            "buckets": [
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 58,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 58
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jersey dress - black",
+                "doc_count": 44,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 44
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Vest - black",
+                "doc_count": 42,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 42
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 32,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 32
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Across body bag - black",
+                "doc_count": 29,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 29
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - cognac",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Summer dress - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Handbag - black",
+                "doc_count": 25,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 25
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 25,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 25
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - black",
+                "doc_count": 24,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 24
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Pyramidustries",
+          "doc_count": 947,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 1832,
+            "buckets": [
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 46,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 46
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Vest - black",
+                "doc_count": 39,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 39
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Across body bag - black",
+                "doc_count": 34,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 34
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jersey dress - black",
+                "doc_count": 34,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 34
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 34,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 34
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Long sleeved top - black",
+                "doc_count": 27,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 27
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Summer dress - black",
+                "doc_count": 25,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 25
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Handbag - black",
+                "doc_count": 21,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 21
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - black",
+                "doc_count": 20,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Angeldale",
+          "doc_count": 525,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 1001,
+            "buckets": [
+              {
+                "key": "Lace-up boots - black",
+                "doc_count": 39,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 39
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 37,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 37
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 33,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 33
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Belt - black",
+                "doc_count": 20,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - cognac",
+                "doc_count": 20,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-ups - black",
+                "doc_count": 20,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Trainers - black",
+                "doc_count": 15,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 15
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Across body bag - black",
+                "doc_count": 13,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 13
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jersey dress - black",
+                "doc_count": 10,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - cognac",
+                "doc_count": 9,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 9
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Gnomehouse",
+          "doc_count": 458,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 905,
+            "buckets": [
+              {
+                "key": "Summer dress - black",
+                "doc_count": 22,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 22
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 18,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 18
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - black",
+                "doc_count": 18,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 18
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Summer dress - navy blazer",
+                "doc_count": 17,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jersey dress - black",
+                "doc_count": 14,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 14
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Across body bag - black",
+                "doc_count": 12,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Vest - black",
+                "doc_count": 12,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - cognac",
+                "doc_count": 10,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - Dark Turquoise",
+                "doc_count": 9,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 9
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - navy blazer",
+                "doc_count": 9,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 9
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Spherecords",
+          "doc_count": 415,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 857,
+            "buckets": [
+              {
+                "key": "Vest - black",
+                "doc_count": 16,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 16
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Long sleeved top - black",
+                "doc_count": 13,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 13
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ankle boots - black",
+                "doc_count": 12,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jersey dress - black",
+                "doc_count": 12,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Blouse - black",
+                "doc_count": 9,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 9
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Boots - black",
+                "doc_count": 9,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 9
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Across body bag - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Cardigan - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Long sleeved top - dark grey multicolor",
+                "doc_count": 7,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 7
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Summer dress - black",
+                "doc_count": 7,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 7
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Microlutions",
+          "doc_count": 345,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 687,
+            "buckets": [
+              {
+                "key": "Print T-shirt - black",
+                "doc_count": 23,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 23
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sweatshirt - black",
+                "doc_count": 21,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 21
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tracksuit bottoms - black",
+                "doc_count": 13,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 13
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - bright white",
+                "doc_count": 10,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Jumper - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Lace-up boots - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Rucksack - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Trainers - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - dark green",
+                "doc_count": 7,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 7
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Basic T-shirt - black",
+                "doc_count": 6,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 6
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Spritechnologies",
+          "doc_count": 263,
+          "product_name": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 522,
+            "buckets": [
+              {
+                "key": "Sports shirt - black",
+                "doc_count": 18,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 18
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tights - black",
+                "doc_count": 12,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 12
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sports shorts - black",
+                "doc_count": 10,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Print T-shirt - white",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Sports shirt - Seashell",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tracksuit bottoms - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tracksuit top - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Wool - black",
+                "doc_count": 8,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 8
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Trousers - black",
+                "doc_count": 7,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 7
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Long sleeved top - black",
+                "doc_count": 6,
+                "time_aggs": {
+                  "buckets": [
+                    {
+                      "key_as_string": "2016-01-01T00:00:00.000Z",
+                      "key": 1451606400000,
+                      "doc_count": 6
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
             ]
           }
         },
