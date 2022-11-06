@@ -1,0 +1,3 @@
+def result = '';
+result = params['hits']['total']['value'];
+return result;
