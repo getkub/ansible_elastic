@@ -1,0 +1,13 @@
+
+// https://stackoverflow.com/questions/55859865/using-elasticsearch-and-painless-how-do-i-insert-a-map-array
+
+def docs = params.aggregations;
+
+ArrayList al = new ArrayList();
+Map map = new HashMap();
+
+for ( def agg0 : docs.event_dataset.buckets) {
+  map.put("product.manufacturer",agg0.key);
+  al.add(map);
+}
+return al;
