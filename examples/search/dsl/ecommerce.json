@@ -1,0 +1,245 @@
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0,
+    "hits": [
+      {
+        "_index": "kibana_sample_data_ecommerce",
+        "_id": "P7RtTIQB9bh6F-W0tNWq",
+        "_score": 0,
+        "_source": {
+          "category": [
+            "Men's Clothing"
+          ],
+          "currency": "EUR",
+          "customer_first_name": "Eddie",
+          "customer_full_name": "Eddie Graham",
+          "customer_gender": "MALE",
+          "customer_id": 38,
+          "customer_last_name": "Graham",
+          "customer_phone": "",
+          "day_of_week": "Thursday",
+          "day_of_week_i": 3,
+          "email": "eddie@graham-family.zzz",
+          "manufacturer": [
+            "Low Tide Media",
+            "Oceanavigations",
+            "Elitelligence"
+          ],
+          "order_date": "2022-11-17T16:12:00+00:00",
+          "order_id": 719618,
+          "products": [
+            {
+              "base_price": 21.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Low Tide Media",
+              "tax_amount": 0,
+              "product_id": 12461,
+              "category": "Men's Clothing",
+              "sku": "ZO0449604496",
+              "taxless_price": 21.99,
+              "unit_discount_amount": 0,
+              "min_price": 10.34,
+              "_id": "sold_product_719618_12461",
+              "discount_amount": 0,
+              "created_on": "2016-12-22T16:12:00+00:00",
+              "product_name": "Jumper - dark blue",
+              "price": 21.99,
+              "taxful_price": 21.99,
+              "base_unit_price": 21.99
+            },
+            {
+              "base_price": 41.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Oceanavigations",
+              "tax_amount": 0,
+              "product_id": 17481,
+              "category": "Men's Clothing",
+              "sku": "ZO0287802878",
+              "taxless_price": 41.99,
+              "unit_discount_amount": 0,
+              "min_price": 20.16,
+              "_id": "sold_product_719618_17481",
+              "discount_amount": 0,
+              "created_on": "2016-12-22T16:12:00+00:00",
+              "product_name": "Waistcoat - bright blue",
+              "price": 41.99,
+              "taxful_price": 41.99,
+              "base_unit_price": 41.99
+            },
+            {
+              "base_price": 24.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Elitelligence",
+              "tax_amount": 0,
+              "product_id": 15234,
+              "category": "Men's Clothing",
+              "sku": "ZO0526105261",
+              "taxless_price": 24.99,
+              "unit_discount_amount": 0,
+              "min_price": 11.5,
+              "_id": "sold_product_719618_15234",
+              "discount_amount": 0,
+              "created_on": "2016-12-22T16:12:00+00:00",
+              "product_name": "Chinos - olive",
+              "price": 24.99,
+              "taxful_price": 24.99,
+              "base_unit_price": 24.99
+            },
+            {
+              "base_price": 10.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Elitelligence",
+              "tax_amount": 0,
+              "product_id": 12663,
+              "category": "Men's Clothing",
+              "sku": "ZO0561005610",
+              "taxless_price": 10.99,
+              "unit_discount_amount": 0,
+              "min_price": 5.93,
+              "_id": "sold_product_719618_12663",
+              "discount_amount": 0,
+              "created_on": "2016-12-22T16:12:00+00:00",
+              "product_name": "Print T-shirt - dark blue",
+              "price": 10.99,
+              "taxful_price": 10.99,
+              "base_unit_price": 10.99
+            }
+          ],
+          "sku": [
+            "ZO0449604496",
+            "ZO0287802878",
+            "ZO0526105261",
+            "ZO0561005610"
+          ],
+          "taxful_total_price": 99.96,
+          "taxless_total_price": 99.96,
+          "total_quantity": 4,
+          "total_unique_products": 4,
+          "type": "order",
+          "user": "eddie",
+          "geoip": {
+            "country_iso_code": "EG",
+            "location": {
+              "lon": 31.3,
+              "lat": 30.1
+            },
+            "region_name": "Cairo Governorate",
+            "continent_name": "Africa",
+            "city_name": "Cairo"
+          },
+          "event": {
+            "dataset": "sample_ecommerce"
+          }
+        }
+      },
+      {
+        "_index": "kibana_sample_data_ecommerce",
+        "_id": "X7RtTIQB9bh6F-W0tt43",
+        "_score": 0,
+        "_source": {
+          "category": [
+            "Men's Shoes",
+            "Men's Clothing"
+          ],
+          "currency": "EUR",
+          "customer_first_name": "Eddie",
+          "customer_full_name": "Eddie Graham",
+          "customer_gender": "MALE",
+          "customer_id": 38,
+          "customer_last_name": "Graham",
+          "customer_phone": "",
+          "day_of_week": "Wednesday",
+          "day_of_week_i": 2,
+          "email": "eddie@graham-family.zzz",
+          "manufacturer": [
+            "Elitelligence",
+            "Microlutions"
+          ],
+          "order_date": "2022-11-23T03:23:02+00:00",
+          "order_id": 586982,
+          "products": [
+            {
+              "base_price": 28.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Elitelligence",
+              "tax_amount": 0,
+              "product_id": 21764,
+              "category": "Men's Shoes",
+              "sku": "ZO0517805178",
+              "taxless_price": 28.99,
+              "unit_discount_amount": 0,
+              "min_price": 15.36,
+              "_id": "sold_product_586982_21764",
+              "discount_amount": 0,
+              "created_on": "2016-12-28T03:23:02+00:00",
+              "product_name": "Trainers - black",
+              "price": 28.99,
+              "taxful_price": 28.99,
+              "base_unit_price": 28.99
+            },
+            {
+              "base_price": 24.99,
+              "discount_percentage": 0,
+              "quantity": 1,
+              "manufacturer": "Microlutions",
+              "tax_amount": 0,
+              "product_id": 16645,
+              "category": "Men's Clothing",
+              "sku": "ZO0111401114",
+              "taxless_price": 24.99,
+              "unit_discount_amount": 0,
+              "min_price": 12.25,
+              "_id": "sold_product_586982_16645",
+              "discount_amount": 0,
+              "created_on": "2016-12-28T03:23:02+00:00",
+              "product_name": "Tracksuit bottoms - black",
+              "price": 24.99,
+              "taxful_price": 24.99,
+              "base_unit_price": 24.99
+            }
+          ],
+          "sku": [
+            "ZO0517805178",
+            "ZO0111401114"
+          ],
+          "taxful_total_price": 53.98,
+          "taxless_total_price": 53.98,
+          "total_quantity": 2,
+          "total_unique_products": 2,
+          "type": "order",
+          "user": "eddie",
+          "geoip": {
+            "country_iso_code": "EG",
+            "location": {
+              "lon": 31.3,
+              "lat": 30.1
+            },
+            "region_name": "Cairo Governorate",
+            "continent_name": "Africa",
+            "city_name": "Cairo"
+          },
+          "event": {
+            "dataset": "sample_ecommerce"
+          }
+        }
+      }
+    ]
+  }
+}
