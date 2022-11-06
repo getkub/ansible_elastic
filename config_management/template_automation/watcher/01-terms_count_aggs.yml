@@ -1,5 +1,5 @@
   vars:
-    fields_ordered: "{{ uc_siem_aggregate_dict.dict[L2_UseCaseId]['fields_ordered'] }}"
+    fields_ordered: "{{ uc_siem_aggregate_dict.dict[my_key]['fields_ordered'] }}"
     fields_aggs_list: "{{ fields_ordered.split('|') }}"
     fields_aggs_length: "{{ fields_aggs_list|length }}"
     fields_aggs_yaml: |
