@@ -4,10 +4,16 @@
 def docs = params.aggregations;
 
 ArrayList al = new ArrayList();
-Map map = new HashMap();
 
 for ( def agg0 : docs.event_dataset.buckets) {
-  map.put("product.manufacturer",agg0.key);
-  al.add(map);
+  for ( def agg1 : agg0.product_name.buckets) {
+    for ( def agg2 : agg1.time_aggs.buckets) {
+      Map map = new HashMap();
+      map.put("product.manufacturer",agg0.key);
+      map.put("product.name",agg1.key);
+      map.put("product.year",agg2.key_as_string);
+      al.add(map);
+    }
+  }      
 }
 return al;
