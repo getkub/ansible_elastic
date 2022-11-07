@@ -10,6 +10,7 @@ GET _tasks
 
 # https://stackoverflow.com/questions/34578596/including-and-excluding-indexes-in-elasticsearch-query
 GET /%2Bindex1,-index2/type1,type2/_search?q=programming
+GET _cat/nodes?v&h=name,ram*,heap.percent,heap.max,cpu&s=ram.percent:desc
 
 ```
 
