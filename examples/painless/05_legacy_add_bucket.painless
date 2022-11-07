@@ -1,0 +1,17 @@
+def mylist = [];
+def aggs_0 = ctx.payload.aggregations;
+for (def aggs_1: aggs_0.ag_1.buckets) {
+  if (agg1.doc_count > 0) {
+    for (def agg2: agg1.ag_2.buckets) {
+        for (def agg3: agg2.ag_3.buckets) {
+          mylist.add([
+              "hostname": agg1.key,
+              "user": agg2.key,
+              "country": agg3.key,
+              "occurences": agg3.doc_count
+          ]);
+        }
+    }
+  }
+}
+return ["_doc": mylist];
