@@ -7,6 +7,10 @@ GET _cluster/allocation/explain?pretty
 GET _cat/allocation?v&s=shards
 GET _cat/shards?v&s=node:asc,store:desc
 GET _tasks
+
+# https://stackoverflow.com/questions/34578596/including-and-excluding-indexes-in-elasticsearch-query
+GET /%2Bindex1,-index2/type1,type2/_search?q=programming
+
 ```
 
 ## Indices checks, stats, size
