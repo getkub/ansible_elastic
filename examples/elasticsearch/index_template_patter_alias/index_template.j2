@@ -1,0 +1,23 @@
+{
+    "priority" : 100,
+    "index_patterns": ["{{my_idx_base}}-*"],                 
+    "template": {
+        "settings": {
+            "number_of_shards": 2,
+            "number_of_replicas": 1,
+            "index.mapping.total_fields.limit": 10000,      
+            "index.lifecycle.name": "{{ilm_policy_name}}",      
+            "index.lifecycle.rollover_alias": "{{my_idx_base}}-alias"    
+        },
+        "mappings": {
+            "dynamic": "true",
+            "dynamic_templates": [],
+            "date_detection": true,
+            "numeric_detection": false
+        },
+        "aliases": {}
+    },
+    "composed_of": [
+        ".alerts-ecs-mappings"
+    ]
+}
