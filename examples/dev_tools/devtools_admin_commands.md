@@ -37,6 +37,10 @@ GET _alias/my-index-alias*
 GET my-index-alias/_alias
 GET my-index-alias/_search
 DELETE my-index-2021-10-20-00001/_alias/my-index-alias
+
+## Add index to alias
+PUT my-index-2021-10-20-00001/_alias/my-alias
+
 ```
 
 ## Template checks
