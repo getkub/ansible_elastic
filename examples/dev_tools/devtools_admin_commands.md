@@ -41,6 +41,10 @@ DELETE my-index-2021-10-20-00001/_alias/my-index-alias
 ## Add index to alias
 PUT my-index-2021-10-20-00001/_alias/my-alias
 
+## Rollover
+POST /my-index-alias/_rollover/
+
+
 ```
 
 ## Template checks
