@@ -1,5 +1,8 @@
 // using aggs_params.json
 def documents = params.aggregations.event_dataset.buckets.stream()
+            .filter(t -> {                                                    
+                return t.doc_count > 500
+            })
             .map(t-> {return [t.key: t.doc_count]})
             .collect(Collectors.toList());
 
