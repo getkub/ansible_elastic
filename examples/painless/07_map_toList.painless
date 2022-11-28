@@ -1,0 +1,6 @@
+// using aggs_params.json
+def documents = params.aggregations.event_dataset.buckets.stream()
+            .map(t-> {return [t.key: t.doc_count]})
+            .collect(Collectors.toList());
+
+return [ "_doc" : documents]; 
