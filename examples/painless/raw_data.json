@@ -1,0 +1,2974 @@
+{
+  "took": 459,
+  "timed_out": false,
+  "_shards": {
+    "total": 141,
+    "successful": 141,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "wZTWr4QBuMsmkT8t7P9u",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:07.875Z",
+          "host": {
+            "hostname": "0af92721a522",
+            "name": "0af92721a522",
+            "architecture": "x86_64"
+          },
+          "event": {
+            "dataset": "beat.state",
+            "module": "beat",
+            "duration": 3691790
+          },
+          "metricset": {
+            "name": "state",
+            "period": 10000
+          },
+          "service": {
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/state",
+            "type": "beat"
+          },
+          "beat": {
+            "state": {
+              "output": {
+                "name": "elasticsearch"
+              },
+              "queue": {
+                "name": "mem"
+              },
+              "host": {
+                "containerized": "containerized",
+                "os": {
+                  "name": "Ubuntu",
+                  "platform": "ubuntu",
+                  "version": "20.04.4 LTS (Focal Fossa)",
+                  "kernel": "5.4.0-1032-gcp"
+                }
+              },
+              "management": {
+                "enabled": true
+              },
+              "cluster": {
+                "uuid": "vuTogdo5SxGAzSUC32OPdg"
+              },
+              "beat": {
+                "host": "0af92721a522",
+                "type": "apm-server",
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0",
+                "name": "0af92721a522"
+              },
+              "service": {
+                "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "name": "apm-server",
+                "version": "8.4.0"
+              }
+            },
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            }
+          },
+          "agent": {
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b",
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "w5TWr4QBuMsmkT8t7P9u",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:07.879Z",
+          "beat": {
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "stats": {
+              "cgroup": {
+                "cpu": {
+                  "stats": {
+                    "periods": 59030201,
+                    "throttled": {
+                      "ns": 0,
+                      "periods": 0
+                    }
+                  },
+                  "cfs": {
+                    "period": {
+                      "us": 100000
+                    },
+                    "quota": {
+                      "us": 800000
+                    }
+                  },
+                  "id": "/"
+                },
+                "cpuacct": {
+                  "id": "/",
+                  "total": {
+                    "ns": 215948444168722
+                  }
+                },
+                "memory": {
+                  "id": "/",
+                  "mem": {
+                    "usage": {
+                      "bytes": 275128320
+                    },
+                    "limit": {
+                      "bytes": 2147483648
+                    }
+                  }
+                }
+              },
+              "info": {
+                "ephemeral_id": "e8163ccb-db1e-4fa5-bf03-39d72b504115",
+                "name": "apm-server",
+                "uptime": {
+                  "ms": 7014177518
+                },
+                "version": "8.4.0"
+              },
+              "uptime": {
+                "ms": 7014177518
+              },
+              "apm_server": {
+                "acm": {
+                  "unset": 0,
+                  "request": {
+                    "count": 6711940
+                  },
+                  "response": {
+                    "count": 6711940,
+                    "errors": {
+                      "timeout": 0,
+                      "count": 10,
+                      "toolarge": 0,
+                      "unauthorized": 0,
+                      "decode": 0,
+                      "forbidden": 0,
+                      "internal": 0,
+                      "ratelimit": 0,
+                      "invalidquery": 10,
+                      "closed": 0,
+                      "method": 0,
+                      "notfound": 0,
+                      "unavailable": 0,
+                      "queue": 0,
+                      "validate": 0
+                    },
+                    "valid": {
+                      "accepted": 0,
+                      "count": 6711930,
+                      "notmodified": 5562702,
+                      "ok": 1149228
+                    }
+                  }
+                },
+                "jaeger": {
+                  "grpc": {
+                    "sampling": {
+                      "event": {
+                        "received": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "errors": {
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0
+                      }
+                    },
+                    "collect": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "processor": {
+                  "span": {
+                    "transformations": 312278540
+                  },
+                  "stream": {
+                    "accepted": 578215294,
+                    "errors": {
+                      "toolarge": 0,
+                      "invalid": 16
+                    }
+                  },
+                  "transaction": {
+                    "transformations": 154928292
+                  },
+                  "error": {
+                    "transformations": 7158999
+                  },
+                  "log": {
+                    "transformations": 145515
+                  },
+                  "metric": {
+                    "transformations": 136726484
+                  }
+                },
+                "sampling": {
+                  "transactions_dropped": 773612
+                },
+                "root": {
+                  "request": {
+                    "count": 1397474
+                  },
+                  "response": {
+                    "count": 1397474,
+                    "errors": {
+                      "unauthorized": 0,
+                      "timeout": 0,
+                      "validate": 0,
+                      "ratelimit": 0,
+                      "internal": 0,
+                      "count": 0,
+                      "forbidden": 0,
+                      "queue": 0,
+                      "notfound": 0,
+                      "method": 0,
+                      "unavailable": 0,
+                      "decode": 0,
+                      "invalidquery": 0,
+                      "toolarge": 0,
+                      "closed": 0
+                    },
+                    "valid": {
+                      "ok": 1397474,
+                      "accepted": 0,
+                      "count": 1397474,
+                      "notmodified": 0
+                    }
+                  },
+                  "unset": 0
+                },
+                "server": {
+                  "request": {
+                    "count": 20314905
+                  },
+                  "response": {
+                    "count": 20314887,
+                    "errors": {
+                      "notfound": 0,
+                      "count": 1579,
+                      "internal": 97,
+                      "method": 0,
+                      "decode": 0,
+                      "unavailable": 0,
+                      "timeout": 0,
+                      "unauthorized": 0,
+                      "forbidden": 0,
+                      "ratelimit": 204,
+                      "toolarge": 0,
+                      "validate": 1278,
+                      "closed": 0,
+                      "invalidquery": 0,
+                      "queue": 0
+                    },
+                    "valid": {
+                      "accepted": 20022608,
+                      "count": 20313308,
+                      "notmodified": 0,
+                      "ok": 290700
+                    }
+                  },
+                  "unset": 0
+                },
+                "decoder": {
+                  "deflate": {
+                    "content-length": 0,
+                    "count": 0
+                  },
+                  "gzip": {
+                    "content-length": 23308886380,
+                    "count": 4515518
+                  },
+                  "missing-content-length": {
+                    "count": 13623425
+                  },
+                  "reader": {
+                    "count": 20022931
+                  },
+                  "uncompressed": {
+                    "content-length": 7117924309,
+                    "count": 1884144
+                  }
+                },
+                "otlp": {
+                  "grpc": {
+                    "logs": {
+                      "request": {
+                        "count": 121649
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 121649
+                        },
+                        "count": 121649,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 66357
+                      },
+                      "response": {
+                        "count": 66357,
+                        "errors": {
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0
+                        },
+                        "valid": {
+                          "count": 66357
+                        }
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 214673
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 214673
+                        },
+                        "count": 214673,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        }
+                      }
+                    }
+                  },
+                  "http": {
+                    "logs": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "profile": {
+                  "unset": 0,
+                  "request": {
+                    "count": 0
+                  },
+                  "response": {
+                    "count": 0,
+                    "errors": {
+                      "timeout": 0,
+                      "internal": 0,
+                      "unavailable": 0,
+                      "queue": 0,
+                      "count": 0,
+                      "ratelimit": 0,
+                      "unauthorized": 0,
+                      "forbidden": 0,
+                      "closed": 0,
+                      "toolarge": 0,
+                      "decode": 0,
+                      "method": 0,
+                      "validate": 0,
+                      "invalidquery": 0,
+                      "notfound": 0
+                    },
+                    "valid": {
+                      "accepted": 0,
+                      "count": 0,
+                      "notmodified": 0,
+                      "ok": 0
+                    }
+                  }
+                },
+                "aggregation": {
+                  "txmetrics": {
+                    "active_groups": 135,
+                    "overflowed": 0
+                  }
+                }
+              },
+              "libbeat": {
+                "output": {
+                  "type": "elasticsearch",
+                  "events": {
+                    "acked": 610330810,
+                    "active": 0,
+                    "batches": 5459390,
+                    "failed": 133309,
+                    "toomany": 0,
+                    "total": 610464119
+                  },
+                  "write": {
+                    "bytes": 125782147447
+                  }
+                },
+                "pipeline": {
+                  "events": {
+                    "total": 610464119
+                  }
+                }
+              },
+              "runtime": {
+                "goroutines": 161
+              },
+              "handles": {
+                "limit": {
+                  "hard": 1048576,
+                  "soft": 1048576
+                },
+                "open": 67
+              },
+              "cpu": {
+                "system": {
+                  "time": {
+                    "ms": 17007460
+                  },
+                  "ticks": 17007460
+                },
+                "total": {
+                  "time": {
+                    "ms": 153417660
+                  },
+                  "value": 153417660,
+                  "ticks": 153417660
+                },
+                "user": {
+                  "ticks": 136410200,
+                  "time": {
+                    "ms": 136410200
+                  }
+                }
+              },
+              "beat": {
+                "type": "apm-server",
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0",
+                "name": "0af92721a522",
+                "host": "0af92721a522"
+              },
+              "memstats": {
+                "gc_next": 96698788,
+                "memory": {
+                  "alloc": 85508008,
+                  "total": 26776187315672
+                },
+                "rss": 142381056
+              },
+              "system": {
+                "load": {
+                  "1": 2.34,
+                  "5": 2.47,
+                  "15": 2.55,
+                  "norm": {
+                    "1": 0.0731,
+                    "5": 0.0772,
+                    "15": 0.0797
+                  }
+                },
+                "cpu": {
+                  "cores": 32
+                }
+              }
+            },
+            "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+            "type": "apm-server"
+          },
+          "agent": {
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b",
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "host": {
+            "name": "0af92721a522"
+          },
+          "service": {
+            "name": "beat",
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/stats",
+            "type": "beat"
+          },
+          "event": {
+            "module": "beat",
+            "duration": 6536072,
+            "dataset": "beat.stats"
+          },
+          "metricset": {
+            "name": "stats",
+            "period": 10000
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "y0DWr4QBceP5pM937aaG",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:08.156Z",
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "metricset": {
+            "name": "state",
+            "period": 10000
+          },
+          "service": {
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/state",
+            "type": "beat"
+          },
+          "beat": {
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "state": {
+              "management": {
+                "enabled": true
+              },
+              "service": {
+                "id": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "name": "apm-server",
+                "version": "8.4.0"
+              },
+              "output": {
+                "name": "elasticsearch"
+              },
+              "queue": {
+                "name": "mem"
+              },
+              "host": {
+                "os": {
+                  "platform": "ubuntu",
+                  "version": "20.04.4 LTS (Focal Fossa)",
+                  "kernel": "5.4.0-1049-gcp",
+                  "name": "Ubuntu"
+                },
+                "containerized": "containerized"
+              },
+              "cluster": {
+                "uuid": "vuTogdo5SxGAzSUC32OPdg"
+              },
+              "beat": {
+                "name": "f40bcf15b712",
+                "host": "f40bcf15b712",
+                "type": "apm-server",
+                "uuid": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "version": "8.4.0"
+              }
+            }
+          },
+          "host": {
+            "architecture": "x86_64",
+            "name": "f40bcf15b712",
+            "hostname": "f40bcf15b712"
+          },
+          "event": {
+            "duration": 2893330,
+            "dataset": "beat.state",
+            "module": "beat"
+          },
+          "agent": {
+            "version": "8.4.0",
+            "ephemeral_id": "9c9e6b0b-8faf-4ec1-b459-139d29279151",
+            "id": "cb486573-a206-4477-9204-ec1784d46901",
+            "name": "f40bcf15b712",
+            "type": "metricbeat"
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "zUDWr4QBceP5pM937aaG",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:08.158Z",
+          "service": {
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/stats",
+            "type": "beat",
+            "name": "beat"
+          },
+          "event": {
+            "duration": 7947863,
+            "dataset": "beat.stats",
+            "module": "beat"
+          },
+          "metricset": {
+            "name": "stats",
+            "period": 10000
+          },
+          "beat": {
+            "stats": {
+              "cgroup": {
+                "cpuacct": {
+                  "id": "/",
+                  "total": {
+                    "ns": 244358713850330
+                  }
+                },
+                "memory": {
+                  "id": "/",
+                  "mem": {
+                    "usage": {
+                      "bytes": 273969152
+                    },
+                    "limit": {
+                      "bytes": 2147483648
+                    }
+                  }
+                },
+                "cpu": {
+                  "stats": {
+                    "periods": 61621324,
+                    "throttled": {
+                      "periods": 0,
+                      "ns": 0
+                    }
+                  },
+                  "cfs": {
+                    "period": {
+                      "us": 100000
+                    },
+                    "quota": {
+                      "us": 800000
+                    }
+                  },
+                  "id": "/"
+                }
+              },
+              "memstats": {
+                "gc_next": 91673234,
+                "memory": {
+                  "alloc": 74174304,
+                  "total": 27399484121272
+                },
+                "rss": 150667264
+              },
+              "runtime": {
+                "goroutines": 155
+              },
+              "beat": {
+                "name": "f40bcf15b712",
+                "host": "f40bcf15b712",
+                "type": "apm-server",
+                "uuid": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "version": "8.4.0"
+              },
+              "system": {
+                "cpu": {
+                  "cores": 32
+                },
+                "load": {
+                  "1": 3.48,
+                  "5": 3.42,
+                  "15": 3.02,
+                  "norm": {
+                    "1": 0.1088,
+                    "5": 0.1069,
+                    "15": 0.0944
+                  }
+                }
+              },
+              "cpu": {
+                "system": {
+                  "ticks": 21209420,
+                  "time": {
+                    "ms": 21209420
+                  }
+                },
+                "total": {
+                  "ticks": 172163950,
+                  "time": {
+                    "ms": 172163950
+                  },
+                  "value": 172163950
+                },
+                "user": {
+                  "ticks": 150954530,
+                  "time": {
+                    "ms": 150954530
+                  }
+                }
+              },
+              "info": {
+                "ephemeral_id": "5bd9b4ab-d0d5-4aef-8537-e68fa5ab95a8",
+                "name": "apm-server",
+                "uptime": {
+                  "ms": 7014178443
+                },
+                "version": "8.4.0"
+              },
+              "handles": {
+                "open": 64,
+                "limit": {
+                  "hard": 1048576,
+                  "soft": 1048576
+                }
+              },
+              "uptime": {
+                "ms": 7014178443
+              },
+              "apm_server": {
+                "acm": {
+                  "request": {
+                    "count": 7204957
+                  },
+                  "response": {
+                    "count": 7204957,
+                    "errors": {
+                      "unauthorized": 0,
+                      "decode": 0,
+                      "ratelimit": 0,
+                      "closed": 0,
+                      "notfound": 0,
+                      "timeout": 0,
+                      "internal": 0,
+                      "toolarge": 0,
+                      "invalidquery": 8,
+                      "unavailable": 0,
+                      "validate": 0,
+                      "count": 8,
+                      "forbidden": 0,
+                      "method": 0,
+                      "queue": 0
+                    },
+                    "valid": {
+                      "count": 7204949,
+                      "notmodified": 5782537,
+                      "ok": 1422412,
+                      "accepted": 0
+                    }
+                  },
+                  "unset": 0
+                },
+                "jaeger": {
+                  "grpc": {
+                    "sampling": {
+                      "response": {
+                        "errors": {
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0
+                      },
+                      "event": {
+                        "received": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      }
+                    },
+                    "collect": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "sampling": {
+                  "transactions_dropped": 801297
+                },
+                "profile": {
+                  "request": {
+                    "count": 0
+                  },
+                  "response": {
+                    "count": 0,
+                    "errors": {
+                      "count": 0,
+                      "notfound": 0,
+                      "invalidquery": 0,
+                      "closed": 0,
+                      "ratelimit": 0,
+                      "validate": 0,
+                      "internal": 0,
+                      "queue": 0,
+                      "decode": 0,
+                      "method": 0,
+                      "forbidden": 0,
+                      "unavailable": 0,
+                      "toolarge": 0,
+                      "unauthorized": 0,
+                      "timeout": 0
+                    },
+                    "valid": {
+                      "accepted": 0,
+                      "count": 0,
+                      "notmodified": 0,
+                      "ok": 0
+                    }
+                  },
+                  "unset": 0
+                },
+                "decoder": {
+                  "reader": {
+                    "count": 21096459
+                  },
+                  "uncompressed": {
+                    "content-length": 7464196244,
+                    "count": 2009081
+                  },
+                  "deflate": {
+                    "content-length": 0,
+                    "count": 0
+                  },
+                  "gzip": {
+                    "content-length": 23370472176,
+                    "count": 5010940
+                  },
+                  "missing-content-length": {
+                    "count": 14076584
+                  }
+                },
+                "otlp": {
+                  "grpc": {
+                    "traces": {
+                      "request": {
+                        "count": 243646
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 243646
+                        },
+                        "count": 243646,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        }
+                      }
+                    },
+                    "logs": {
+                      "response": {
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 441087
+                        },
+                        "count": 441087
+                      },
+                      "request": {
+                        "count": 441087
+                      }
+                    },
+                    "metrics": {
+                      "response": {
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 50545
+                        },
+                        "count": 50545
+                      },
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 50545
+                      }
+                    }
+                  },
+                  "http": {
+                    "traces": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "logs": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      },
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      }
+                    }
+                  }
+                },
+                "root": {
+                  "unset": 0,
+                  "request": {
+                    "count": 1397467
+                  },
+                  "response": {
+                    "count": 1397467,
+                    "errors": {
+                      "closed": 0,
+                      "unavailable": 0,
+                      "unauthorized": 0,
+                      "forbidden": 0,
+                      "invalidquery": 0,
+                      "internal": 0,
+                      "toolarge": 0,
+                      "decode": 0,
+                      "count": 0,
+                      "queue": 0,
+                      "timeout": 0,
+                      "validate": 0,
+                      "notfound": 0,
+                      "method": 0,
+                      "ratelimit": 0
+                    },
+                    "valid": {
+                      "count": 1397467,
+                      "notmodified": 0,
+                      "ok": 1397467,
+                      "accepted": 0
+                    }
+                  }
+                },
+                "processor": {
+                  "transaction": {
+                    "transformations": 160353138
+                  },
+                  "error": {
+                    "transformations": 7695631
+                  },
+                  "log": {
+                    "transformations": 528116
+                  },
+                  "metric": {
+                    "transformations": 136624632
+                  },
+                  "span": {
+                    "transformations": 322276462
+                  },
+                  "stream": {
+                    "accepted": 593657660,
+                    "errors": {
+                      "invalid": 15,
+                      "toolarge": 0
+                    }
+                  }
+                },
+                "server": {
+                  "request": {
+                    "count": 21405860
+                  },
+                  "response": {
+                    "count": 21405844,
+                    "errors": {
+                      "timeout": 0,
+                      "unauthorized": 0,
+                      "internal": 109,
+                      "ratelimit": 361,
+                      "notfound": 0,
+                      "queue": 0,
+                      "forbidden": 0,
+                      "validate": 1306,
+                      "count": 1776,
+                      "closed": 0,
+                      "toolarge": 0,
+                      "unavailable": 0,
+                      "decode": 0,
+                      "invalidquery": 0,
+                      "method": 0
+                    },
+                    "valid": {
+                      "notmodified": 0,
+                      "ok": 308100,
+                      "accepted": 21095968,
+                      "count": 21404068
+                    }
+                  },
+                  "unset": 0
+                },
+                "aggregation": {
+                  "txmetrics": {
+                    "active_groups": 138,
+                    "overflowed": 0
+                  }
+                }
+              },
+              "libbeat": {
+                "pipeline": {
+                  "events": {
+                    "total": 626676552
+                  }
+                },
+                "output": {
+                  "type": "elasticsearch",
+                  "events": {
+                    "active": 60,
+                    "batches": 5533556,
+                    "failed": 102198,
+                    "toomany": 0,
+                    "total": 626676552,
+                    "acked": 626574294
+                  },
+                  "write": {
+                    "bytes": 129418348537
+                  }
+                }
+              }
+            },
+            "id": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+            "type": "apm-server",
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            }
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "host": {
+            "name": "f40bcf15b712"
+          },
+          "agent": {
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "9c9e6b0b-8faf-4ec1-b459-139d29279151",
+            "id": "cb486573-a206-4477-9204-ec1784d46901",
+            "name": "f40bcf15b712"
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "tV_Xr4QBX7sGR7LwE-h-",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:17.875Z",
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "agent": {
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b",
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698",
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0"
+          },
+          "host": {
+            "architecture": "x86_64",
+            "hostname": "0af92721a522",
+            "name": "0af92721a522"
+          },
+          "event": {
+            "dataset": "beat.state",
+            "module": "beat",
+            "duration": 2424338
+          },
+          "metricset": {
+            "name": "state",
+            "period": 10000
+          },
+          "service": {
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/state",
+            "type": "beat"
+          },
+          "beat": {
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "state": {
+              "cluster": {
+                "uuid": "vuTogdo5SxGAzSUC32OPdg"
+              },
+              "beat": {
+                "host": "0af92721a522",
+                "type": "apm-server",
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0",
+                "name": "0af92721a522"
+              },
+              "queue": {
+                "name": "mem"
+              },
+              "host": {
+                "containerized": "containerized",
+                "os": {
+                  "kernel": "5.4.0-1032-gcp",
+                  "name": "Ubuntu",
+                  "platform": "ubuntu",
+                  "version": "20.04.4 LTS (Focal Fossa)"
+                }
+              },
+              "management": {
+                "enabled": true
+              },
+              "service": {
+                "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "name": "apm-server",
+                "version": "8.4.0"
+              },
+              "output": {
+                "name": "elasticsearch"
+              }
+            }
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "t1_Xr4QBX7sGR7LwE-h-",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:17.878Z",
+          "beat": {
+            "type": "apm-server",
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "stats": {
+              "memstats": {
+                "memory": {
+                  "total": 26776238042928,
+                  "alloc": 60925592
+                },
+                "rss": 142884864,
+                "gc_next": 94279348
+              },
+              "apm_server": {
+                "sampling": {
+                  "transactions_dropped": 773616
+                },
+                "processor": {
+                  "metric": {
+                    "transformations": 136726932
+                  },
+                  "span": {
+                    "transformations": 312278977
+                  },
+                  "stream": {
+                    "accepted": 578216165,
+                    "errors": {
+                      "invalid": 16,
+                      "toolarge": 0
+                    }
+                  },
+                  "transaction": {
+                    "transformations": 154928508
+                  },
+                  "error": {
+                    "transformations": 7159008
+                  },
+                  "log": {
+                    "transformations": 145515
+                  }
+                },
+                "profile": {
+                  "request": {
+                    "count": 0
+                  },
+                  "response": {
+                    "errors": {
+                      "validate": 0,
+                      "toolarge": 0,
+                      "decode": 0,
+                      "timeout": 0,
+                      "closed": 0,
+                      "unauthorized": 0,
+                      "queue": 0,
+                      "ratelimit": 0,
+                      "internal": 0,
+                      "invalidquery": 0,
+                      "forbidden": 0,
+                      "unavailable": 0,
+                      "count": 0,
+                      "method": 0,
+                      "notfound": 0
+                    },
+                    "valid": {
+                      "accepted": 0,
+                      "count": 0,
+                      "notmodified": 0,
+                      "ok": 0
+                    },
+                    "count": 0
+                  },
+                  "unset": 0
+                },
+                "aggregation": {
+                  "txmetrics": {
+                    "overflowed": 0,
+                    "active_groups": 33
+                  }
+                },
+                "decoder": {
+                  "gzip": {
+                    "content-length": 23308922137,
+                    "count": 4515524
+                  },
+                  "missing-content-length": {
+                    "count": 13623441
+                  },
+                  "reader": {
+                    "count": 20022956
+                  },
+                  "uncompressed": {
+                    "count": 1884147,
+                    "content-length": 7117931416
+                  },
+                  "deflate": {
+                    "content-length": 0,
+                    "count": 0
+                  }
+                },
+                "otlp": {
+                  "grpc": {
+                    "logs": {
+                      "request": {
+                        "count": 121649
+                      },
+                      "response": {
+                        "count": 121649,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 121649
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "response": {
+                        "valid": {
+                          "count": 66357
+                        },
+                        "count": 66357,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        }
+                      },
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 66357
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 214673
+                      },
+                      "response": {
+                        "count": 214673,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 214673
+                        }
+                      }
+                    }
+                  },
+                  "http": {
+                    "traces": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "errors": {
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0
+                      }
+                    },
+                    "logs": {
+                      "response": {
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0
+                      },
+                      "request": {
+                        "count": 0
+                      }
+                    },
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "jaeger": {
+                  "grpc": {
+                    "collect": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "sampling": {
+                      "event": {
+                        "received": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "root": {
+                  "unset": 0,
+                  "request": {
+                    "count": 1397476
+                  },
+                  "response": {
+                    "errors": {
+                      "ratelimit": 0,
+                      "notfound": 0,
+                      "queue": 0,
+                      "decode": 0,
+                      "method": 0,
+                      "toolarge": 0,
+                      "internal": 0,
+                      "unauthorized": 0,
+                      "closed": 0,
+                      "timeout": 0,
+                      "validate": 0,
+                      "invalidquery": 0,
+                      "unavailable": 0,
+                      "forbidden": 0,
+                      "count": 0
+                    },
+                    "valid": {
+                      "count": 1397476,
+                      "notmodified": 0,
+                      "ok": 1397476,
+                      "accepted": 0
+                    },
+                    "count": 1397476
+                  }
+                },
+                "server": {
+                  "request": {
+                    "count": 20314932
+                  },
+                  "response": {
+                    "count": 20314916,
+                    "errors": {
+                      "method": 0,
+                      "internal": 97,
+                      "count": 1579,
+                      "timeout": 0,
+                      "ratelimit": 204,
+                      "unavailable": 0,
+                      "closed": 0,
+                      "queue": 0,
+                      "notfound": 0,
+                      "invalidquery": 0,
+                      "forbidden": 0,
+                      "validate": 1278,
+                      "toolarge": 0,
+                      "unauthorized": 0,
+                      "decode": 0
+                    },
+                    "valid": {
+                      "notmodified": 0,
+                      "ok": 290702,
+                      "accepted": 20022635,
+                      "count": 20313337
+                    }
+                  },
+                  "unset": 0
+                },
+                "acm": {
+                  "request": {
+                    "count": 6711946
+                  },
+                  "response": {
+                    "count": 6711946,
+                    "errors": {
+                      "timeout": 0,
+                      "toolarge": 0,
+                      "ratelimit": 0,
+                      "invalidquery": 10,
+                      "unavailable": 0,
+                      "method": 0,
+                      "unauthorized": 0,
+                      "count": 10,
+                      "notfound": 0,
+                      "internal": 0,
+                      "decode": 0,
+                      "queue": 0,
+                      "forbidden": 0,
+                      "validate": 0,
+                      "closed": 0
+                    },
+                    "valid": {
+                      "count": 6711936,
+                      "notmodified": 5562708,
+                      "ok": 1149228,
+                      "accepted": 0
+                    }
+                  },
+                  "unset": 0
+                }
+              },
+              "libbeat": {
+                "output": {
+                  "type": "elasticsearch",
+                  "events": {
+                    "acked": 610331910,
+                    "active": 6,
+                    "batches": 5459397,
+                    "failed": 133309,
+                    "toomany": 0,
+                    "total": 610465225
+                  },
+                  "write": {
+                    "bytes": 125782348309
+                  }
+                },
+                "pipeline": {
+                  "events": {
+                    "total": 610465225
+                  }
+                }
+              },
+              "system": {
+                "cpu": {
+                  "cores": 32
+                },
+                "load": {
+                  "1": 2.43,
+                  "5": 2.49,
+                  "15": 2.55,
+                  "norm": {
+                    "1": 0.0759,
+                    "5": 0.0778,
+                    "15": 0.0797
+                  }
+                }
+              },
+              "cpu": {
+                "total": {
+                  "ticks": 153417910,
+                  "time": {
+                    "ms": 153417910
+                  },
+                  "value": 153417910
+                },
+                "user": {
+                  "ticks": 136410430,
+                  "time": {
+                    "ms": 136410430
+                  }
+                },
+                "system": {
+                  "ticks": 17007480,
+                  "time": {
+                    "ms": 17007480
+                  }
+                }
+              },
+              "runtime": {
+                "goroutines": 159
+              },
+              "handles": {
+                "open": 64,
+                "limit": {
+                  "hard": 1048576,
+                  "soft": 1048576
+                }
+              },
+              "uptime": {
+                "ms": 7014187519
+              },
+              "beat": {
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0",
+                "name": "0af92721a522",
+                "host": "0af92721a522",
+                "type": "apm-server"
+              },
+              "cgroup": {
+                "cpu": {
+                  "cfs": {
+                    "period": {
+                      "us": 100000
+                    },
+                    "quota": {
+                      "us": 800000
+                    }
+                  },
+                  "id": "/",
+                  "stats": {
+                    "periods": 59030285,
+                    "throttled": {
+                      "periods": 0,
+                      "ns": 0
+                    }
+                  }
+                },
+                "cpuacct": {
+                  "id": "/",
+                  "total": {
+                    "ns": 215948761771973
+                  }
+                },
+                "memory": {
+                  "id": "/",
+                  "mem": {
+                    "limit": {
+                      "bytes": 2147483648
+                    },
+                    "usage": {
+                      "bytes": 275410944
+                    }
+                  }
+                }
+              },
+              "info": {
+                "ephemeral_id": "e8163ccb-db1e-4fa5-bf03-39d72b504115",
+                "name": "apm-server",
+                "uptime": {
+                  "ms": 7014187519
+                },
+                "version": "8.4.0"
+              }
+            },
+            "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "host": {
+            "name": "0af92721a522"
+          },
+          "agent": {
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b",
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698",
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0"
+          },
+          "service": {
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/stats",
+            "type": "beat",
+            "name": "beat"
+          },
+          "event": {
+            "dataset": "beat.stats",
+            "module": "beat",
+            "duration": 6856956
+          },
+          "metricset": {
+            "name": "stats",
+            "period": 10000
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "h0DXr4QBceP5pM93FLWT",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:18.156Z",
+          "event": {
+            "dataset": "beat.state",
+            "module": "beat",
+            "duration": 2753818
+          },
+          "metricset": {
+            "name": "state",
+            "period": 10000
+          },
+          "service": {
+            "type": "beat",
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/state"
+          },
+          "beat": {
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "state": {
+              "cluster": {
+                "uuid": "vuTogdo5SxGAzSUC32OPdg"
+              },
+              "beat": {
+                "name": "f40bcf15b712",
+                "host": "f40bcf15b712",
+                "type": "apm-server",
+                "uuid": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "version": "8.4.0"
+              },
+              "service": {
+                "id": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "name": "apm-server",
+                "version": "8.4.0"
+              },
+              "output": {
+                "name": "elasticsearch"
+              },
+              "queue": {
+                "name": "mem"
+              },
+              "host": {
+                "containerized": "containerized",
+                "os": {
+                  "platform": "ubuntu",
+                  "version": "20.04.4 LTS (Focal Fossa)",
+                  "kernel": "5.4.0-1049-gcp",
+                  "name": "Ubuntu"
+                }
+              },
+              "management": {
+                "enabled": true
+              }
+            }
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "agent": {
+            "id": "cb486573-a206-4477-9204-ec1784d46901",
+            "name": "f40bcf15b712",
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "9c9e6b0b-8faf-4ec1-b459-139d29279151"
+          },
+          "host": {
+            "architecture": "x86_64",
+            "hostname": "f40bcf15b712",
+            "name": "f40bcf15b712"
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "iUDXr4QBceP5pM93FLWT",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:18.158Z",
+          "metricset": {
+            "name": "stats",
+            "period": 10000
+          },
+          "beat": {
+            "type": "apm-server",
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "stats": {
+              "runtime": {
+                "goroutines": 155
+              },
+              "beat": {
+                "uuid": "8edae69d-f548-449d-9b90-b0f20e34d9fb",
+                "version": "8.4.0",
+                "name": "f40bcf15b712",
+                "host": "f40bcf15b712",
+                "type": "apm-server"
+              },
+              "cpu": {
+                "user": {
+                  "ticks": 150954680,
+                  "time": {
+                    "ms": 150954680
+                  }
+                },
+                "system": {
+                  "time": {
+                    "ms": 21209460
+                  },
+                  "ticks": 21209460
+                },
+                "total": {
+                  "time": {
+                    "ms": 172164140
+                  },
+                  "value": 172164140,
+                  "ticks": 172164140
+                }
+              },
+              "memstats": {
+                "rss": 151629824,
+                "gc_next": 101591877,
+                "memory": {
+                  "alloc": 85235912,
+                  "total": 27399526014768
+                }
+              },
+              "libbeat": {
+                "output": {
+                  "type": "elasticsearch",
+                  "events": {
+                    "total": 626677325,
+                    "acked": 626575041,
+                    "active": 86,
+                    "batches": 5533562,
+                    "failed": 102198,
+                    "toomany": 0
+                  },
+                  "write": {
+                    "bytes": 129418488095
+                  }
+                },
+                "pipeline": {
+                  "events": {
+                    "total": 626677325
+                  }
+                }
+              },
+              "cgroup": {
+                "cpuacct": {
+                  "id": "/",
+                  "total": {
+                    "ns": 244358978345124
+                  }
+                },
+                "memory": {
+                  "id": "/",
+                  "mem": {
+                    "limit": {
+                      "bytes": 2147483648
+                    },
+                    "usage": {
+                      "bytes": 275308544
+                    }
+                  }
+                },
+                "cpu": {
+                  "cfs": {
+                    "period": {
+                      "us": 100000
+                    },
+                    "quota": {
+                      "us": 800000
+                    }
+                  },
+                  "id": "/",
+                  "stats": {
+                    "periods": 61621404,
+                    "throttled": {
+                      "ns": 0,
+                      "periods": 0
+                    }
+                  }
+                }
+              },
+              "handles": {
+                "limit": {
+                  "hard": 1048576,
+                  "soft": 1048576
+                },
+                "open": 64
+              },
+              "system": {
+                "cpu": {
+                  "cores": 32
+                },
+                "load": {
+                  "1": 3.56,
+                  "5": 3.44,
+                  "15": 3.03,
+                  "norm": {
+                    "1": 0.1113,
+                    "5": 0.1075,
+                    "15": 0.0947
+                  }
+                }
+              },
+              "info": {
+                "name": "apm-server",
+                "uptime": {
+                  "ms": 7014188443
+                },
+                "version": "8.4.0",
+                "ephemeral_id": "5bd9b4ab-d0d5-4aef-8537-e68fa5ab95a8"
+              },
+              "uptime": {
+                "ms": 7014188443
+              },
+              "apm_server": {
+                "aggregation": {
+                  "txmetrics": {
+                    "active_groups": 41,
+                    "overflowed": 0
+                  }
+                },
+                "profile": {
+                  "request": {
+                    "count": 0
+                  },
+                  "response": {
+                    "count": 0,
+                    "errors": {
+                      "unauthorized": 0,
+                      "unavailable": 0,
+                      "toolarge": 0,
+                      "invalidquery": 0,
+                      "queue": 0,
+                      "forbidden": 0,
+                      "method": 0,
+                      "timeout": 0,
+                      "count": 0,
+                      "notfound": 0,
+                      "validate": 0,
+                      "decode": 0,
+                      "closed": 0,
+                      "internal": 0,
+                      "ratelimit": 0
+                    },
+                    "valid": {
+                      "count": 0,
+                      "notmodified": 0,
+                      "ok": 0,
+                      "accepted": 0
+                    }
+                  },
+                  "unset": 0
+                },
+                "server": {
+                  "request": {
+                    "count": 21405879
+                  },
+                  "response": {
+                    "errors": {
+                      "closed": 0,
+                      "decode": 0,
+                      "invalidquery": 0,
+                      "timeout": 0,
+                      "unauthorized": 0,
+                      "ratelimit": 361,
+                      "queue": 0,
+                      "method": 0,
+                      "internal": 109,
+                      "validate": 1306,
+                      "count": 1776,
+                      "toolarge": 0,
+                      "notfound": 0,
+                      "forbidden": 0,
+                      "unavailable": 0
+                    },
+                    "valid": {
+                      "count": 21404088,
+                      "notmodified": 0,
+                      "ok": 308100,
+                      "accepted": 21095988
+                    },
+                    "count": 21405864
+                  },
+                  "unset": 0
+                },
+                "otlp": {
+                  "grpc": {
+                    "logs": {
+                      "request": {
+                        "count": 441087
+                      },
+                      "response": {
+                        "count": 441087,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 441087
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 50545
+                      },
+                      "response": {
+                        "count": 50545,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 50545
+                        }
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 243646
+                      },
+                      "response": {
+                        "count": 243646,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 243646
+                        }
+                      }
+                    }
+                  },
+                  "http": {
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "logs": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "jaeger": {
+                  "grpc": {
+                    "sampling": {
+                      "event": {
+                        "received": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "collect": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "sampling": {
+                  "transactions_dropped": 801298
+                },
+                "acm": {
+                  "request": {
+                    "count": 7204965
+                  },
+                  "response": {
+                    "count": 7204965,
+                    "errors": {
+                      "notfound": 0,
+                      "internal": 0,
+                      "ratelimit": 0,
+                      "unavailable": 0,
+                      "decode": 0,
+                      "closed": 0,
+                      "toolarge": 0,
+                      "validate": 0,
+                      "unauthorized": 0,
+                      "invalidquery": 8,
+                      "timeout": 0,
+                      "forbidden": 0,
+                      "queue": 0,
+                      "count": 8,
+                      "method": 0
+                    },
+                    "valid": {
+                      "count": 7204957,
+                      "notmodified": 5782543,
+                      "ok": 1422414,
+                      "accepted": 0
+                    }
+                  },
+                  "unset": 0
+                },
+                "processor": {
+                  "log": {
+                    "transformations": 528116
+                  },
+                  "metric": {
+                    "transformations": 136624882
+                  },
+                  "span": {
+                    "transformations": 322276804
+                  },
+                  "stream": {
+                    "errors": {
+                      "invalid": 15,
+                      "toolarge": 0
+                    },
+                    "accepted": 593658215
+                  },
+                  "transaction": {
+                    "transformations": 160353307
+                  },
+                  "error": {
+                    "transformations": 7695644
+                  }
+                },
+                "decoder": {
+                  "gzip": {
+                    "content-length": 23370485626,
+                    "count": 5010942
+                  },
+                  "missing-content-length": {
+                    "count": 14076599
+                  },
+                  "reader": {
+                    "count": 21096478
+                  },
+                  "uncompressed": {
+                    "content-length": 7464204206,
+                    "count": 2009083
+                  },
+                  "deflate": {
+                    "content-length": 0,
+                    "count": 0
+                  }
+                },
+                "root": {
+                  "request": {
+                    "count": 1397469
+                  },
+                  "response": {
+                    "count": 1397469,
+                    "errors": {
+                      "invalidquery": 0,
+                      "closed": 0,
+                      "ratelimit": 0,
+                      "toolarge": 0,
+                      "timeout": 0,
+                      "unauthorized": 0,
+                      "method": 0,
+                      "forbidden": 0,
+                      "queue": 0,
+                      "notfound": 0,
+                      "internal": 0,
+                      "count": 0,
+                      "unavailable": 0,
+                      "decode": 0,
+                      "validate": 0
+                    },
+                    "valid": {
+                      "notmodified": 0,
+                      "ok": 1397469,
+                      "accepted": 0,
+                      "count": 1397469
+                    }
+                  },
+                  "unset": 0
+                }
+              }
+            },
+            "id": "8edae69d-f548-449d-9b90-b0f20e34d9fb"
+          },
+          "host": {
+            "name": "f40bcf15b712"
+          },
+          "agent": {
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "9c9e6b0b-8faf-4ec1-b459-139d29279151",
+            "id": "cb486573-a206-4477-9204-ec1784d46901",
+            "name": "f40bcf15b712"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "service": {
+            "name": "beat",
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/stats",
+            "type": "beat"
+          },
+          "event": {
+            "dataset": "beat.stats",
+            "module": "beat",
+            "duration": 8974053
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "rpXXr4QBuMsmkT8tOhWO",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:27.875Z",
+          "metricset": {
+            "name": "state",
+            "period": 10000
+          },
+          "service": {
+            "type": "beat",
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/state"
+          },
+          "beat": {
+            "state": {
+              "beat": {
+                "name": "0af92721a522",
+                "host": "0af92721a522",
+                "type": "apm-server",
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0"
+              },
+              "management": {
+                "enabled": true
+              },
+              "service": {
+                "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "name": "apm-server",
+                "version": "8.4.0"
+              },
+              "output": {
+                "name": "elasticsearch"
+              },
+              "queue": {
+                "name": "mem"
+              },
+              "host": {
+                "containerized": "containerized",
+                "os": {
+                  "kernel": "5.4.0-1032-gcp",
+                  "name": "Ubuntu",
+                  "platform": "ubuntu",
+                  "version": "20.04.4 LTS (Focal Fossa)"
+                }
+              },
+              "cluster": {
+                "uuid": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            }
+          },
+          "agent": {
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b",
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "host": {
+            "architecture": "x86_64",
+            "hostname": "0af92721a522",
+            "name": "0af92721a522"
+          },
+          "event": {
+            "dataset": "beat.state",
+            "module": "beat",
+            "duration": 46284201
+          }
+        }
+      },
+      {
+        "_index": ".ds-.monitoring-beats-8-mb-2022.11.22-000052",
+        "_id": "sJXXr4QBuMsmkT8tOhWO",
+        "_score": 1,
+        "_source": {
+          "@timestamp": "2022-11-25T17:30:27.879Z",
+          "service": {
+            "type": "beat",
+            "name": "beat",
+            "address": "http://localhost:6791/processes/apm-server-es-containerhost/stats"
+          },
+          "event": {
+            "duration": 45676674,
+            "dataset": "beat.stats",
+            "module": "beat"
+          },
+          "ecs": {
+            "version": "8.0.0"
+          },
+          "host": {
+            "name": "0af92721a522"
+          },
+          "agent": {
+            "id": "3e9d1cee-dd04-4abc-b785-374fbdf7f698",
+            "name": "0af92721a522",
+            "type": "metricbeat",
+            "version": "8.4.0",
+            "ephemeral_id": "87b15f74-138b-47a8-8a45-04306992e27b"
+          },
+          "metricset": {
+            "name": "stats",
+            "period": 10000
+          },
+          "beat": {
+            "id": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+            "type": "apm-server",
+            "elasticsearch": {
+              "cluster": {
+                "id": "vuTogdo5SxGAzSUC32OPdg"
+              }
+            },
+            "stats": {
+              "cpu": {
+                "system": {
+                  "ticks": 17007510,
+                  "time": {
+                    "ms": 17007510
+                  }
+                },
+                "total": {
+                  "ticks": 153418040,
+                  "time": {
+                    "ms": 153418040
+                  },
+                  "value": 153418040
+                },
+                "user": {
+                  "ticks": 136410530,
+                  "time": {
+                    "ms": 136410530
+                  }
+                }
+              },
+              "info": {
+                "ephemeral_id": "e8163ccb-db1e-4fa5-bf03-39d72b504115",
+                "name": "apm-server",
+                "uptime": {
+                  "ms": 7014197519
+                },
+                "version": "8.4.0"
+              },
+              "runtime": {
+                "goroutines": 162
+              },
+              "system": {
+                "cpu": {
+                  "cores": 32
+                },
+                "load": {
+                  "1": 2.58,
+                  "5": 2.52,
+                  "15": 2.56,
+                  "norm": {
+                    "1": 0.0806,
+                    "5": 0.0788,
+                    "15": 0.08
+                  }
+                }
+              },
+              "uptime": {
+                "ms": 7014197519
+              },
+              "memstats": {
+                "memory": {
+                  "alloc": 84535824,
+                  "total": 26776261653160
+                },
+                "rss": 142884864,
+                "gc_next": 94279348
+              },
+              "beat": {
+                "host": "0af92721a522",
+                "type": "apm-server",
+                "uuid": "f3279c88-ad7a-46f4-afbe-af3f20f2aaa0",
+                "version": "8.4.0",
+                "name": "0af92721a522"
+              },
+              "apm_server": {
+                "server": {
+                  "request": {
+                    "count": 20314947
+                  },
+                  "response": {
+                    "valid": {
+                      "ok": 290702,
+                      "accepted": 20022652,
+                      "count": 20313354,
+                      "notmodified": 0
+                    },
+                    "count": 20314933,
+                    "errors": {
+                      "method": 0,
+                      "forbidden": 0,
+                      "queue": 0,
+                      "ratelimit": 204,
+                      "count": 1579,
+                      "unauthorized": 0,
+                      "decode": 0,
+                      "timeout": 0,
+                      "invalidquery": 0,
+                      "notfound": 0,
+                      "toolarge": 0,
+                      "validate": 1278,
+                      "closed": 0,
+                      "unavailable": 0,
+                      "internal": 97
+                    }
+                  },
+                  "unset": 0
+                },
+                "aggregation": {
+                  "txmetrics": {
+                    "active_groups": 40,
+                    "overflowed": 0
+                  }
+                },
+                "otlp": {
+                  "grpc": {
+                    "traces": {
+                      "request": {
+                        "count": 214673
+                      },
+                      "response": {
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 214673
+                        },
+                        "count": 214673
+                      }
+                    },
+                    "logs": {
+                      "request": {
+                        "count": 121649
+                      },
+                      "response": {
+                        "count": 121649,
+                        "errors": {
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0
+                        },
+                        "valid": {
+                          "count": 121649
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      },
+                      "request": {
+                        "count": 66357
+                      },
+                      "response": {
+                        "count": 66357,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 66357
+                        }
+                      }
+                    }
+                  },
+                  "http": {
+                    "logs": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      }
+                    },
+                    "metrics": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0,
+                          "timeout": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      },
+                      "consumer": {
+                        "unsupported_dropped": 0
+                      }
+                    },
+                    "traces": {
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0,
+                        "errors": {
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0,
+                          "ratelimit": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "sampling": {
+                  "transactions_dropped": 773618
+                },
+                "processor": {
+                  "stream": {
+                    "accepted": 578216761,
+                    "errors": {
+                      "invalid": 16,
+                      "toolarge": 0
+                    }
+                  },
+                  "transaction": {
+                    "transformations": 154928648
+                  },
+                  "error": {
+                    "transformations": 7159011
+                  },
+                  "log": {
+                    "transformations": 145515
+                  },
+                  "metric": {
+                    "transformations": 136727103
+                  },
+                  "span": {
+                    "transformations": 312279261
+                  }
+                },
+                "profile": {
+                  "request": {
+                    "count": 0
+                  },
+                  "response": {
+                    "errors": {
+                      "count": 0,
+                      "decode": 0,
+                      "unauthorized": 0,
+                      "method": 0,
+                      "closed": 0,
+                      "notfound": 0,
+                      "toolarge": 0,
+                      "invalidquery": 0,
+                      "ratelimit": 0,
+                      "validate": 0,
+                      "forbidden": 0,
+                      "unavailable": 0,
+                      "internal": 0,
+                      "queue": 0,
+                      "timeout": 0
+                    },
+                    "valid": {
+                      "count": 0,
+                      "notmodified": 0,
+                      "ok": 0,
+                      "accepted": 0
+                    },
+                    "count": 0
+                  },
+                  "unset": 0
+                },
+                "decoder": {
+                  "deflate": {
+                    "count": 0,
+                    "content-length": 0
+                  },
+                  "gzip": {
+                    "content-length": 23308937085,
+                    "count": 4515525
+                  },
+                  "missing-content-length": {
+                    "count": 13623455
+                  },
+                  "reader": {
+                    "count": 20022974
+                  },
+                  "uncompressed": {
+                    "content-length": 7117931416,
+                    "count": 1884147
+                  }
+                },
+                "root": {
+                  "unset": 0,
+                  "request": {
+                    "count": 1397478
+                  },
+                  "response": {
+                    "count": 1397478,
+                    "errors": {
+                      "closed": 0,
+                      "invalidquery": 0,
+                      "decode": 0,
+                      "ratelimit": 0,
+                      "unauthorized": 0,
+                      "internal": 0,
+                      "toolarge": 0,
+                      "timeout": 0,
+                      "validate": 0,
+                      "queue": 0,
+                      "count": 0,
+                      "notfound": 0,
+                      "unavailable": 0,
+                      "forbidden": 0,
+                      "method": 0
+                    },
+                    "valid": {
+                      "ok": 1397478,
+                      "accepted": 0,
+                      "count": 1397478,
+                      "notmodified": 0
+                    }
+                  }
+                },
+                "jaeger": {
+                  "grpc": {
+                    "collect": {
+                      "response": {
+                        "count": 0,
+                        "errors": {
+                          "ratelimit": 0,
+                          "timeout": 0,
+                          "unauthorized": 0,
+                          "count": 0
+                        },
+                        "valid": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      }
+                    },
+                    "sampling": {
+                      "event": {
+                        "received": {
+                          "count": 0
+                        }
+                      },
+                      "request": {
+                        "count": 0
+                      },
+                      "response": {
+                        "valid": {
+                          "count": 0
+                        },
+                        "count": 0,
+                        "errors": {
+                          "count": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "acm": {
+                  "request": {
+                    "count": 6711955
+                  },
+                  "response": {
+                    "errors": {
+                      "invalidquery": 10,
+                      "queue": 0,
+                      "toolarge": 0,
+                      "method": 0,
+                      "ratelimit": 0,
+                      "validate": 0,
+                      "internal": 0,
+                      "closed": 0,
+                      "count": 10,
+                      "unavailable": 0,
+                      "timeout": 0,
+                      "notfound": 0,
+                      "decode": 0,
+                      "forbidden": 0,
+                      "unauthorized": 0
+                    },
+                    "valid": {
+                      "count": 6711945,
+                      "notmodified": 5562716,
+                      "ok": 1149229,
+                      "accepted": 0
+                    },
+                    "count": 6711955
+                  },
+                  "unset": 0
+                }
+              },
+              "handles": {
+                "open": 67,
+                "limit": {
+                  "hard": 1048576,
+                  "soft": 1048576
+                }
+              },
+              "cgroup": {
+                "cpuacct": {
+                  "total": {
+                    "ns": 215948972061655
+                  },
+                  "id": "/"
+                },
+                "memory": {
+                  "mem": {
+                    "limit": {
+                      "bytes": 2147483648
+                    },
+                    "usage": {
+                      "bytes": 275210240
+                    }
+                  },
+                  "id": "/"
+                },
+                "cpu": {
+                  "cfs": {
+                    "quota": {
+                      "us": 800000
+                    },
+                    "period": {
+                      "us": 100000
+                    }
+                  },
+                  "id": "/",
+                  "stats": {
+                    "throttled": {
+                      "ns": 0,
+                      "periods": 0
+                    },
+                    "periods": 59030362
+                  }
+                }
+              },
+              "libbeat": {
+                "output": {
+                  "type": "elasticsearch",
+                  "events": {
+                    "active": 20,
+                    "batches": 5459404,
+                    "failed": 133309,
+                    "toomany": 0,
+                    "total": 610465821,
+                    "acked": 610332492
+                  },
+                  "write": {
+                    "bytes": 125782456064
+                  }
+                },
+                "pipeline": {
+                  "events": {
+                    "total": 610465821
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
