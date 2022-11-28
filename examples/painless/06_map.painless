@@ -1,9 +1,9 @@
-def documents = ctx.payload.hits.hits.stream()
+// using raw_data.json data sample
+def documents = params.hits.hits.stream()
     .map(hit -> [
-      "@timestamp": ctx.execution_time,
-      "cluster_name": hit._source.cluster_name,
-      "jvm_version": hit._source.cluster_stats.nodes.jvm.versions.0.version,
-      "severity": "high"
+          "@timestamp": hit._source['@timestamp'],
+          "host_name": hit._source.host.hostname,
+          "severity": "high"
     ])
     .collect(Collectors.toList());
 return [ "_doc" : documents]; 
