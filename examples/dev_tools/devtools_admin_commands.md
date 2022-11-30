@@ -40,6 +40,21 @@ DELETE my-index-2021-10-20-00001/_alias/my-index-alias
 
 ## Add index to alias
 PUT my-index-2021-10-20-00001/_alias/my-alias
+#Better way is
+```
+POST _aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "my-index-2022-10-15-000001",
+        "alias": "my-index-alias",
+        "is_write_index": "false"
+      }
+    }
+  ]
+}
+```
 
 ## Rollover
 POST /my-index-alias/_rollover/
