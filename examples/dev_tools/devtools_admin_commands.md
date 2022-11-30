@@ -57,9 +57,8 @@ POST _aliases
 ```
 
 ## Rollover
+```
 POST /my-index-alias/_rollover/
-
-
 ```
 
 ## Template checks
