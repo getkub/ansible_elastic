@@ -1,0 +1,3 @@
+      return ctx.payload.aggregations.myhost.buckets.stream()       
+        .anyMatch(i -> { return i.myuser.buckets.stream()
+        .anyMatch(j -> { return j.doc_count > 2 })})    
