@@ -19,6 +19,8 @@ GET _cat/nodes?v&h=name,ram*,heap.percent,heap.max,cpu&s=ram.percent:desc
 GET _cat/indices?v&s=index&h=index
 GET my-index-alias/_stats/store
 GET /_cat/shards/my-index-alias
+GET _cat/snapshots
+GET _snapshot/my_snapshot_mount/*snapshot_name*/
 ```
 
 ## Node checks
