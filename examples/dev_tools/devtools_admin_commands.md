@@ -21,6 +21,9 @@ GET my-index-alias/_stats/store
 GET /_cat/shards/my-index-alias
 GET _cat/snapshots
 GET _snapshot/my_snapshot_mount/*snapshot_name*/
+
+# Data move between tiers
+GET _cat/recovery?active_only=true&v&h=index,shard,source_node,target_node,bytes_percent,time
 ```
 
 ## Node checks
