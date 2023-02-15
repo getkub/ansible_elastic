@@ -16,7 +16,7 @@ GET _cat/nodes?v&h=name,ram*,heap.percent,heap.max,cpu&s=ram.percent:desc
 
 ## Indices checks, stats, size
 ```
-GET _cat/indices?v&s=index&h=index
+GET _cat/indices?v&s=index&h=index,status,docs.count,store.size&s=store.size:desc
 GET my-index-alias/_stats/store
 GET /_cat/shards/my-index-alias
 GET _cat/snapshots
