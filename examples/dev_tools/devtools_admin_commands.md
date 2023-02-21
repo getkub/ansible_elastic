@@ -31,6 +31,9 @@ GET _cat/recovery?active_only=true&v&h=index,shard,source_node,target_node,bytes
 GET _cat/nodes?v&s=name
 GET _nodes/stats
 GET _nodes/stats/fs
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#common-options-response-filtering
+GET /_nodes/stats?filter_path=es-hot*
 ```
 
 ## Alias checks and deletion
