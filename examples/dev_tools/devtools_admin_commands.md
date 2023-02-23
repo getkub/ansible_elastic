@@ -62,6 +62,20 @@ POST _aliases
     }
   ]
 }
+GET my-index-2022-10-15-000001/_alias
+
+## Remove any OLD indices in case it shows duplicate
+POST _aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "my-index-2022-10-15-000001",
+        "alias": "my-index-2022-10-15-000001"
+      }
+    }
+  ]
+}
 ```
 
 ## Rollover
