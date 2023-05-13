@@ -5,3 +5,7 @@ www.elastic.co/guide/en/elasticsearch/reference/7.16/get-pipeline-api.html
 
 # Logstash ingest converter
 https://www.elastic.co/guide/en/logstash/7.16/ingest-converter.html
+
+
+# Grok Patterns
+https://github.com/elastic/elasticsearch/tree/8.8/libs/grok/src/main/resources/patterns/ecs-v1
