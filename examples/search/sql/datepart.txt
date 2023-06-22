@@ -1,0 +1,11 @@
+POST _sql/?format=txt
+{
+  "query": """
+  SELECT DATEPART('hour', "@timestamp"), count(*) as count
+  FROM "winlog*"
+  WHERE "@timestamp" <  NOW() - INTERVAL 10 DAYS
+  AND destination.ip IN ('10.20.30.40', '10.30.40.50')
+  GROUP BY DATEPART('hour', "@timestamp")
+  ORDER BY "winlog.channel"
+  """
+}
