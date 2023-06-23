@@ -9,3 +9,19 @@ POST _sql/?format=txt
   ORDER BY "winlog.channel"
   """
 }
+
+
+===========
+
+POST _sql/?format=txt
+{
+  "query": """
+  SELECT HISTOGRAM("@timestamp", INTERVAL 1 HOUR) as mytime, count(*) as count
+  FROM "winlog*"
+  WHERE "@timestamp" <  NOW() - INTERVAL 10 DAYS
+  AND destination.ip IN ('10.20.30.40', '10.30.40.50')
+  GROUP BY HISTOGRAM("@timestamp", INTERVAL 1 HOUR)
+  """
+}
+
+===========
