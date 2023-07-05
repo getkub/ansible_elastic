@@ -1,0 +1,12 @@
+## Enrichment & lookup
+
+```
+from logs-*
+| starts event_code_count = count(event.code) by event.code, host.name
+| enrich win_events on event.code with EVENT_DESCRIPTION
+| where not is_null(EVENT_DESCRIPTION) and not is_null(host.name)
+| rename event.description = EVENT_DESCRIPTION
+| keep event_code_count, event.code, host.name
+
+```
+
