@@ -1,0 +1,14 @@
+  "actions": {
+    "email": {
+      "throttle_period_in_millis": 900000,
+      "email": {
+        "profile": "standard",
+        "from": "blah@glah.com",
+        "to": "f0a8278c.myorg.onmicrosoft.com@emea.teams.ms",
+        "subject": "This is a TEST",
+        "body": {
+            "html: {{ctx.payload.aggregations.group_by_src.buckets.0}}; executed at {{ctx.execution_time}}"
+        }
+      }
+    }
+  }
