@@ -9,3 +9,6 @@ https://www.elastic.co/guide/en/logstash/7.16/ingest-converter.html
 
 # Grok Patterns
 https://github.com/elastic/elasticsearch/tree/8.8/libs/grok/src/main/resources/patterns/ecs-v1
+
+# Elastic Packages (like ingest, yaml files)
+https://epr.elastic.co/package/cisco_asa/2.20.3/
