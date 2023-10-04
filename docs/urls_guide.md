@@ -7,3 +7,4 @@
 | Core | SQL | https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-sql.html |
 | Beats | Roles & Permissions | https://www.elastic.co/guide/en/beats/libbeat/7.8/config-file-permissions.html |
 | Core | YAML gotchas| https://www.elastic.co/guide/en/beats/libbeat/7.8/config-file-format-tips.html |
+| Performance | Elastic Benchmarking| https://elasticsearch-benchmarks.elastic.co/#tracks/esql/nightly/default/90d|
