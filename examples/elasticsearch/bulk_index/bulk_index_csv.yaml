@@ -17,28 +17,29 @@
         path: ./hosts.csv
       register: csv_data
 
-    - debug:
-        msg: >
-          {%- for item in csv_data.list -%}
-              { "index" : { "_index" : "TEST", "_type" : "_doc" } }
-              { "hostname" : "{{ item.hostname }}", "destination_ip" : "{{ item.destination_ip }}", "elastic_tier" : "{{ item.elastic_tier}}", "os_type" : "{{ item.os_type }}" }
-              {%- if not loop.last -%}
-              \n
-              {%- endif -%}
-          {%- endfor -%}
-
     - set_fact:
         bulk_msg: >
-              {%- for item in csv_data.list -%}
-              { "index" : { "_index" : "TEST", "_type" : "_doc" } }
-              { "hostname" : "{{ item.0 }}", "your_field_name_2" : "{{ item.1 }}", "your_field_name_3" : "{{ item.2 }}" }
-              {%- if not loop.last -%}
+          {%- for item in csv_data.list -%}
+              {"index": {"_index": "TEST", "_type": "_doc"} }
+              \n{{ item | to_nice_json }}
               \n
-              {%- endif -%}
-              {%- endfor -%}
+          {%- endfor -%}
 
     - debug:
-        msg: "{{bulk_msg}}"
+        var: bulk_msg
+
+    # - set_fact:
+    #     bulk_msg: >
+    #           {%- for item in csv_data.list -%}
+    #           { "index" : { "_index" : "TEST", "_type" : "_doc" } }
+    #           { "hostname" : "{{ item.0 }}", "your_field_name_2" : "{{ item.1 }}", "your_field_name_3" : "{{ item.2 }}" }
+    #           {%- if not loop.last -%}
+    #           \n
+    #           {%- endif -%}
+    #           {%- endfor -%}
+
+    # - debug:
+    #     msg: "{{bulk_msg}}"
         # - name: Index data to Elasticsearch
         #   uri:
         #     url: "http://your_elasticsearch_host:9200/your_index_name/_bulk"
