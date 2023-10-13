@@ -35,11 +35,8 @@
 
     - set_fact:
         csv_data_with_concatenated_column: >-
-          {%- set updated_list = [] -%}
-          {%- for item in csv_data.list -%}
-            {%- set _ = updated_list.append(item | combine({'new_column': item.hostname ~ "-" ~ item.destination_ip})) -%}
-          {%- endfor -%}
-          {{ updated_list }}
+      [{"new_column": "{{ item.hostname }}-{{ item.destination_ip }}", "hostname": "{{ item.hostname }}", "destination_ip": "{{ item.destination_ip }}", "elastic_tier": "{{ item.elastic_tier }}", "os_type": "{{ item.os_type }}"}
+      for item in csv_data.list]
     - debug:
         msg: "{{ csv_data_with_concatenated_column }}"
 
