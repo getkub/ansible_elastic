@@ -1,0 +1,61 @@
+---
+- name: "Index items from CSV to Elasticsearch"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    mylist:
+      type: fruit
+      ttl: 60m
+      country: US
+  tasks:
+    # - name: Read data from CSV file
+    #   set_fact:
+    #     csv_data: "{{ lookup('csvfile', 'hosts.csv', delimiter=',') }}"
+
+    - name: "Read as a list"
+      read_csv:
+        path: ./hosts.csv
+      register: csv_data
+
+    - debug:
+        msg: >
+          {%- for item in csv_data.list -%}
+              { "index" : { "_index" : "TEST", "_type" : "_doc" } }
+              { "hostname" : "{{ item.hostname }}", "destination_ip" : "{{ item.destination_ip }}", "elastic_tier" : "{{ item.elastic_tier}}", "os_type" : "{{ item.os_type }}" }
+              {%- if not loop.last -%}
+              \n
+              {%- endif -%}
+          {%- endfor -%}
+
+    - set_fact:
+        bulk_msg: >
+              {%- for item in csv_data.list -%}
+              { "index" : { "_index" : "TEST", "_type" : "_doc" } }
+              { "hostname" : "{{ item.0 }}", "your_field_name_2" : "{{ item.1 }}", "your_field_name_3" : "{{ item.2 }}" }
+              {%- if not loop.last -%}
+              \n
+              {%- endif -%}
+              {%- endfor -%}
+
+    - debug:
+        msg: "{{bulk_msg}}"
+        # - name: Index data to Elasticsearch
+        #   uri:
+        #     url: "http://your_elasticsearch_host:9200/your_index_name/_bulk"
+        #     method: POST
+        #     body_format: json
+        #     body: |
+        #       {%- for item in csv_data -%}
+        #       { "index" : { "_index" : "your_index_name", "_type" : "_doc" } }
+        #       { "your_field_name_1" : "{{ item.0 }}", "your_field_name_2" : "{{ item.1 }}", "your_field_name_3" : "{{ item.2 }}" }
+        #       {%- if not loop.last -%}
+        #       \n
+        #       {%- endif -%}
+        #       {%- endfor -%}
+        #     status_code: 200
+        #     headers:
+        #       Content-Type: "application/json"
+        #   register: result
+
+        # - debug:
+        #     var: result
