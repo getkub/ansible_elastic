@@ -1,0 +1,19 @@
+POST _ingest/pipeline/_simulate
+{
+    "pipeline": {
+        "processors": [
+            {
+                "geoip": {
+                    "field": "ip"
+                }
+            }
+        ]
+    },
+    "docs": [
+        {
+            "_source": {
+                "ip": "82.1.151.142"
+            }
+        }
+    ]
+}
