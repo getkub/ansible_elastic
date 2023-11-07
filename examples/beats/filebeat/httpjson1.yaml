@@ -17,3 +17,12 @@
     some.value: "test2"
   response:
     split:
+      target: body.data
+      type: array
+      transforms:
+        - set: 
+            target: body.syslog.hostname
+            value: '[[.body.syslog.ip]]'
+            default: 'NA'
+        - delete:
+            target: body.syslog.ip
