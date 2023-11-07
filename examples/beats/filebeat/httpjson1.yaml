@@ -1,0 +1,19 @@
+- type: httpjson
+  enabled: true
+  interval: 60s
+  auth.basic:
+    enabled: true
+    user: '${keystore1}'
+    password: '${keystore2}'
+  auth.oauth2.enabled: false
+  http_headers:
+    Content-Type: "application/json"
+  request:
+    url: "https://somewhere.com/api"
+    method: "POST"
+    body: "request_body"
+  fields:
+    some.key: "test"
+    some.value: "test2"
+  response:
+    split:
