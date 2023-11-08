@@ -26,3 +26,18 @@
             default: 'NA'
         - delete:
             target: body.syslog.ip
+
+- type: httpjson
+  enabled: true
+  auth.oauth2:
+    client.id: '${keystore1}'
+    client.secret: '${keystore2}'
+    token_url: 'https://xyz.blah/oauth/token'
+    endpoint_params:
+      grant_type:
+         - my_creds
+      my_second_param:
+        - "https://thiscould.be/url/api/v3"
+    request.url: "https://another.one/api/v3/realod"
+
+         
