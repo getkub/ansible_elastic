@@ -1,0 +1,27 @@
+{
+    "template": { 
+      "mappings": {
+        "properties": {
+          "audit": {
+            "properties": {
+              "log": {
+                "properties": {
+                  "success": {
+                    "type": "keyword" 
+                  }
+                }
+              }
+            }
+          },
+          "usa": {
+            "properties": {
+              "syslog_timestamp": {
+                "type": "date",  
+                "format": "MMM  d HH:mm:ss"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
