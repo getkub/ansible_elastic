@@ -9,3 +9,7 @@ GET _snapshot/my-cold-bucket/*my-ilm-policy*
 ```
 GET _ilm/policy/my-ilm-policy
 ```
+
+```
+POST _ilm/move/.ds-my-datastream-name-2023.11.10-000001
+```
