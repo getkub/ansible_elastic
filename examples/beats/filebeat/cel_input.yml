@@ -1,0 +1,11 @@
+- type: cel
+  interval: 10m
+  resource: 
+    url: "https://myurl.com/api"
+  program: |
+    bytes(request("GET", state.url)
+      .with({"Header": {"Accept": ["application/json"]}})
+      .do_request().Body
+    ) as(body, { 
+            "events" : [body.decode_json()]}
+          )
