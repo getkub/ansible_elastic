@@ -7,5 +7,5 @@
       .with({"Header": {"Accept": ["application/json"]}})
       .do_request().Body
     ).as(body, { 
-            "events" : [body.decode_json()]}
+            "events" : [{"mydata": body.decode_json() }]}
           )
