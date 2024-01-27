@@ -15,7 +15,6 @@
   interval: 10m
   resource:
     url: https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
-# https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=2024-01-26
   program: |
     bytes(request("GET", state.url + "&date=" + now.format("2006-01-01") )
       .with({"Header": {"Accept": ["application/json"]}})
