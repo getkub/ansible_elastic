@@ -5,6 +5,7 @@
   program: |
     bytes(request("GET", state.url)
       .with({"Header": {"Accept": ["application/json"]}})
+      // comment can be put like this
       .do_request().Body
     ).as(body, { 
             "events" : [{"mydata": body.decode_json() }]}
