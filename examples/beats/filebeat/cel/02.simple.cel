@@ -1,0 +1,7 @@
+state.map(e, e.with({
+		"@triggered": now,	
+})).drop_empty().as(res,
+	{
+		"events": res,
+	}
+)
