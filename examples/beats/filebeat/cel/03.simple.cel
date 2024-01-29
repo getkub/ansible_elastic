@@ -1,4 +1,0 @@
-// NOT working yet
-string('test').as(e,{
-  "t": now - now("-1h"),
-})

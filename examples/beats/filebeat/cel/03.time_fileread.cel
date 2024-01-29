@@ -1,0 +1,10 @@
+string(file('/tmp/sample.txt')).as(e,{
+		"t": now,
+		"t_5m": e
+}).as(res2,
+	{
+		"now": res2.t,
+		"fileData": res2.t_5m.parse_time(time_layout.RFC3339),
+		"duration": now - res2.t_5m.parse_time(time_layout.RFC3339)
+	}
+)
