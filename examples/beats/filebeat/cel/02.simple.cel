@@ -1,12 +1,12 @@
 string('test').as(e,{
-		"t": now,
+        "t": now,
 }).as(res,
-	{
-		"events": res,
-		"finalValue" : "only_this_needs_be_displayed",
-	}
+    {
+        "events": res,
+        "finalValue" : "only_this_needs_be_displayed",
+    }
 ).as(res2,
-	{
-		"events": res2.finalValue,
-	}
+    {
+        "events": res2.finalValue,
+    }
 )
