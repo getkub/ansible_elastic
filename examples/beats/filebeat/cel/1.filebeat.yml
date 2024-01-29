@@ -1,0 +1,24 @@
+filebeat.inputs:
+- type: cel
+  interval: 10m
+  resource:
+    url: https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
+  program: |
+    string("hello").as(e, {
+      "mydate": now().format("2006-01-02"),
+      "unixStart": "dummy"
+    }).as(vars, bytes(request("GET", state.url + "&date=" + vars.mydate )
+      .with({"Header": {"Accept": ["application/json"]}})
+      .do_request().Body
+    )).as(body,{ 
+                  "events" : [{"mydata": body.decode_json() }],
+              }
+        )
+
+
+logging.level: debug
+logging.metrics.enabled: false
+logging.to_files: false
+
+output.console:
+  pretty: true

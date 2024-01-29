@@ -2,12 +2,12 @@ string('test').as(e,{
         "t": now,
 }).as(a,
     {
-        "nowTime": a.t.format("2006-01-02T15:04:05") + "Z",
-        "preHour": int(a.t.format("15")) - 1,
-        "tempPreTime": a.t.format("2006-01-02T") + string(int(a.t.format("15")) - 1) + a.t.format(":04:05") + "Z",
+        "startTime": a.t.format("2006-01-02T15:04:05") + "Z",
+        "preMins": int(a.t.format("04")) - 10,
+        "endTime": a.t.format("2006-01-02T15:") + string(int(a.t.format("04")) - 10) + a.t.format(":05") + "Z",
     }
-).as(b, (b.preHour > 16) ? 
-        b.with({"tempPreTime": b}) 
+).as(b, (b.preMins < 0) ? 
+        b.with({"object": b}) 
         : 
-        b.with({"tempPreTime": b.tempPreTime})  
+        b.with({"object": b})  
     )
