@@ -1,7 +1,12 @@
-state.map(e, e.with({
-		"@triggered": now,	
-})).drop_empty().as(res,
+string('test').as(e,{
+		"t": now,
+}).as(res,
 	{
 		"events": res,
+		"finalValue" : "only_this_needs_be_displayed",
+	}
+).as(res2,
+	{
+		"events": res2.finalValue,
 	}
 )
