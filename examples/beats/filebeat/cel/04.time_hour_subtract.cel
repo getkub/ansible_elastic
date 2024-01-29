@@ -2,13 +2,22 @@ string('test').as(e,{
         "t": now,
 }).as(res2,
     {
-        "nowTime": res2.t.format("2006-01-02T03:04:05") + ".000000Z",
-        "preHour": int(res2.t.format("03")) - 1,
-        "preTime": res2.t.format("2006-01-02T") + string(int(res2.t.format("03")) - 1) + res2.t.format(":04:05") + ".000000Z",
+        "nowTime": res2.t.format("2006-01-02T15:04:05") + ".000000Z",
+        "preHour": int(res2.t.format("15")) - 1,
+        "tempPreTime": res2.t.format("2006-01-02T") + string(int(res2.t.format("15")) - 1) + res2.t.format(":04:05") + ".000000Z",
     }
 ).as(res3,
     {
-        "duration": res3.nowTime.parse_time(time_layout.RFC3339) - res3.preTime.parse_time(time_layout.RFC3339)
-        // "time": res3.nowTime.parse_time(time_layout.RFC3339)
+        "preHour": res3.preHour,
+        "duration": res3.nowTime.parse_time(time_layout.RFC3339) - res3.tempPreTime.parse_time(time_layout.RFC3339), 
+		"preTime": now - (res3.nowTime.parse_time(time_layout.RFC3339) - res3.tempPreTime.parse_time(time_layout.RFC3339)),
+        "nowTime": res3.nowTime,
+    }
+).as(res4,
+    {
+        "duration": res4.duration, 
+        "preHour": res4.preHour, 
+		"preTime_ISO8601": res4.preTime,
+        "nowTime_ISO8601": res4.nowTime,
     }
 )
