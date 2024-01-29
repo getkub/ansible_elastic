@@ -1,0 +1,3 @@
+string('test').as(e,{
+        "t": now,
+}).as(d, has(d.t) ? "present": "not_present")

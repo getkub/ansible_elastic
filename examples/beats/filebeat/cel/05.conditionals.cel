@@ -1,0 +1,1 @@
+state.map(d, has(d.num) ? "present": "not_present")
