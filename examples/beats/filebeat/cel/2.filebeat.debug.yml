@@ -1,0 +1,20 @@
+filebeat.inputs:
+- type: cel
+  interval: 10m
+  resource: 
+    url: "https://jsonplaceholder.typicode.com/comments?postId=2"
+  program: |
+    bytes(request("GET", state.url)
+      .with({"Header": {"Accept": ["application/json"]}})
+      // comment can be put like this
+      .do_request().Body
+    ).as(body, { 
+            "events" : [{"mydata": body.decode_json() }]}
+          )
+
+logging.level: debug
+logging.metrics.enabled: false
+logging.to_files: false
+
+output.console:
+  pretty: true

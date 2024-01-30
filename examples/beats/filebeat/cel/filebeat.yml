@@ -1,16 +1,52 @@
 filebeat.inputs:
 - type: cel
   interval: 10m
-  resource: 
-    url: "https://jsonplaceholder.typicode.com/comments?postId=2"
+  resource:
+    url: https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
   program: |
-    bytes(request("GET", state.url)
-      .with({"Header": {"Accept": ["application/json"]}})
-      // comment can be put like this
-      .do_request().Body
-    ).as(body, { 
-            "events" : [{"mydata": body.decode_json() }]}
-          )
+    string('test').as(e,{
+            "t": now,
+    }).as(a,
+        {
+            "et": a.t.format("2006-01-02T15:04:05") + "Z",
+            "preMins": int(a.t.format("04")) - 10,
+            "preHour": int(a.t.format("15")) - 1,
+        }
+    ).as(b, (b.preMins > 0) ?
+        // Subtract xx mins from Minute column
+            (
+                {
+                    "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T15:") + string(int(b.et.parse_time(time_layout.RFC3339).format("04")) - 10) + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
+                    "endTime": b.et,
+                    "preMins": b.preMins,
+                }
+            )
+        : 
+        // Subtract 1 hour from Hour column and add xx mins to Mins column
+            (
+                {
+                    "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T") + string(int(b.et.parse_time(time_layout.RFC3339).format("15")) - 1) + ":50" + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
+                    "endTime": b.et,
+                    "preMins": b.preMins,
+                }
+            )
+    ).as(c, 
+      {
+          // "startTime": (c.startTime.parse_time(time_layout.RFC3339).format("2006-01-02")),
+          "startTime": c.startTime,
+          "endTime": c.endTime,
+      }
+    ).as(vars, bytes(request("GET", state.url + "&extraKey=" + vars.startTime )
+        .with({"Header": {"Accept": ["application/json"]}})
+        .do_request().Body
+    )).as(body,{ 
+              "events" : [
+                {
+                  "mydata": body.decode_json(),
+                }
+              ],
+          }
+    )
 
 logging.level: debug
 logging.metrics.enabled: false

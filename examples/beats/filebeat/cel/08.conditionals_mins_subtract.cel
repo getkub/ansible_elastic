@@ -10,7 +10,7 @@ string('test').as(e,{
     // Subtract xx mins from Minute column
         (
             {
-                "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T15:") + string(int(b.et.parse_time(time_layout.RFC3339).format("04")) - 10) + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339),
+                "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T15:") + string(int(b.et.parse_time(time_layout.RFC3339).format("04")) - 10) + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
                 "endTime": b.et,
                 "preMins": b.preMins,
             }
@@ -19,9 +19,16 @@ string('test').as(e,{
     // Subtract 1 hour from Hour column and add xx mins to Mins column
         (
             {
-                "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T") + string(int(b.et.parse_time(time_layout.RFC3339).format("15")) - 1) + ":50" + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339),
+                "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T") + string(int(b.et.parse_time(time_layout.RFC3339).format("15")) - 1) + ":50" + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
                 "endTime": b.et,
                 "preMins": b.preMins,
             }
         )
+    ).as(body,{ 
+              "events" : [
+                {
+                  "mydata": body,
+                }
+              ],
+          }
     )
