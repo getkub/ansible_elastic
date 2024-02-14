@@ -6,47 +6,17 @@ filebeat.inputs:
   program: |
     string('test').as(e,{
             "t": now,
-    }).as(a,
+    }).as(res,
         {
-            "et": a.t.format("2006-01-02T15:04:05") + "Z",
-            "preMins": int(a.t.format("04")) - 10,
-            "preHour": int(a.t.format("15")) - 1,
+            "events": res,
+            "finalValue" : "only_this_needs_be_displayed",
         }
-    ).as(b, (b.preMins > 0) ?
-        // Subtract xx mins from Minute column
-            (
-                {
-                    "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T15:") + string(int(b.et.parse_time(time_layout.RFC3339).format("04")) - 10) + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
-                    "endTime": b.et,
-                    "preMins": b.preMins,
-                }
-            )
-        : 
-        // Subtract 1 hour from Hour column and add xx mins to Mins column
-            (
-                {
-                    "startTime": (b.et.parse_time(time_layout.RFC3339).format("2006-01-02T") + string(int(b.et.parse_time(time_layout.RFC3339).format("15")) - 1) + ":50" + b.et.parse_time(time_layout.RFC3339).format(":05") + "Z").parse_time(time_layout.RFC3339).format("2006-01-02T15:04:05Z"),
-                    "endTime": b.et,
-                    "preMins": b.preMins,
-                }
-            )
-    ).as(c, 
-      {
-          // "startTime": (c.startTime.parse_time(time_layout.RFC3339).format("2006-01-02")),
-          "startTime": c.startTime,
-          "endTime": c.endTime,
-      }
-    ).as(vars, bytes(request("GET", state.url + "&extraKey=" + vars.startTime )
-        .with({"Header": {"Accept": ["application/json"]}})
-        .do_request().Body
-    )).as(body,{ 
-              "events" : [
-                {
-                  "mydata": body.decode_json(),
-                }
-              ],
-          }
+    ).as(res2,
+        {
+            "events": res2.finalValue,
+        }
     )
+
 
 logging.level: debug
 logging.metrics.enabled: false
