@@ -1,0 +1,94 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "1h"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "search_type": "query_then_fetch",
+          "indices": [
+            "kibana_sample_data_logs"
+          ],
+          "rest_total_hits_as_int": true,
+          "body": {
+            "size": 0,
+            "query": {
+              "bool": {
+                "filter": [
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "gte": "now-{{ctx.metadata.search_period}}"
+                      }
+                    }
+                  },
+                  {
+                    "match": {
+                      "event.dataset": "sample_web_logs"
+                    }
+                  }
+                ]
+              }
+            },
+            "aggs": {
+              "groupby": {
+                "composite": {
+                  "size": 65536,  
+                  "sources": [
+                    {
+                        "host_hostname": {
+                            "terms" : {
+                                "field": "host.hostname",
+                                "missing_bucket": true,
+                                "order": "asc"
+                            }
+                        }
+                    },
+                    {
+                        "host_os": {
+                            "terms" : {
+                                "field": "host.os",
+                                "missing_bucket": true
+                            }
+                        }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "script": {
+        "source": """
+            for (def cx: ctx.payload.aggregations.groupby.buckets) {
+                for ( def md: ctx.metadata.limits) {
+                    if ( cx.doc_count < 10 && cx.host_os == md.key) 
+                        return true;
+                }
+            }
+        """
+      },
+      "lang": "painless"
+    },
+    "actions": {
+      "log": {
+        "logging": {
+          "level": "info",
+          "text": "key: {{ctx.payload.aggregations.group_by_src.buckets.0}}; executed at {{ctx.execution_time}}"
+        }
+      }
+    },
+    "metadata": {
+        "search_period": "15m",
+        "limits": [
+            {"key": "windows", "value": 10},
+            {"key": "linux", "value": 5}
+        ]
+    }
+  }
+  

@@ -1,4 +1,3 @@
-POST _watcher/watch/_execute
 {
   "watch": {
     "trigger": {
