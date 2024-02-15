@@ -8,7 +8,7 @@ filebeat.inputs:
     interval: 24h
   program: |
     state.with({
-      "today": now().format("2006-01-02"),
+      "today": now.format("2006-01-02"),
       "yesterday": (now - duration(state.interval)).format("2006-01-02"),
       "t_10d": (now - duration("240h")).format("2006-01-02"),
     }).as(state, bytes(request("GET", state.url + "&date=" + state.today )
