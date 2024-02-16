@@ -1,59 +1,92 @@
 {
-  "watch": {
-    "trigger": {
-      "schedule": {
-        "interval": "15m"  
-      }
-    },
-    
-    "input": {
-      "search": {
-        "request": {
-          "indices": [ "filebeat-*" ],
-          "body": {
-            "size": 0,
-            "query": {
-              "match_all": {}
+  "trigger": {
+    "schedule": {
+      "interval": "15m"
+    }
+  },
+
+  "input": {
+    "search": {
+      "request": {
+        "indices": [
+          "filebeat-*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "match_all": {}
+          },
+          "aggs": {
+            "groupby": {
+              "composite": {
+                "size": 65536,
+                "sources": [
+                  {
+                    "host_arch": {
+                      "terms": {
+                        "field": "host.architecture"
+                      }
+                    }
+                  }
+                ]
+              }
             }
           }
         }
       }
-    },
-
-    "condition": {
-      "compare": {
-        "ctx.payload.hits.total": { "gt": 0 } 
-      }
-    },
-
-    "transform": {
-      "script": {
-        "source": """
-          def l1 = [];
-          for (def meta: ctx.metadata.feedList) {
-            l1.add(['name': meta.name, 'hits': ctx.payload.hits.total]);
-          }
-          return ['_doc', l1];
-        """,
-        "lang": "painless"  
-      }
-    },
-
-    "actions": {
-      "log_transformed_output": {  
-        "logging": {
-          "text": "Transformed output: %{ctx.payload}"
-        }
-      }
-    },
-
-    "metadata": {
-      "interval": "15m",
-      "feedList": [
-        {"name": "firewall1", "site": "UK", "count": 10},
-        {"name": "firewall2", "site": "UK", "count": 15},
-        {"name": "firewall3", "site": "UK", "count": 50}
-      ]
     }
+  },
+
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+
+  "transform": {
+    "script": {
+      "source": """
+        def l1 = [];
+        
+        for (def dd: ctx.payload.aggregations.groupby.buckets) {
+          
+          for (def thres: ctx.metadata.threshold) {
+            
+            if (dd.key.host_arch == thres.name && dd.doc_count > thres.count) {
+              
+              l1.add(['name': thres.name, 'doc_count': dd.doc_count]);
+              
+            }
+          }
+        }
+        
+        return ['_doc', l1];
+      """,
+      "lang": "painless"
+    }
+  },
+
+  "actions": {
+    "log_output": {
+      "logging": {
+        "text": "Transformed output: %{ctx.payload}"
+      }
+    }
+  },
+
+  "metadata": {
+    "interval": "15m",
+    "threshold": [
+      {
+        "name": "x86_64",
+        "count": 100
+      },
+      {
+        "name": "32bit", 
+        "count": 100
+      }
+    ]
   }
 }
