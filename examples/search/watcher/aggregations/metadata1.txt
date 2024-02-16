@@ -1,0 +1,59 @@
+{
+  "watch": {
+    "trigger": {
+      "schedule": {
+        "interval": "15m"  
+      }
+    },
+    
+    "input": {
+      "search": {
+        "request": {
+          "indices": [ "filebeat-*" ],
+          "body": {
+            "size": 0,
+            "query": {
+              "match_all": {}
+            }
+          }
+        }
+      }
+    },
+
+    "condition": {
+      "compare": {
+        "ctx.payload.hits.total": { "gt": 0 } 
+      }
+    },
+
+    "transform": {
+      "script": {
+        "source": """
+          def l1 = [];
+          for (def meta: ctx.metadata.feedList) {
+            l1.add(['name': meta.name, 'hits': ctx.payload.hits.total]);
+          }
+          return ['_doc', l1];
+        """,
+        "lang": "painless"  
+      }
+    },
+
+    "actions": {
+      "log_transformed_output": {  
+        "logging": {
+          "text": "Transformed output: %{ctx.payload}"
+        }
+      }
+    },
+
+    "metadata": {
+      "interval": "15m",
+      "feedList": [
+        {"name": "firewall1", "site": "UK", "count": 10},
+        {"name": "firewall2", "site": "UK", "count": 15},
+        {"name": "firewall3", "site": "UK", "count": 50}
+      ]
+    }
+  }
+}
