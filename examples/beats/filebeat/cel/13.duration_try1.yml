@@ -1,4 +1,5 @@
 # https://github.com/elastic/integrations/blob/main/packages/symantec_edr_cloud/data_stream/incident/agent/stream/cel.yml.hbs
+# https://sourcegraph.com/github.com/elastic/integrations@7fae64259d146f66074cfe24e41d2800c9d1ebdd/-/blob/packages/imperva_cloud_waf/data_stream/event/agent/stream/cel.yml.hbs
 filebeat.inputs:
 - type: cel
   interval: 10m
