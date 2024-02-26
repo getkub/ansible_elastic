@@ -36,19 +36,19 @@ return mydoc;
 <table>
   <thead>
     <tr>
-      {{#headers}}
+      {{#ctx.payload._doc.headers}}
         <td>{{.}}</td>
-      {{/headers}}
+      {{/ctx.payload._doc.headers}}
     </tr>
   </thead>
   <tbody>
-    {{#data}}
+    {{#ctx.payload._doc.data}}
       <tr>
         {{#values}}
           <td>{{.}}</td>
         {{/values}}
       </tr>
-    {{/data}}
+    {{/ctx.payload._doc.data}}
   </tbody>
 </table>
 
