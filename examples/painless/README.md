@@ -14,12 +14,15 @@
 - painless
 ```
 def mydoc = ['headers': ["name", "email", "phone"], 'data': []];
+
 for (def b : ctx.payload.aggregations.groupby.buckets) {
-    def values = [
-        "test3",
-        "test3@gmail.com",
-        "0123455"
-    ]; // Replace these values with your actual data
+    def values = [];
+    
+    // Assuming b.key has the required fields like "name", "email", "phone"
+    values.add(b.key.name);
+    values.add(b.key.email);
+    values.add(b.key.phone);
+
     mydoc.data.add(['values': values]);
 }
 
