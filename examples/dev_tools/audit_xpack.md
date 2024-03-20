@@ -38,3 +38,22 @@ PUT _cluster/settings
   }
 }
 ```
+
+```
+PUT _cluster/settings
+{
+  "transient": {
+    "xpack.security.audit.enabled": true,
+    "xpack.security.audit.logfile.events.include": [
+      "indices:admin/delete",  // User deletes index
+      "user:create",           // New user creation
+      "user:change_password"  // User changes password (optional)
+    ],
+    "xpack.security.audit.logfile.events.exclude": [
+      "indices:admin/delete*",  // Exclude all sub-events of indices:admin/delete (e.g., service accounts)
+      "user:authenticate"    // Exclude authentication attempts (optional)
+    ]
+  }
+}
+
+```
