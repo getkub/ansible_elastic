@@ -4,7 +4,7 @@
 
 Security, System and Application windows event logs (the standard windows server auditing policy is being used), shipped via Elastic Agent.
 
-Sysmon(opens in a new tab or window) events using [Olaf Hartong's configuration](https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml), shipped via Elastic Agent
+Sysmon events using [Olaf Hartong's configuration](https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml), shipped via Elastic Agent
 
 Powershell [Script Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows?view=powershell-7.1#enabling-script-block-logging), shipped via Elastic Agent
 
