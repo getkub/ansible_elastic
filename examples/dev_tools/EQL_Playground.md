@@ -6,3 +6,4 @@
 - Powershell [Script Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows?view=powershell-7.1#enabling-script-block-logging), shipped via Elastic Agent
 - At least once a day, this [sofacy attack payload](https://unit42.paloaltonetworks.com/unit42-sofacy-attacks-multiple-government-entities/) is launched and executed as a user. An excel sheet containing malicious macros is launched from Outlook, simulating a successfully phished user. The macros run as described in the report. This provides an excellent starting point to allow you to craft queries to look for real adversarial behaviour. This is what the resulting process tree looks like:
 
+- [RedELK](https://github.com/outflanknl/RedELK)
