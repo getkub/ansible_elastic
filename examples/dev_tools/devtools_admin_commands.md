@@ -26,6 +26,17 @@ GET _snapshot/my_snapshot_mount/*snapshot_name*/
 GET _cat/recovery?active_only=true&v&h=index,shard,source_node,target_node,bytes_percent,time
 ```
 
+## Specific Data-Stream checks
+
+```
+GET _data_stream/my-filebeat-stream/_stats
+GET /_cat/indices/.ds-my-filebeat-stream-*?v=true&h=index,status,health,docs.count,docs.deleted,store.size,pri,rep,creation.date&s=creation.date:desc
+GET /_cat/shards/.ds-my-filebeat-stream-*?v=true&h=index,shard,prirep,state,docs,store,node
+
+## Newest will be the active Index
+GET /_cat/indices/.ds-my-filebeat-stream-*?v=true&s=creation.date:desc&h=index,creation.date,status,health,docs.count
+```
+
 ## Node checks
 ```
 GET _cat/nodes?v&s=name
