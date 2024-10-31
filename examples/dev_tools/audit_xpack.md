@@ -57,3 +57,31 @@ PUT _cluster/settings
 }
 
 ```
+
+
+```
+PUT _cluster/settings
+{
+  "persistent": {
+    "xpack.security.audit.logfile.events.ignore_filters.action_ignore.actions": [
+      "cluster*",
+      "indices:data*",
+      "indices:admin/auto_create",
+      "indices:admin/create",
+      "indices:admin/data_stream/create",
+      "indices:admin/data_stream/get",
+      "indices:admin/mapping/auto_put",
+      "indices:admin/mappings/get",
+      "indices:admin/refresh*",
+      "indices:admin/resolve/index",
+      "indices:admin/rollover",
+      "indices:monitor*"
+    ],
+    "xpack.security.audit.logfile.events.ignore_filters.realm_ignore.realms": [
+      "_service_account"
+    ],
+    "xpack.security.audit.logfile.events.include": "access_granted"
+  }
+}
+
+```
