@@ -13,3 +13,17 @@ ROW raw= ["country = UK, continent = Europe, group = G7", "country = US, contine
 | where ((continent == "Americas" AND group == "G20" ) OR (continent == "Asia" AND group == "G7" )) OR (continent == "Europe")
 | keep raw, country, continent, group
 ```
+
+## JSON format
+```
+ROW sample = [
+  "{\"country\":\"UK\",\"continent\":\"Europe\",\"group\":[\"G7\",\"G20\"]}",
+  "{\"country\":\"US\",\"continent\":\"Americas\",\"group\":[\"G7\",\"G20\"]}",
+  "{\"country\":\"IN\",\"continent\":\"Asia\",\"group\":\"G20\"}",
+  "{\"country\":\"DE\",\"continent\":\"Europe\",\"group\":\"G7\"}"
+]
+| MV_EXPAND sample
+| DISSECT sample "{\"country\":\"%{country}\",\"continent\":\"%{continent}\",\"group\":%{group}}"
+//| MV_EXPAND group
+| where group RLIKE ".*G2.*"
+```
