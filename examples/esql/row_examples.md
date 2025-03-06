@@ -14,6 +14,12 @@ ROW raw= ["country = UK, continent = Europe, group = G7", "country = US, contine
 | keep raw, country, continent, group
 ```
 
+```
+ROW sample = ["apple", "mango", "pear"]
+| EVAL sample_string = MV_CONCAT(sample, ", ")
+| where sample_string RLIKE ".*app.*"
+```
+
 ## JSON format
 ```
 ROW sample = [
