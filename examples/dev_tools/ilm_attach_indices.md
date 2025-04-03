@@ -1,5 +1,8 @@
+## Initial variables
+```
 idx="firewall"
 idx_stream="${idx}-ds"
+```
 
 ## Find All Indices for the Data Stream:
 Use the _cat/indices API to list all indices associated with the data stream. You can filter indices by name pattern if needed.
