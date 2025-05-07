@@ -1,0 +1,45 @@
+type: httpjson
+streams:
+  - config_version: 2
+    name: trend_micro_vision_one-alert
+    interval: 5m
+    request.method: GET
+    request.url: https://api.xdr.trendmicro.com/v3.0/workbench/alerts
+    request.headers:
+      Authorization: "Bearer {{api_token}}"
+      Content-Type: application/json
+    request.url_params:
+      filter: 'eventTime ge {{.cursor.eventTime}}'
+    request.transforms:
+      - set:
+          target: header.Authorization
+          value: 'Bearer {{api_token}}'
+      - set:
+          target: url.params.startDateTime
+          value: '[[formatDate ((parseDate .cursor.last_update_at).Add (parseDuration "-{{additional_look_back}}"))]]'
+          default: '[[formatDate (now (parseDuration "-{{initial_interval}}"))]]'
+      - set:
+          target: url.params.endDateTime
+          value: '[[formatDate (now)]]'
+      - set:
+          target: url.params.orderBy
+          value: 'updatedDateTime asc'
+      - set:
+          target: url.params.dateTimeTarget
+          value: 'createdDateTime'
+    response.pagination:
+      - set:
+          target: url.value
+          value: '[[if index .last_response.body "nextLink"]][[replaceAll " " "%20" .last_response.body.nextLink]][[end]]'
+          fail_on_template_error: true
+    response.split:
+      target: body.data
+    cursor:
+      eventTime:
+        value: '{{.event.eventTime}}'
+        type: string
+    data_stream:
+      dataset: trend_micro_vision_one.alert
+      namespace: default
+    fields:
+      integration: trend_micro_vision_one
