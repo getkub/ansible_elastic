@@ -5,7 +5,7 @@
         "id": "2f63344b-97c9-4998-9535-0fc6454ddd4b",
         "name": "docker-fleet-agent",
         "type": "filebeat",
-        "version": "8.9.0"
+        "version": "8.10.0"
     },
     "data_stream": {
         "dataset": "fortinet_fortigate.log",
