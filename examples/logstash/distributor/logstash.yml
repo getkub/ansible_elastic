@@ -1,0 +1,50 @@
+# logstash.yml - Centralized Pipeline Management
+
+http.host: "0.0.0.0"
+http.port: 9600
+log.level: info
+
+# Enable centralized pipeline management
+xpack.management.enabled: true
+xpack.management.elasticsearch.hosts: ["https://elasticsearch:9200"]
+xpack.management.elasticsearch.ssl.verification_mode: certificate
+xpack.management.elasticsearch.api_key: "${ELASTICSEARCH_API_KEY}"
+xpack.management.logstash.poll_interval: 5s
+
+# Register ALL pipelines to be centrally managed
+xpack.management.pipeline.id: [
+  # INPUT LAYER
+  "input-agents",
+  "input-syslog",
+  "input-api",
+  
+  # DISTRIBUTOR LAYER
+  "distributor-agents",
+  "distributor-syslog",
+  "distributor-api",
+  
+  # FILTER LAYER - Collector 01
+  "filter-collector_01-agents",
+  "filter-collector_01-syslog",
+  "filter-collector_01-api",
+  
+  # FILTER LAYER - Collector 02
+  "filter-collector_02-agents",
+  "filter-collector_02-syslog",
+  "filter-collector_02-api",
+  
+  # FILTER LAYER - Collector 03
+  "filter-collector_03-agents",
+  "filter-collector_03-syslog",
+  "filter-collector_03-api",
+  
+  # ROUTER LAYER
+  "router-agents",
+  "router-syslog",
+  "router-api",
+  
+  # OUTPUT LAYER
+  "output-kafka",
+  "output-elasticsearch",
+  "output-splunk"
+]
