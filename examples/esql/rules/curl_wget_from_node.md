@@ -20,4 +20,6 @@ FROM "your-index-pattern"
   )
 | WHERE process.command_line NOT LIKE '%127.0.0.1%'
 | WHERE process.command_line NOT LIKE '%localhost%'
+| STATS count=count(*), cmds=values(process.command_line), process_names=values(process.name) BY process.parent.name, host.hostname
+
 ```
