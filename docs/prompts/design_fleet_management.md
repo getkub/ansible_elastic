@@ -4,7 +4,7 @@
 
 This design manages Elastic Fleet agent policies and integration deployments across a large server estate using 3 CSV files. The core idea is to keep complexity away from non-technical users while giving admins full control over integration versions and rollouts.
 
-The key challenge this solves: with 600+ services, you cannot create one Elastic agent policy per service — that becomes unmanageable. Instead, all hosts share a small number of **default policies**, and **temporary migration policies** are created only when upgrading a specific service group. Once the migration is validated, the temporary policy is removed.
+The key challenge this solves: with 1000+ services, you cannot create one Elastic agent policy per service — that becomes unmanageable. Instead, all hosts share a small number of **default policies**, and **temporary migration policies** are created only when upgrading a specific service group. Once the migration is validated, the temporary policy is removed.
 
 ---
 
