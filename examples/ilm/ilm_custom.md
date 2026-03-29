@@ -6,7 +6,7 @@ PUT _component_template/logs-system.system@custom
 {
   "template": {
     "settings": {
-      "index.lifecycle.name": "ilm_dev_1h"
+      "index.lifecycle.name": "ilm_my_dev"
     }
   }
 }
