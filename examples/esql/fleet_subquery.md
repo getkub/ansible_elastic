@@ -52,14 +52,22 @@ POST fleet-index/_bulk
 - ESQL Query then
 
 ```
+POST /_query?format=csv
+{
+  "query": """
 FROM logs-windows.security*, (
   FROM fleet-index
   | STATS fleet_tags = VALUES(tags) BY host.name, department
-)  
-| INLINE STATS fleet_tags=VALUES(fleet_tags) BY host.name 
+)
+| INLINE STATS fleet_tags=VALUES(fleet_tags) BY host.name
 | WHERE data_stream.type == "logs"
-| STATS count=COUNT(*), fleet_tags=VALUES(fleet_tags) by host.name 
+| STATS count=COUNT(*), fleet_tags=VALUES(fleet_tags) by host.name
 | KEEP host.name, fleet_tags, count
+| WHERE MV_CONTAINS(fleet_tags, "test") 
+| LIMIT 10
+
+  """
+}
 
 ```
 
