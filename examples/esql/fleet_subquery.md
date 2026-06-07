@@ -54,12 +54,12 @@ POST fleet-index/_bulk
 ```
 FROM logs-windows.security*, (
   FROM fleet-index
-  | STATS tag_values = VALUES(tags) BY host.name, department
+  | STATS fleet_tags = VALUES(tags) BY host.name, department
 )  
-| INLINE STATS tag_values=VALUES(tag_values) BY host.name 
+| INLINE STATS fleet_tags=VALUES(fleet_tags) BY host.name 
 | WHERE data_stream.type == "logs"
-| STATS count=COUNT(*), tag_values=VALUES(tag_values) by host.name 
-| KEEP host.name, tag_values, count
+| STATS count=COUNT(*), fleet_tags=VALUES(fleet_tags) by host.name 
+| KEEP host.name, fleet_tags, count
 
 ```
 
